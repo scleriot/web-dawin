@@ -1,0 +1,32 @@
+= Séance 2
+
+Tout au long de ce TD, vous pouvez utiliser [Font Awesome](http://fontawesome.io/) pour afficher des icônes.
+
+== Étape 1
+
+Reproduisez la movie-list présentée au tableau.
+
+== Étape 2
+
+Ajoutez l'édition et la suppression des films de votre movie-list et affichez le nombre total de films enregistrés.
+
+== Étape 3
+
+On souhaite maintenant stocker les films aves plus d'informations (sous forme d'objets). Modifiez la page pour faire en sorte d'entrer toutes les infos nécessaires (voir ci-dessous).
+
+Affichage : la liste affiche le titre et l'année de sortie et les détails apparaissent en dessous lorsqu'on clique sur la ligne.
+
+Informations d'un film :
+* Titre (string)
+* Année de sortie (number)
+* Réalisateur (string)
+* Synospsis (string)
+
+== Étape 4
+
+Ajoutez un champ de recherche qui trie selon :
+* Titre du film
+* Année de sortie
+* Réalisateur
+
+Essayez d'utiliser map, reduce, filter selon les besoins.

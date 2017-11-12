@@ -1,0 +1,333 @@
+:source-highlighter: highlightjs
+:toc:
+:toc-title: Table des matières
+
+= Séance 1
+
+== 1. Prise en main
+
+Pour prendre en main le language, nous allons exécuter des scripts Javascript directement dans la console à l'aide de Node.js (mais nous n'utiliserons que du javascript "pur", sans les spécificités de Node).
+
+Téléchargez et installez Node.js  via ce lien : https://nodejs.org/en/download/
+
+> En cas de problème vous pouvez aussi utiliser **JS Bin** pour écrire les programmes en ligne : http://jsbin.com/?js,console
+
+Pour tester l'installation, créez un fichier javascript (__exercice_1.js__) contenant : 
+```js
+console.log("Hello world!");
+```
+
+Puis exécutez le fichier avec `node`:
+```bash
+> node exercice_1.js
+Hello world!
+```
+
+== 2. Variables
+
+=== Déclaration
+En javascript les variables peuvent être déclarées de 3 façons différentes :
+
+* `var`
+* `const` (ES6)
+* `let` (ES6)
+
+Les 3 mots clés s'utilisent de la même façon :
+```js
+var a = 42;
+const b = 42;
+let c = 42;
+```
+
+Une variable déclarée avec `const` doit toujours être initialisée.
+
+Lorsque la variable n'est pas initialisée (`var a;` ou `let a;`), la valeur de `a` est `undefined`.
+
+=== Scope
+
+Une variable déclarée avec `var` est accessible dans l'ensemble du contexte courant (la fonction actuelle), tandis qu'une déclaration avec `let` ou `const` rendra la variable accessible uniquement dans le bloc courant.
+
+```js
+function ex_var() {
+    var a = 5;
+    if(true) {
+        var b = 8;
+        console.log(b); // 8
+    }
+    console.log(b); // 8
+}
+function ex_let() {
+    var a = 5;
+    if(true) {
+        let b = 8;
+        console.log(b); // 8
+    }
+    console.log(b); // error, b n'existe pas
+}
+```
+
+
+== 3. Fonctions
+
+Documentation : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions
+
+Pour déclarer une fonction : 
+```js
+function name() {
+    // contenu
+}
+
+name(); //appel de cette fonction
+```
+
+Une variable peut aussi contenir une fonction (tout comme n'importe quel autre type) :
+```js
+let name = function() {} //fonction anonyme
+name(); //appel
+```
+
+Les fonctions anonymes sont très utiles pour être passées en callback d'une autre fonction :
+```js
+function exemple1() {
+    //contenu
+}
+fonctionQuiAccepteUneAutreFonction(exemple1)
+//OU
+fonctionQuiAccepteUneAutreFonction(function(){
+    //contenu
+})
+```
+
+=== this
+
+La variable `this` est accessible partout dans votre code mais ne représente pas toujours la même chose.
+
+Cette variable sera très utile lorsque nous utiliserons javascript avec Vue.js et Node.
+
+Dans l'environnement global (à l'extérieur de toute fonction) `this` va pointer vers le contexte global :
+```js
+this.a = "Hello";
+console.log(a); //Hello
+console.log(this.a); //Hello
+```
+
+Lors de l'appel d'une fonction, on distingue deux cas de figure :
+
+==== Appel classique
+Par défaut, `this` à l'intérieur d'une fonction va pointer vers l'objet global :
+```js
+function f() {
+    console.log(this.a);
+} 
+var a = 8;
+f();
+```
+
+On peut appeler cette fonction avec un autre contexte, en utilisant `call` ou `apply` :
+```js
+function f(param1, param2) {
+    console.log(this.a)
+}
+f.call({a: 24}, 1, 2) //24 (les arguments sont 1 et 2)
+f.apply({a: 42}, [5, 6]) //42 (les arguments sont 5 et 6)
+```
+
+#### Bind
+L'appel à la méthode `bind` va créer une nouvelle fonction où `this` est lié pour toujours à l'objet passé en paramètre.
+
+```js
+function f() {
+    console.log(this.a)
+}
+
+let g = f.bind({a: 24})
+g() //24
+let h = f.bind({a: 42})
+h() //42
+f.call({a: 112}) //112
+```
+
+=== Arrow-functions (ES6)
+ES6 a apporté les arrow-functions, une nouvelle manière de définir une fonction anonyme :
+```js
+fonctionQuiAccepteUneAutreFonction( () => {
+    //contenu
+} )
+```
+
+Les paramètres se situent à gauche la flêche (on peut omettre les parentèse si un seul paramètre).
+
+À droite de la flêche se trouve le corp de la fonction. On peut ne pas mettre d'accolade, ce qui signifie qu'on place directement la valeur de retour à droite de la flêche.
+
+```js
+//arrow-functions qui prennent une variable e et retourne e+1
+(e) => { return e+1 } 
+e => { return e+1 } 
+e => e+1
+```
+
+Une arrow-function garde la valeur `this` du parent.
+```js
+//Avant pour qu'un callback puisse modifier le contexte :
+function() {
+    //...
+    let self = this;
+    loadData(function() {
+        //this = cette fonction anonyme
+        self.mydata = "...";
+    })
+    //...
+}
+
+//Maintenant
+function () {
+    //...
+    loadData( () => {
+        //this = l'objet englobant
+        this.mydata = "...";
+    })
+    //...
+}
+```
+
+=== Questions
+
+3.1. On commence doucement : créez une fonction qui retourne le triple de l'entier passé en paramètre
+
+3.2. Analysez le code suivant (sans l'exécuter). Quelle est d'après vous la sortie du programme ?
+```js
+var b=2;
+function a() {
+    var e=5;
+    console.log(b);
+    console.log(c);
+    console.log(d);
+    console.log(e);
+}
+var c=3;
+a();
+var d=4;
+```
+---
+> Les variables sont accessibles uniquement dans le scope actuel et les scopes enfant
+```js
+var b=2; //scope global
+function a() {
+    console.log("a");
+    var e=5; //scope a
+    console.log(b);
+    console.log(c);
+    console.log(e);
+    console.log(d);
+}
+function f() {
+    console.log("f");
+    var d=6; //scope f
+    console.log(d);
+}
+f();
+a();
+var c=3; //scope global
+``` 
+
+3.3. Créez une fonction `add` accessible uniquement depuis une fonction `sum`.
+* La fonction `add` retourne la somme des 2 nombres passés en paramètre.
+* La fonction `sum` utilise `add` pour additionner les 4 nombres passés en paramètre et retourne le résultat
+
+Le scope global ne doit pas avoir accès à la fonction `add`.
+
+3.4. Écrivez de deux manières une fonction `pow` qui prend en paramètre `b` et `n`, et retourne `b puissance n`.
+
+3.5.
+```js
+function qu3_5(a, b, c) {
+    return a * c(b);
+}
+
+// Appelez cette fonction avec des paramètres cohérents
+```
+
+//TODO : Questions avec this
+
+== 4. Chaînes de caractères
+
+Documentation : https://www.w3schools.com/jsref/jsref_obj_string.asp
+
+Quelques façons d'écrire des chaînes de caractère :
+```js
+let str1 = "Ceci est une string plutôt simple";
+let str2 = 'Une autre string';
+let str3 = "Ceci est une string avec \" un caratère échappé";
+
+let number = 8;
+let str4 = "Le nombre est "+number;
+let str5 = `Le nombre est ${number}`; //particulièrement pratique lorsqu'on a de nombreuses variables à insérer
+
+let str6 = "Multiligne \
+string";
+let str7 = `Multiligne
+string`;
+```
+
+Les chaînes sont des objets et donnent accès à de nombreuses méthodes (cf doc)
+```js
+let str = "Test de string";
+str.length; //14
+str.replace(" ", "."); //Test.de.string
+```
+
+=== Questions
+4.1. Créez une fonction qui affiche dans la console l'inverse de la chaîne passée en paramètre. ex: "Hello" -> "olleH"
+
+4.2. Faites en sorte que le code suivant remplace les caractères `a` par `d`, `b` par `e` et ainsi de suite 
+```js
+function replace(str, fn) {
+    for(var i=0;i<str.length;i++) {
+        str[i] = fn(str[i]);
+    }
+}
+
+function my_fn(char) {
+    /// Votre code
+}
+
+replace("Je suis ton père", my_fn);
+```
+
+== 5. Les objets
+
+//TODO
+
+== 6. Les tableaux
+
+Les tableaux (objet `Array`) représentent une liste ordonnée de valeurs. Numérotés à partir de 0, chaque élément peut être d'un type différent.
+
+```js
+let arr = new Array(0, 1, 3);
+let arr= [0, 1, 3];
+
+console.log(arr[2]); //3
+
+arr.push(8); //[0,1,3,8]
+```
+
+=== Questions
+5.1. Map
+```js
+var arr = [ { a: 1, b: 2 }, { a:2 , b: 4 }, { a: 9, b: 1 }, { a: 19, b: 29 }, { a: 187, b: 4 } ];
+```
+Remplacez tout les éléments de ce tableau par la valeur de la propriété `b`. Écrivez votre solution de 2 manières : avec et sans `map`.
+
+5.2. Filter
+```js
+var arr = [ { a: 1, b: 2 }, { a:2 , b: 4 }, { a: 9, b: 1 }, { a: 19, b: 29 }, { a: 187, b: 4 } ];
+```
+Écrivez une fonction qui prend ce tableau en paramètre et garde uniquement les éléments avec `a > 3`.
+
+5.3. Reduce
+```js
+var arr = [ "Luke Skywalker", "Maître Yoda", "R2D2", "Padmé Amidala",  "Anakin Skywalker", "Obi-Wan Kenobi" ];
+```
+Écrivez une fonction qui retourne la chaîne de caractère `Luke Skywalker, Anakin Skywalker, Obi-Wan Kenobi` etc... en utilisant `reduce`.
+
+Écrivez une autre fonction qui retourne cette même chaîne mais sans les membres de la famille Skywalker.
