@@ -7,6 +7,19 @@ class: center, middle, inverse
 ---
 layout:false
 
+.left-column[
+## Simon Clériot
+cleriotsimon@gmail.com
+[@scleriot](https://twitter.com/scleriot)
+]
+
+.reallylarge[![](images/captiz.png)]
+
+![](images/lylo.png)
+
+---
+layout:false
+
 # Backend
 .large[![](images/web-technos.png)]
 

@@ -69,7 +69,7 @@ function ex_let() {
 
 == 3. Fonctions
 
-Documentation : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions[Documentation]
 
 Pour déclarer une fonction : 
 ```js
@@ -251,7 +251,7 @@ function qu3_5(a, b, c) {
 
 == 4. Chaînes de caractères
 
-Documentation : https://www.w3schools.com/jsref/jsref_obj_string.asp
+https://www.w3schools.com/jsref/jsref_obj_string.asp[Documentation]
 
 Quelques façons d'écrire des chaînes de caractère :
 ```js
@@ -294,11 +294,7 @@ function my_fn(char) {
 replace("Je suis ton père", my_fn);
 ```
 
-== 5. Les objets
-
-//TODO
-
-== 6. Les tableaux
+== 5. Les tableaux
 
 Les tableaux (objet `Array`) représentent une liste ordonnée de valeurs. Numérotés à partir de 0, chaque élément peut être d'un type différent.
 
@@ -331,3 +327,42 @@ var arr = [ "Luke Skywalker", "Maître Yoda", "R2D2", "Padmé Amidala",  "Anakin
 Écrivez une fonction qui retourne la chaîne de caractère `Luke Skywalker, Anakin Skywalker, Obi-Wan Kenobi` etc... en utilisant `reduce`.
 
 Écrivez une autre fonction qui retourne cette même chaîne mais sans les membres de la famille Skywalker.
+
+== 6. Les objets
+
+https://developer.mozilla.org/fr/docs/Web/JavaScript/Guide/Utiliser_les_objets[Documentation]
+
+Le concept d'objet en javascript est le même que dans les autres languages : un conteneur qui englobe des propriétés et des méthodes.
+
+Les méthodes et propriétés d'un objet sont accessible via le `.` ou les crochets :
+```js
+object.property
+object["property"]
+object.method()
+object["method"]()
+```
+
+Tout est objet en javascript, même les types primitifs (nombres, chaînes de caratère, booléens etc...)
+```js
+console.log("Hello".length) //5
+```
+
+Les objets peuvent être utilisés pour stocker des paires clé/valeur (comme avec un objet JSON ou les structures en C) :
+```js
+let obj = new Object();
+obj.a = 42;
+obj.b = 81;
+
+let obj = {
+    a: 42,
+    b: 81
+}
+
+obj.c //undefined
+```
+
+=== Questions
+
+6.1. Créez un objet représentant un film (titre, synopsys, année de sortie) ainsi que son réalisateur (sous-objet avec nom/prénom/date de naissance).
+
+6.2. Créez un tableau contenant les films _Titanic_, _Interstellar_, _La ligne verte_ avec leurs infos. Affichez ensuite le contenu du tableau dans la console (en mettant en forme les infos du film sur chaque ligne)
