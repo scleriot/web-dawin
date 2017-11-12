@@ -184,4 +184,4 @@ Comment écrire du code ES6 et le faire tourner dans les navigateurs actuels ?
 template: inverse
 
 ### TD
-### https://github.com/scleriot/
+### https://scleriot.github.io/web-dawin/
