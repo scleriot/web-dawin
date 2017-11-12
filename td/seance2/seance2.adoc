@@ -1,6 +1,6 @@
 = Séance 2
 
-Tout au long de ce TD, vous pouvez utiliser [Font Awesome](http://fontawesome.io/) pour afficher des icônes.
+Tout au long de ce TD, vous pouvez utiliser http://fontawesome.io/[Font Awesome] pour afficher des icônes.
 
 == Étape 1
 
