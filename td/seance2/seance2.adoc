@@ -17,6 +17,7 @@ On souhaite maintenant stocker les films aves plus d'informations (sous forme d'
 Affichage : la liste affiche le titre et l'année de sortie et les détails apparaissent en dessous lorsqu'on clique sur la ligne.
 
 Informations d'un film :
+
 * Titre (string)
 * Année de sortie (number)
 * Réalisateur (string)
@@ -25,6 +26,7 @@ Informations d'un film :
 == Étape 4
 
 Ajoutez un champ de recherche qui trie selon :
+
 * Titre du film
 * Année de sortie
 * Réalisateur
