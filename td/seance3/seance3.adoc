@@ -1,0 +1,173 @@
+:step: 0
+:source-highlighter: highlightjs
+:sourcedir: src/
+
+:toc:
+:toc-title: Table des matières
+
+= Séance 3
+
+== 1. NPM
+
+NPM (Node Package Manager) est un gestionnaire de module (un peu comme APT sur Debian/Ubuntu) qui va permettre d'installer des librairies créées par d'autres développeurs (Vue.js, JQuery, etc...).
+
+Pour vous donner une idée de l'importance du service, NPM c'est ça :
+
+* Packages : 589 339
+* Downloads - Last day : 561 114 892
+* Downloads - Last week : 3 443 685 310
+* Downloads - Last month : 14 502 331 276
+
+=== Étape {counter:step} : Installation
+
+Pour installer NPM (et Node) ça se passe ici : https://docs.npmjs.com/getting-started/installing-node (vous l'avez peut-être déjà fait lors du dernier TD)
+
+=== Étape {counter:step} : npm install
+
+. Créez un dossier pour ce TD et déplacez-vous dedans avec la console.
++
+Lancez la commande suivante :
++
+```shell
+$ npm install vue
+```
+
+. Affichez le contenu de votre dossier. Les fichiers téléchargés par NPM sont installés par défaut dans le dossier *node_modules*. Affichez le contenu de ce dossier.
++
+Le dossier *vue* contient le contenu du package *vue* (pour l'instant tout est logique).
+
+. Installez maintenant *webpack* (`npm install webpack`) et affichez le contenu de node_modules.
++
+230 dossiers devraient s'afficher. En effet NPM télécharge automatiquement les dépendances de chaque package !
+
+++++
+<blockquote class="twitter-tweet" data-lang="fr"><p lang="en" dir="ltr">A trio of web developers resolving a package.json dependency issue <a href="https://t.co/TO08DWPzAO">pic.twitter.com/TO08DWPzAO</a></p>&mdash; Thomas &quot;Kick Nazis out, @jack&quot; Fuchs (@thomasfuchs) <a href="https://twitter.com/thomasfuchs/status/934781078342197249?ref_src=twsrc%5Etfw">26 novembre 2017</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+++++
+
+
+=== Étape {counter:step} : package.json
+
+. Supprimez le dossier *node_modules*.
+
+. Créez un fichier *package.json* :
++
+```json
+{
+  "name": "demo-lp-dawin",
+  "description": "Demo project for LP DAWIN",
+  "version": "1.0.0",
+  "author": "Votre nom <email>",
+  "dependencies": {
+        "vue": "VERSION",
+        "webpack": "VERSION"
+  }
+}
+```
++
+Trouvez la dernière version de Vue.js et Webpack sur le site de NPM, et indiquez la dans votre *package.json*.
+
+. Lancez la commande `npm install`. NPM va lire les dépendances du projet et installer les versions demandées.
+
+. Affichez le contenu de *node_modules*, vous devriez obtenir le même résultat qu'à l'étape 2.
+
+
+== Single File Component
+
+Afin de pouvoir utiliser les Single File Component (fichiers .vue) ainsi que javascript ES6, il faut compiler notre projet javascript. Pour ce faire l'outil standard est *webpack* (https://webpack.github.io/).
+
+=== Étape {counter:step} : mise en place de Webpack
+
+Installez les dépendances nécessaires pour compiler un projet Vue.js :
+
+```shell
+$ npm install --save babel-core babel-loader babel-preset-env babel-preset-stage-3 css-loader file-loader vue-loader vue-template-compiler webpack webpack-dev-server
+```
+
+On reconnaît la dépendance *Babel* qui va nous permettre d'écrire du code ES2015.
+
+. Créez les fichiers selons l'architecture suivante dans votre projet :
++
+--
+```tree
+|_ package.json
+|_ webpack.config.js
+|_ index.html
+|_ src/
+    |_ main.js
+    |_ app.vue
+```
+
+Contenu des fichiers :
+
+.webpack.config.js
+[source,js]
+----
+include::{sourcedir}webpack.config.js[]
+----
+
+.main.js
+[source,js]
+----
+include::{sourcedir}src/main.js[]
+----
+
+.app.vue
+[source,xml]
+----
+include::{sourcedir}src/app.vue[]
+----
+
+.index.html
+[source,xml]
+----
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>LP DAWIN</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="dist/build.js"></script>
+  </body>
+</html>
+----
+
+--
+
+. Pour compiler le projet avec webpack, nous allons utiliser le binaire installé par NPM dans *node_modules/.bin* :
++
+```shell
+$ node_modules/.bin/webpack --progress --hide-modules
+```
+
+. Ouvrez et regardez rapidement le fichier compilé *dist/build.js*. C'est ce fichier (norme javascript ES5) que *index.html* va charger dans le navigateur web.
+
+. Pour afficher le site, nous allons utiliser *webpack-dev-server* pendant le développement :
++
+--
+```shell
+$ node_modules/.bin/webpack-dev-server --open --hot
+```
+
+La page est rafraîchie automatiquement lorsqu'un fichier est modifié (et compilé automatiquement).
+--
+
+C'est bon, vous pouvez utiliser les SFC de Vue.js !
+
+== Étape {counter:step} : Conversion du projet
+
+. Faites évoluer le code de la dernière séance pour utiliser les SFC. Vous aurez l'architecture suivante :
+
+```tree
+```tree
+|_ package.json
+|_ webpack.config.js
+|_ index.html
+|_ src/
+    |_ main.js
+    |_ app.vue
+    |_ components/
+        |_ movieitem.vue
+```

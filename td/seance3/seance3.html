@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
-<title>Séance 2</title>
+<title>Séance 3</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -427,29 +427,374 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Séance 2</h1>
+<h1>Séance 3</h1>
+<div id="toc" class="toc">
+<div id="toctitle">Table des matières</div>
+<ul class="sectlevel1">
+<li><a href="#_1_npm">1. NPM</a>
+<ul class="sectlevel2">
+<li><a href="#_Étape_1_installation">Étape 1 : Installation</a></li>
+<li><a href="#_Étape_2_npm_install">Étape 2 : npm install</a></li>
+<li><a href="#_Étape_3_package_json">Étape 3 : package.json</a></li>
+</ul>
+</li>
+<li><a href="#_single_file_component">Single File Component</a>
+<ul class="sectlevel2">
+<li><a href="#_Étape_4_mise_en_place_de_webpack">Étape 4 : mise en place de Webpack</a></li>
+</ul>
+</li>
+<li><a href="#_Étape_5_conversion_du_projet">Étape 5 : Conversion du projet</a></li>
+</ul>
+</div>
 </div>
 <div id="content">
 <div class="sect1">
 <h2 id="_1_npm">1. NPM</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>NPM (Node Package Manager) est un gestionnaire de module (un peu comme APT sur Debian/Ubuntu) qui va permettre d&#8217;installer les librairies nécessaires à l&#8217;utilisation de Vue.js et autres.</p>
+<p>NPM (Node Package Manager) est un gestionnaire de module (un peu comme APT sur Debian/Ubuntu) qui va permettre d&#8217;installer des librairies créées par d&#8217;autres développeurs (Vue.js, JQuery, etc&#8230;&#8203;).</p>
 </div>
 <div class="paragraph">
-<p>Pour vous donner une idée de l&#8217;importance du service, NPM c&#8217;est ça :
-* Packages : 589 339
-* Downloads - Last day : 561 114 892
-* Downloads - Last week : 3 443 685 310
-* Downloads - Last month : 14 502 331 276</p>
+<p>Pour vous donner une idée de l&#8217;importance du service, NPM c&#8217;est ça :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Packages : 589 339</p>
+</li>
+<li>
+<p>Downloads - Last day : 561 114 892</p>
+</li>
+<li>
+<p>Downloads - Last week : 3 443 685 310</p>
+</li>
+<li>
+<p>Downloads - Last month : 14 502 331 276</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_Étape_1_installation">Étape 1 : Installation</h3>
+<div class="paragraph">
+<p>Pour installer NPM (et Node) ça se passe ici : <a href="https://docs.npmjs.com/getting-started/installing-node" class="bare">https://docs.npmjs.com/getting-started/installing-node</a> (vous l&#8217;avez peut-être déjà fait lors du dernier TD)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_Étape_2_npm_install">Étape 2 : npm install</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Créez un dossier pour ce TD et déplacez-vous dedans avec la console.</p>
+<div class="paragraph">
+<p>Lancez la commande suivante :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ npm install vue</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Affichez le contenu de votre dossier. Les fichiers téléchargés par NPM sont installés par défaut dans le dossier <strong>node_modules</strong>. Affichez le contenu de ce dossier.</p>
+<div class="paragraph">
+<p>Le dossier <strong>vue</strong> contient le contenu du package <strong>vue</strong> (pour l&#8217;instant tout est logique).</p>
+</div>
+</li>
+<li>
+<p>Installez maintenant <strong>webpack</strong> (<code>npm install webpack</code>) et affichez le contenu de node_modules.</p>
+<div class="paragraph">
+<p>230 dossiers devraient s&#8217;afficher. En effet NPM télécharge automatiquement les dépendances de chaque package !</p>
+</div>
+</li>
+</ol>
+</div>
+<blockquote class="twitter-tweet" data-lang="fr"><p lang="en" dir="ltr">A trio of web developers resolving a package.json dependency issue <a href="https://t.co/TO08DWPzAO">pic.twitter.com/TO08DWPzAO</a></p>&mdash; Thomas &quot;Kick Nazis out, @jack&quot; Fuchs (@thomasfuchs) <a href="https://twitter.com/thomasfuchs/status/934781078342197249?ref_src=twsrc%5Etfw">26 novembre 2017</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+<div class="sect2">
+<h3 id="_Étape_3_package_json">Étape 3 : package.json</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Supprimez le dossier <strong>node_modules</strong>.</p>
+</li>
+<li>
+<p>Créez un fichier <strong>package.json</strong> :</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "name": "demo-lp-dawin",
+  "description": "Demo project for LP DAWIN",
+  "version": "1.0.0",
+  "author": "Votre nom &lt;email&gt;",
+  "dependencies": {
+        "vue": "VERSION",
+        "webpack": "VERSION"
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Trouvez la dernière version de Vue.js et Webpack sur le site de NPM, et indiquez la dans votre <strong>package.json</strong>.</p>
+</div>
+</li>
+<li>
+<p>Lancez la commande <code>npm install</code>. NPM va lire les dépendances du projet et installer les versions demandées.</p>
+</li>
+<li>
+<p>Affichez le contenu de <strong>node_modules</strong>, vous devriez obtenir le même résultat qu&#8217;à l&#8217;étape 2.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_single_file_component">Single File Component</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Afin de pouvoir utiliser les Single File Component (fichiers .vue) ainsi que javascript ES6, il faut compiler notre projet javascript. Pour ce faire l&#8217;outil standard est <strong>webpack</strong> (<a href="https://webpack.github.io/" class="bare">https://webpack.github.io/</a>).</p>
+</div>
+<div class="sect2">
+<h3 id="_Étape_4_mise_en_place_de_webpack">Étape 4 : mise en place de Webpack</h3>
+<div class="paragraph">
+<p>Installez les dépendances nécessaires pour compiler un projet Vue.js :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ npm install --save babel-core babel-loader babel-preset-env babel-preset-stage-3 css-loader file-loader vue-loader vue-template-compiler webpack webpack-dev-server</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On reconnaît la dépendance <strong>Babel</strong> qui va nous permettre d&#8217;écrire du code ES2015.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Créez les fichiers selons l&#8217;architecture suivante dans votre projet :</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-tree hljs" data-lang="tree">|_ package.json
+|_ webpack.config.js
+|_ index.html
+|_ src/
+    |_ main.js
+    |_ app.vue</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Contenu des fichiers :</p>
+</div>
+<div class="listingblock">
+<div class="title">webpack.config.js</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">var path = require('path')
+var webpack = require('webpack')
+
+module.exports = {
+  entry: './src/main.js',
+  output: {
+    path: path.resolve(__dirname, './dist'),
+    publicPath: '/dist/',
+    filename: 'build.js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          'vue-style-loader',
+          'css-loader'
+        ],
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          loaders: {
+          }
+          // other vue-loader options go here
+        }
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]?[hash]'
+        }
+      }
+    ]
+  },
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    },
+    extensions: ['*', '.js', '.vue', '.json']
+  },
+  devServer: {
+    historyApiFallback: true,
+    noInfo: true,
+    overlay: true
+  },
+  performance: {
+    hints: false
+  },
+  devtool: '#eval-source-map'
+}
+
+if (process.env.NODE_ENV === 'production') {
+  module.exports.devtool = '#source-map'
+  // http://vue-loader.vuejs.org/en/workflow/production.html
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+      compress: {
+        warnings: false
+      }
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true
+    })
+  ])
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">main.js</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">import Vue from 'vue' //librairie "vue" dans node_modules
+import app from './app.vue' //fichier app.vue local
+
+new Vue({
+  el: '#app',
+  render: h =&gt; h(app)
+})</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">app.vue</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;template&gt;
+&lt;div&gt;
+    &lt;span id="msg"&gt;{{message}}&lt;/span&gt;
+&lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+    data() {
+        return {
+            message: "Hello"
+        }
+    }
+}
+&lt;/script&gt;
+
+&lt;style&gt;
+#msg {
+  color: red;
+}
+&lt;/style&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">index.html</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;LP DAWIN&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id="app"&gt;&lt;/div&gt;
+    &lt;script src="dist/build.js"&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Pour compiler le projet avec webpack, nous allons utiliser le binaire installé par NPM dans <strong>node_modules/.bin</strong> :</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ node_modules/.bin/webpack --progress --hide-modules</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Ouvrez et regardez rapidement le fichier compilé <strong>dist/build.js</strong>. C&#8217;est ce fichier (norme javascript ES5) que <strong>index.html</strong> va charger dans le navigateur web.</p>
+</li>
+<li>
+<p>Pour afficher le site, nous allons utiliser <strong>webpack-dev-server</strong> pendant le développement :</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ node_modules/.bin/webpack-dev-server --open --hot</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>La page est rafraîchie automatiquement lorsqu&#8217;un fichier est modifié (et compilé automatiquement).</p>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>C&#8217;est bon, vous pouvez utiliser les SFC de Vue.js !</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_Étape_5_conversion_du_projet">Étape 5 : Conversion du projet</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Faites évoluer le code de la dernière séance pour utiliser les SFC. Vous aurez l&#8217;architecture suivante :</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-tree hljs" data-lang="tree">```tree
+|_ package.json
+|_ webpack.config.js
+|_ index.html
+|_ src/
+    |_ main.js
+    |_ app.vue
+    |_ components/
+        |_ movieitem.vue</code></pre>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-12 17:06:08 CET
+Last updated 2017-11-26 15:58:49 CET
 </div>
 </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlighting()</script>
 </body>
 </html>
