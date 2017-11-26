@@ -1,5 +1,10 @@
-= Javascript avancé
+= Développement web avancé
 
+== Cours
+* link:cours/1[Semaine 1]
+* link:cours/2[Semaine 2]
+
+== TD
 * link:td/seance1/seance1.html[TD1]
 * link:td/seance2/seance2.html[TD2]
 * link:td/seance3/seance3.html[TD3]

@@ -1,16 +1,21 @@
+:step: 0
+:source-highlighter: highlightjs
+
 = Séance 2
 
 Tout au long de ce TD, vous pouvez utiliser http://fontawesome.io/[Font Awesome] pour afficher des icônes.
 
-== Étape 1
+== Les bases de Vue.js
+
+=== Étape 1
 
 Reproduisez la movie-list présentée au tableau.
 
-== Étape 2
+=== Étape 2
 
 Ajoutez l'édition et la suppression des films de votre movie-list et affichez le nombre total de films enregistrés.
 
-== Étape 3
+=== Étape 3
 
 On souhaite maintenant stocker les films avec plus d'informations (sous forme d'objets). Modifiez la page pour faire en sorte d'entrer toutes les infos nécessaires (voir ci-dessous).
 
@@ -23,7 +28,7 @@ Informations d'un film :
 * Réalisateur (string)
 * Synospsis (string)
 
-== Étape 4
+=== Étape 4
 
 Ajoutez un champ de recherche qui trie selon :
 
@@ -32,3 +37,75 @@ Ajoutez un champ de recherche qui trie selon :
 * Réalisateur
 
 Essayez d'utiliser map, reduce, filter selon les besoins.
+
+== Communication entre les composants
+
+Afin de communiquer du parent vers le composant enfant, nous avons vu l'utilisation des *props*.
+
+Comment communiquer une information de l'enfant vers le parent ? À l'aide des évènements.
+
+Le système d'évènements de Vue utilise 2 fonctions : *v-on* et *$emit*.
+
+* Parent : Réagir à un évènement (avec autant de paramètres que nécessaire)
++
+```js
+//HTML
+v-on:eventName="callback"
+...
+//JS
+methods: {
+    callback(parameter1) {
+    }
+}
+```
+
+* Enfant : Émettre un évènement dans une de ses méthodes
++
+```js
+this.$emit("eventName", parameter1) // 1 paramètre
+this.$emit("eventName") // Pas de paramètre
+```
+
+> Sur un composant, `v-on:click="callback"` va réagir à l'évènement click émit par le composant. Pour réagir à l'évènement natif "click de la souris", il faut ajouter le modificateur *.native* : `v-on:click.native="callback"`
+
+
+Afin de bien comprendre le fonctionnement, analysez le code suivant :
+```xml
+<div id="counter-event-example">
+  <p>{{ total }}</p>
+  <button-counter v-on:increment="incrementTotal"></button-counter>
+  <button-counter v-on:increment="incrementTotal"></button-counter>
+</div>
+```
+```js
+Vue.component('button-counter', {
+  template: '<button v-on:click="incrementCounter">{{ counter }}</button>',
+  data: function () {
+    return {
+      counter: 0
+    }
+  },
+  methods: {
+    incrementCounter: function () {
+      this.counter += 1
+      this.$emit('newCounter', this.counter)
+    }
+  },
+})
+
+new Vue({
+  el: '#counter-event-example',
+  data: {
+    total: 0
+  },
+  methods: {
+    incrementTotal: function (counter) {
+      this.total = counter
+    }
+  }
+})
+```
+
+=== Étape 5
+
+Ajoutez à la liste de films version composants (*movie-item*) les boutons d'édition et de suppression.

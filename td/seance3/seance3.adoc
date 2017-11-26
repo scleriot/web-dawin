@@ -158,9 +158,8 @@ C'est bon, vous pouvez utiliser les SFC de Vue.js !
 
 == Étape {counter:step} : Conversion du projet
 
-. Faites évoluer le code de la dernière séance pour utiliser les SFC. Vous aurez l'architecture suivante :
+. Faites évoluer le code de la dernière séance pour utiliser les SFC. Vous obtiendrez l'architecture suivante :
 
-```tree
 ```tree
 |_ package.json
 |_ webpack.config.js
