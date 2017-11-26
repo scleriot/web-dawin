@@ -12,7 +12,7 @@ Ajoutez l'édition et la suppression des films de votre movie-list et affichez l
 
 == Étape 3
 
-On souhaite maintenant stocker les films aves plus d'informations (sous forme d'objets). Modifiez la page pour faire en sorte d'entrer toutes les infos nécessaires (voir ci-dessous).
+On souhaite maintenant stocker les films avec plus d'informations (sous forme d'objets). Modifiez la page pour faire en sorte d'entrer toutes les infos nécessaires (voir ci-dessous).
 
 Affichage : la liste affiche le titre et l'année de sortie et les détails apparaissent en dessous lorsqu'on clique sur la ligne.
 
