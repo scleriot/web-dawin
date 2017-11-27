@@ -1,0 +1,90 @@
+:step: 0
+:source-highlighter: highlightjs
+:sourcedir: src/
+
+:toc:
+:toc-title: Table des matières
+
+= Séance 4
+
+== Vue-router
+
+https://router.vuejs.org/en/
+
+Vue-router va nous permettre de gérer les "routes" de notre application, c'est à dire les composants à charger en fonction de l'URL.
+
+* /login -> Charger composant login
+* /home -> charger composant home
+* etc...
+
+=== Étape {counter:step} : Installation
+
+Déplacez vous dans un nouveau dossier pour ce TD 
+```shell
+$ npm install vue vue-router
+```
+
+=== Étape {counter:step} : Introduction
+
+Exécutez et analysez le code suivant :
+
+.etape2.html
+[source,xml]
+----
+include::{sourcedir}etape2.html[]
+----
+
+*router-view* est une balise Vue qui contient le composant chargé par Vue-router.
+
+=== Étape {counter:step} : Routes dynamiques
+
+. Définissez la route suivante :
++
+--
+```js
+{ path: '/:var', component: DisplayVar }
+```
+
+Et le composant DisplayVar avec le template suivant :
+```js
+template: '<div>Variable de la route : {{ $route.params.var }}</div>'
+```
+
+La variable *$route* permet de manipuler et d'accéder aux paramètres de la route (*this.$route.params*)
+--
+
+. Définissez la route */:var1/:var2* et affichez les 2 paramètres de l'URL dans un composant correspondant.
+
+=== Étape {counter:step} : Name views
+
+. Sur votre page HTML, ajoutez en dessous du *router-view* les 2 balises suivantes :
++
+```xml
+<router-view name="a"></router-view>
+<router-view name="b"></router-view>
+```
+
+. Définissez la route suivante :
+
+```js
+{
+    path: '/multiple/:var',
+    components: {
+        default: Foo,
+        a: Bar,
+        b: DisplayVar
+    }
+}
+```
+
+Vous pouvez ainsi définir plusieurs composants pour une même route.
+
+Par exemple sur une page on aura 3 composants qui peuvent changer en fonction de la route : Header, Sidebar, Content.
+
+=== Étape {counter:step}
+
+Modifiez le code de la _séance 3_ pour éditez un film sur une nouvelle page
+
+> Renseignez-vous sur *router-link* et *this.$router.push* pour naviguer entre les pages : 
+
+> https://router.vuejs.org/en/essentials/navigation.html
