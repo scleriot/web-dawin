@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Étape 2</title>
+
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script src="node_modules/vuex/dist/vuex.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{message}}
+        <comp></comp>
+    </div>
+
+    <script type="text/javascript">
+        const my_store = new Vuex.Store({
+            state: {
+                message: 'Hello'
+            },
+            mutations: {
+                updateMessage(state, param1) {
+                    state.message = param1;
+                }
+            }
+        })
+
+        Vue.component("comp", {
+            template: '<div>{{localdata}} {{message}}</div>',
+            store: my_store,
+            data() {
+                return {
+                    localdata: "Local"
+                }
+            },
+            computed: {
+                message() {
+                    return this.$store.state.message;
+                }
+            },
+            mounted() {
+                setTimeout(() => {
+                    this.$store.commit('updateMessage', "Test");
+                }, 3000);
+            }
+        })
+        
+        const app = new Vue({
+            el :"#app",
+            store: my_store,
+            computed: {
+                message() {
+                    return this.$store.state.message;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

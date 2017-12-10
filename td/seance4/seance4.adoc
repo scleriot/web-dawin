@@ -81,10 +81,19 @@ Vous pouvez ainsi définir plusieurs composants pour une même route.
 
 Par exemple sur une page on aura 3 composants qui peuvent changer en fonction de la route : Header, Sidebar, Content.
 
-=== Étape {counter:step}
+=== Étape {counter:step} : Projet
 
 Modifiez le code de la _séance 3_ pour éditez un film sur une nouvelle page
 
 > Renseignez-vous sur *router-link* et *this.$router.push* pour naviguer entre les pages : 
 
 > https://router.vuejs.org/en/essentials/navigation.html
+
+Attention : Lorsque vous importez Vue et Vue-router à l'aide de `import`, il faudra indiquer à Vue l'existence du plugin via la ligne suivante :
+
+```js
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+Vue.use(VueRouter);
+```

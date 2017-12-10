@@ -1,0 +1,157 @@
+:step: 0
+:source-highlighter: highlightjs
+:sourcedir: src/
+:imagesdir: images/
+
+:toc:
+:toc-title: Table des matières
+
+= Séance 5
+
+== Vuex
+
+https://vuex.vuejs.org/
+
+=== Étape {counter:step} : Installation
+
+Déplacez vous dans un nouveau dossier pour ce TD
+```shell
+$ npm install vue vuex
+```
+
+=== Étape {counter:step} : Base de code
+
+Créez un fichier etape2.html avec le code suivant :
+
+.etape2.html
+[source,xml]
+----
+include::{sourcedir}etape2.html[]
+----
+
+Si vous exécutez le code, vous verrez dans la console un warning vous indiquant que _message_ n'existe pas.
+
+=== Étape {counter:step} : Store
+
+On va maintenant créer un *Store*, qui va contenir l'état (State) de notre application - c'est à dire toutes les variables partagées - ainsi que toutes les actions et mutations nécessaires pour faire évoluer l'état de l'application.
+
+Créez un objet *Vuex.Store* avec la variable _message_ initialisée :
+
+```js
+const my_store = new Vuex.Store({
+    state: {
+        message: 'Hello'
+    }
+})
+```
+
+On va ensuite indiquez à notre objet Vue et à notre composant d'utiliser ce store :
+
+```js
+const app = new Vue({
+    el :"#app",
+    store: my_store
+})
+```
+
+```js
+Vue.component("comp", {
+    template: '<div>{{localdata}} {{message}}</div>',
+    store: my_store,
+    data() {
+        return {
+            localdata: "Local"
+        } 
+    },
+})
+```
+
+On va maintenant utiliser une variable calculée (*computed*) comme contenu de la variable _message_ :
+```js
+computed: {
+    message() {
+        return this.$store.state.message;
+    }
+}
+```
+
+> *$store* est un champ d'une instance Vue permettant d'accéder au store défini dans la configuration
+
+> *$store.state* contient toutes les variables de l'état de notre application (en lecture seule)
+
+Ajoutez cette variable sur le composant _comp_ et le composant Vue principal.
+
+*La variable _message_ est maintenant partagée entre plusieurs composants.*
+
+++++
+<iframe src="https://giphy.com/embed/5aLrlDiJPMPFS" width="412" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/jon-stewart-the-daily-show-5aLrlDiJPMPFS">via GIPHY</a></p>
+++++
+
+Le state de l'application est aussi réactif que les variables définies dans _data_, elles seront mises à jour automatiquement dès qu'elles auront été modifiées.
+
+=== Étape {counter:step} : Mutations et Actions
+
+Comme vu à l'étape précédente, les variable de l'objet _$state.store_ sont accessibles en lecture seule.
+
+Afin de demander à Vue de modifier l'état de l'application, nous avons à disposition 2 concepts : les mutations et les actions.
+
+Les mutations sont synchrones (tout est exécuté lors de l'appel) et modifient directement *state*.
+
+Les actions sont asynchrones (une requête AJAX par exemple vers une API) et vont utiliser une mutation pour modifier *state*.
+
+==== Mutations
+
+Les mutations sont définies dans notre store comme ceci :
+
+```js
+mutations: {
+    updateMessage(state, param1) {
+        state.message = param1;
+    }
+}
+```
+
+> Les mutations peuvent prendre 0, 1 ou plusieurs paramètres.
+
+On utilise la méthode *commit* du store pour appeler une mutation. Exemple :
+
+```js
+this.$store.commit('updateMessage', "Nouveau Message")
+```
+
+Modifiez le code pour modifier *message* - à l'aide d'une mutation - 3 secondes après que la Vue soit montée.
+
+Observez dans *Vue devtool* l'évolution de l'état de l'application.
+
+image::vuex.png[]
+
+==== Actions
+Les actions sont définies de cette façon :
+
+```js
+actions: {
+    getMessageFromAPI(context) {
+        monapi.query('/getmessage', function(data) {
+            context.commit('updateMessage', data.message)
+        });
+    }
+}
+```
+
+Elles sont appelées à l'aide de la méthode *dispatch* du store :
+```js
+this.$store.dispatch('getMessageFromAPI');
+```
+
+=== Étape {counter:step} : Projet
+
+Modifiez le projet pour permettre d'éditer et supprimer un film sans utiliser les évènements (grâce à un *Store* partagé bien sûr).
+
+Attention : Lorsque vous importez Vue et Vuex à l'aide de `import`, il faudra indiquer à Vue l'existence du plugin via la ligne suivante :
+
+```js
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex);
+```

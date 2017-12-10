@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
-<title>Développement web avancé</title>
+<title>Séance 5</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -427,56 +427,270 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Développement web avancé</h1>
+<h1>Séance 5</h1>
+<div id="toc" class="toc">
+<div id="toctitle">Table des matières</div>
+<ul class="sectlevel1">
+<li><a href="#_vuex">Vuex</a>
+<ul class="sectlevel2">
+<li><a href="#_Étape_1_installation">Étape 1 : Installation</a></li>
+<li><a href="#_Étape_2_base_de_code">Étape 2 : Base de code</a></li>
+<li><a href="#_Étape_3_store">Étape 3 : Store</a></li>
+<li><a href="#_Étape_4_mutations_et_actions">Étape 4 : Mutations et Actions</a></li>
+<li><a href="#_Étape_5_projet">Étape 5 : Projet</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_cours">Cours</h2>
+<h2 id="_vuex">Vuex</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="cours/1">Semaine 1</a></p>
-</li>
-<li>
-<p><a href="cours/2">Semaine 2</a></p>
-</li>
-<li>
-<p><a href="cours/3">Semaine 3</a></p>
-</li>
-</ul>
+<div class="paragraph">
+<p><a href="https://vuex.vuejs.org/" class="bare">https://vuex.vuejs.org/</a></p>
+</div>
+<div class="sect2">
+<h3 id="_Étape_1_installation">Étape 1 : Installation</h3>
+<div class="paragraph">
+<p>Déplacez vous dans un nouveau dossier pour ce TD</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ npm install vue vuex</code></pre>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_td">TD</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="td/seance1/seance1.html">TD1</a></p>
-</li>
-<li>
-<p><a href="td/seance2/seance2.html">TD2</a></p>
-</li>
-<li>
-<p><a href="td/seance3/seance3.html">TD3</a></p>
-</li>
-<li>
-<p><a href="td/seance4/seance4.html">TD4</a></p>
-</li>
-<li>
-<p><a href="td/seance5/seance5.html">TD5</a></p>
-</li>
-</ul>
+<div class="sect2">
+<h3 id="_Étape_2_base_de_code">Étape 2 : Base de code</h3>
+<div class="paragraph">
+<p>Créez un fichier etape2.html avec le code suivant :</p>
+</div>
+<div class="listingblock">
+<div class="title">etape2.html</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Étape 2&lt;/title&gt;
+
+    &lt;script src="node_modules/vue/dist/vue.js"&gt;&lt;/script&gt;
+    &lt;script src="node_modules/vuex/dist/vuex.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id="app"&gt;
+        {{message}}
+        &lt;comp&gt;&lt;/comp&gt;
+    &lt;/div&gt;
+
+    &lt;script type="text/javascript"&gt;
+        Vue.component("comp", {
+            template: '&lt;div&gt;{{localdata}} {{message}}&lt;/div&gt;',
+            data() {
+                return {
+                    localdata: "Local"
+                }
+            }
+        })
+
+        const app = new Vue({
+            el :"#app"
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si vous exécutez le code, vous verrez dans la console un warning vous indiquant que <em>message</em> n&#8217;existe pas.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_Étape_3_store">Étape 3 : Store</h3>
+<div class="paragraph">
+<p>On va maintenant créer un <strong>Store</strong>, qui va contenir l&#8217;état (State) de notre application - c&#8217;est à dire toutes les variables partagées - ainsi que toutes les actions et mutations nécessaires pour faire évoluer l&#8217;état de l&#8217;application.</p>
+</div>
+<div class="paragraph">
+<p>Créez un objet <strong>Vuex.Store</strong> avec la variable <em>message</em> initialisée :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">const my_store = new Vuex.Store({
+    state: {
+        message: 'Hello'
+    }
+})</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On va ensuite indiquez à notre objet Vue et à notre composant d&#8217;utiliser ce store :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">const app = new Vue({
+    el :"#app",
+    store: my_store
+})</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">Vue.component("comp", {
+    template: '&lt;div&gt;{{localdata}} {{message}}&lt;/div&gt;',
+    store: my_store,
+    data() {
+        return {
+            localdata: "Local"
+        }
+    },
+})</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On va maintenant utiliser une variable calculée (<strong>computed</strong>) comme contenu de la variable <em>message</em> :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">computed: {
+    message() {
+        return this.$store.state.message;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><strong>$store</strong> est un champ d&#8217;une instance Vue permettant d&#8217;accéder au store défini dans la configuration</p>
+</div>
+</blockquote>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p><strong>$store.state</strong> contient toutes les variables de l&#8217;état de notre application (en lecture seule)</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>Ajoutez cette variable sur le composant <em>comp</em> et le composant Vue principal.</p>
+</div>
+<div class="paragraph">
+<p><strong>La variable <em>message</em> est maintenant partagée entre plusieurs composants.</strong></p>
+</div>
+<iframe src="https://giphy.com/embed/5aLrlDiJPMPFS" width="412" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/jon-stewart-the-daily-show-5aLrlDiJPMPFS">via GIPHY</a></p>
+<div class="paragraph">
+<p>Le state de l&#8217;application est aussi réactif que les variables définies dans <em>data</em>, elles seront mises à jour automatiquement dès qu&#8217;elles auront été modifiées.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_Étape_4_mutations_et_actions">Étape 4 : Mutations et Actions</h3>
+<div class="paragraph">
+<p>Comme vu à l&#8217;étape précédente, les variable de l&#8217;objet <em>$state.store</em> sont accessibles en lecture seule.</p>
+</div>
+<div class="paragraph">
+<p>Afin de demander à Vue de modifier l&#8217;état de l&#8217;application, nous avons à disposition 2 concepts : les mutations et les actions.</p>
+</div>
+<div class="paragraph">
+<p>Les mutations sont synchrones (tout est exécuté lors de l&#8217;appel) et modifient directement <strong>state</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Les actions sont asynchrones (une requête AJAX par exemple vers une API) et vont utiliser une mutation pour modifier <strong>state</strong>.</p>
+</div>
+<div class="sect3">
+<h4 id="_mutations">Mutations</h4>
+<div class="paragraph">
+<p>Les mutations sont définies dans notre store comme ceci :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">mutations: {
+    updateMessage(state, param1) {
+        state.message = param1;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Les mutations peuvent prendre 0, 1 ou plusieurs paramètres.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>On utilise la méthode <strong>commit</strong> du store pour appeler une mutation. Exemple :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">this.$store.commit('updateMessage', "Nouveau Message")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Modifiez le code pour modifier <strong>message</strong> - à l&#8217;aide d&#8217;une mutation - 3 secondes après que la Vue soit montée.</p>
+</div>
+<div class="paragraph">
+<p>Observez dans <strong>Vue devtool</strong> l&#8217;évolution de l&#8217;état de l&#8217;application.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/vuex.png" alt="vuex">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_actions">Actions</h4>
+<div class="paragraph">
+<p>Les actions sont définies de cette façon :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">actions: {
+    getMessageFromAPI(context) {
+        monapi.query('/getmessage', function(data) {
+            context.commit('updateMessage', data.message)
+        });
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Elles sont appelées à l&#8217;aide de la méthode <strong>dispatch</strong> du store :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">this.$store.dispatch('getMessageFromAPI');</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_Étape_5_projet">Étape 5 : Projet</h3>
+<div class="paragraph">
+<p>Modifiez le projet pour permettre d&#8217;éditer et supprimer un film sans utiliser les évènements (grâce à un <strong>Store</strong> partagé bien sûr).</p>
+</div>
+<div class="paragraph">
+<p>Attention : Lorsque vous importez Vue et Vuex à l&#8217;aide de <code>import</code>, il faudra indiquer à Vue l&#8217;existence du plugin via la ligne suivante :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex);</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-12-10 22:43:42 CET
+Last updated 2017-12-10 22:39:10 CET
 </div>
 </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlighting()</script>
 </body>
 </html>
