@@ -87,7 +87,7 @@ Ajoutez cette variable sur le composant _comp_ et le composant Vue principal.
 <iframe src="https://giphy.com/embed/5aLrlDiJPMPFS" width="412" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/jon-stewart-the-daily-show-5aLrlDiJPMPFS">via GIPHY</a></p>
 ++++
 
-Le state de l'application est aussi réactif que les variables définies dans _data_, elles seront mises à jour automatiquement dès qu'elles auront été modifiées.
+Le state de l'application est aussi réactif que les variables définies dans _data_, l'affichage sera mis à jour automatiquement dès qu'une variable aura été modifiée.
 
 === Étape {counter:step} : Mutations et Actions
 
