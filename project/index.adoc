@@ -8,7 +8,7 @@
 
 = Project DAWIN
 
-L'objectif de ce projet est de faire évoluer l'application démarée en TD.
+L'objectif de ce projet est de faire évoluer l'application démarrée en TD.
 
 Deadline :
 
