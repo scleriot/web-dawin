@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
-<title>Séance 1</title>
+<title>Séance 6</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -427,564 +427,308 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Séance 1</h1>
+<h1>Séance 6</h1>
 <div id="toc" class="toc">
 <div id="toctitle">Table des matières</div>
 <ul class="sectlevel1">
-<li><a href="#_1_prise_en_main">1. Prise en main</a></li>
-<li><a href="#_2_variables">2. Variables</a>
-<ul class="sectlevel2">
-<li><a href="#_déclaration">Déclaration</a></li>
-<li><a href="#_scope">Scope</a></li>
-</ul>
-</li>
-<li><a href="#_3_fonctions">3. Fonctions</a>
-<ul class="sectlevel2">
-<li><a href="#_this">this</a></li>
-<li><a href="#_arrow_functions_es6">Arrow-functions (ES6)</a></li>
-<li><a href="#_questions">Questions</a></li>
-</ul>
-</li>
-<li><a href="#_4_chaînes_de_caractères">4. Chaînes de caractères</a>
-<ul class="sectlevel2">
-<li><a href="#_questions_2">Questions</a></li>
-</ul>
-</li>
-<li><a href="#_5_les_tableaux">5. Les tableaux</a>
-<ul class="sectlevel2">
-<li><a href="#_questions_3">Questions</a></li>
-</ul>
-</li>
-<li><a href="#_6_les_objets">6. Les objets</a>
-<ul class="sectlevel2">
-<li><a href="#_questions_4">Questions</a></li>
-</ul>
-</li>
+<li><a href="#_Étape_1_hello_world">Étape 1 : Hello World</a></li>
+<li><a href="#_Étape_2_http_server">Étape 2 : HTTP Server</a></li>
+<li><a href="#_Étape_3_express">Étape 3 : Express</a></li>
+<li><a href="#_Étape_4_express_middleware">Étape 4 : Express Middleware</a></li>
+<li><a href="#_Étape_5_affichez_du_html">Étape 5 : Affichez du HTML</a></li>
+<li><a href="#_Étape_6_projet">Étape 6 : Projet</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="_1_prise_en_main">1. Prise en main</h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Pour prendre en main le language, nous allons exécuter des scripts Javascript directement dans la console à l&#8217;aide de Node.js (mais nous n&#8217;utiliserons que du javascript "pur", sans les spécificités de Node).</p>
+<p>Node.js est une plateforme javascript basée sur le moteur V8 de Google permettant d&#8217;utiliser javascript comme language serveur.</p>
 </div>
 <div class="paragraph">
-<p>Téléchargez et installez Node.js  via ce lien : <a href="https://nodejs.org/en/download/" class="bare">https://nodejs.org/en/download/</a></p>
+<p>Téléchargez et installez Node.js : <a href="https://nodejs.org/en/download/" class="bare">https://nodejs.org/en/download/</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_Étape_1_hello_world">Étape 1 : Hello World</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Créez un fichier helloworld.js :</p>
+</div>
+<div class="listingblock">
+<div class="title">helloworld.js</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">console.log("Hello World")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Exécutez le :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">node helloworld.js</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_Étape_2_http_server">Étape 2 : HTTP Server</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Créez un fichier server.js avec le code suivant :
+.server.js</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">const http = require('http');
+
+const hostname = '127.0.0.1';
+const port = 3000;
+
+const server = http.createServer((req, res) =&gt; {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('Hello World\n');
+});
+
+server.listen(port, hostname, () =&gt; {
+    console.log(`Server running at http://${hostname}:${port}/`);
+});</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Analysez et exécutez ce fichier. Ouvrez <a href="http://localhost:3000" class="bare">http://localhost:3000</a></p>
 </div>
 <div class="quoteblock">
 <blockquote>
 <div class="paragraph">
-<p>En cas de problème vous pouvez aussi utiliser <strong>JS Bin</strong> pour écrire les programmes en ligne : <a href="http://jsbin.com/?js,console" class="bare">http://jsbin.com/?js,console</a></p>
+<p>Node.js utilise le système de module <strong>CommonJS</strong> : il faut utiliser le style d&#8217;import <code>require</code> au lieu de <code>import</code> comme nous le faisions avec Vue.js</p>
 </div>
 </blockquote>
 </div>
 <div class="paragraph">
-<p>Pour tester l&#8217;installation, créez un fichier javascript (<em>exercice_1.js</em>) contenant :</p>
+<p><strong>http</strong> est un module natif de Node.js. Il donne un accès bas niveau pour créer un serveur HTTP.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">console.log("Hello world!");</code></pre>
-</div>
-</div>
+<div class="quoteblock">
+<blockquote>
 <div class="paragraph">
-<p>Puis exécutez le fichier avec <code>node</code>:</p>
+<p>Node.js inclu plusieurs autres modules par défaut, par exemple <strong>FS</strong> pour la gestion des fichiers, <strong>Crypto</strong>, <strong>Process</strong> etc&#8230;&#8203;</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">&gt; node exercice_1.js
-Hello world!</code></pre>
-</div>
+</blockquote>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_2_variables">2. Variables</h2>
+<h2 id="_Étape_3_express">Étape 3 : Express</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_déclaration">Déclaration</h3>
 <div class="paragraph">
-<p>En javascript les variables peuvent être déclarées de 3 façons différentes :</p>
+<p>Il est néanmoins difficile de créer un serveur web complexe avec ce module bas niveau, c&#8217;est pourquoi nous allons utiliser le framework web <a href="http://expressjs.com/">Express</a>.</p>
+</div>
+<div class="paragraph">
+<p>Construit par dessus le module HTTP/HTTPS, il va nous permettre de construire plus facile un serveur web complexe.</p>
+</div>
+<div class="paragraph">
+<p>Installez Express :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">npm install --save express</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Créez et exécutez le fichier <code>helloworld_express.js</code> :</p>
+</div>
+<div class="listingblock">
+<div class="title">helloworld_express.js</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">const express = require('express')
+const app = express()
+
+app.get('/', (req, res) =&gt; res.send('Hello World!'))
+
+app.listen(3000, () =&gt; console.log('Example app listening on port 3000!'))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ouvrez <a href="http://localhost:3000" class="bare">http://localhost:3000</a> et <a href="http://localhost:3000/other_route" class="bare">http://localhost:3000/other_route</a>. Que remarquez-vous ?</p>
+</div>
+<div class="paragraph">
+<p>Express permet de définir les routes de notre applications à l&#8217;aide des verbes HTTP : <em>app.get</em>, <em>app.post</em>, <em>app.put</em>, <em>app.delete</em> etc&#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>Ces méthodes prennent 2 paramètres :</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>var</code></p>
+<p>Une chaîne de caractère représentant le chemin de cette route : '/', '/foo', '/bar'. Tout comme Vue-router, la route peut contenir des paramètres : <code>'/foo/:param1/:id'</code>. Ces paramètres seront accessible dans le callback</p>
 </li>
 <li>
-<p><code>const</code> (ES6)</p>
+<p>Un callback : une méthode appelée avec 2 paramètres : <code>request</code> et <code>response</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>request</code> contient les informations de la requête : paramètres de l&#8217;URL <code>req.params.param1</code>, corps de la requête <code>req.body</code>, paramètres passée dans l&#8217;url <code>req.query.get_parameter</code>, etc&#8230;&#8203; <a href="http://expressjs.com/en/api.html#req" class="bare">http://expressjs.com/en/api.html#req</a></p>
 </li>
 <li>
-<p><code>let</code> (ES6)</p>
+<p><code>response</code> permet de constuire la réponse qui est renvoyée au navigateur, le contenu de la réponse etc&#8230;&#8203; <code>response.status(200).type('text/html').send('Hello')</code></p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Les 3 mots clés s&#8217;utilisent de la même façon :</p>
+<p>La méthode send permet de retourner une chaîne de caractère (le code HTML de la page par exemple), ou un objet json (pratique pour le retour d&#8217;une API).</p>
+</div>
+<div class="paragraph">
+<p>Afin de pouvoir lire le contenu de la requête (<strong>req.body</strong>) vous devez installer le middleware body-parser :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">var a = 42;
-const b = 42;
-let c = 42;</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">npm install --save body-parser</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Une variable déclarée avec <code>const</code> doit toujours être initialisée.</p>
-</div>
-<div class="paragraph">
-<p>Lorsque la variable n&#8217;est pas initialisée (<code>var a;</code> ou <code>let a;</code>), la valeur de <code>a</code> est <code>undefined</code>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_scope">Scope</h3>
-<div class="paragraph">
-<p>Une variable déclarée avec <code>var</code> est accessible dans l&#8217;ensemble du contexte courant (la fonction actuelle), tandis qu&#8217;une déclaration avec <code>let</code> ou <code>const</code> rendra la variable accessible uniquement dans le bloc courant.</p>
+<p>Puis dans votre code :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">function ex_var() {
-    var a = 5;
-    if(true) {
-        var b = 8;
-        console.log(b); // 8
-    }
-    console.log(b); // 8
-}
-function ex_let() {
-    var a = 5;
-    if(true) {
-        let b = 8;
-        console.log(b); // 8
-    }
-    console.log(b); // error, b n'existe pas
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_3_fonctions">3. Fonctions</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions">Documentation</a></p>
-</div>
-<div class="paragraph">
-<p>Pour déclarer une fonction :</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">function name() {
-    // contenu
-}
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">const express = require('express')
+const bodyParser = require('body-parser');
 
-name(); //appel de cette fonction</code></pre>
+const app = express()
+app.use(bodyParser.json()) //parse JSON body
+app.use(bodyParser.urlencoded()) //parse x-www-form-urlencoded body</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Une variable peut aussi contenir une fonction (tout comme n&#8217;importe quel autre type) :</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">let name = function() {} //fonction anonyme
-name(); //appel</code></pre>
-</div>
+<p>Un URL encoded form body vient principalement d&#8217;un formulaire HTML. Le corps de la requête ressemble à <code>foo=2&amp;bar=8</code> et est parsé par body-parser pour que <em>request.body</em> soit l&#8217;objet : <code>{foo: '2', bar: '8'}</code></p>
 </div>
 <div class="paragraph">
-<p>Les fonctions anonymes sont très utiles pour être passées en callback d&#8217;une autre fonction :</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">function exemple1() {
-    //contenu
-}
-fonctionQuiAccepteUneAutreFonction(exemple1)
-//OU
-fonctionQuiAccepteUneAutreFonction(function(){
-    //contenu
-})</code></pre>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_this">this</h3>
-<div class="paragraph">
-<p>La variable <code>this</code> est accessible partout dans votre code mais ne représente pas toujours la même chose.</p>
+<p>Un corps de requête JSON est directement converti dans l&#8217;objet javascript correspondant.</p>
 </div>
 <div class="paragraph">
-<p>Cette variable sera très utile lorsque nous utiliserons javascript avec Vue.js et Node.</p>
+<p><strong>Créez un serveur Express avec les routes suivantes :</strong></p>
 </div>
-<div class="paragraph">
-<p>Dans l&#8217;environnement global (à l&#8217;extérieur de toute fonction) <code>this</code> va pointer vers le contexte global :</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GET /foo/:myvar</code> qui retourne au serveur <code>{var: contenu du paramètre myvar</code>}</p>
+</li>
+<li>
+<p><code>POST /add</code> avec 2 paramètres <code>foo=2</code> et <code>bar=8</code> qui retourne au navigateur l&#8217;addition des 2 paramètres dans l&#8217;URL</p>
+</li>
+</ul>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">this.a = "Hello";
-console.log(a); //Hello
-console.log(this.a); //Hello</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Lors de l&#8217;appel d&#8217;une fonction, on distingue deux cas de figure :</p>
-</div>
-<div class="sect3">
-<h4 id="_appel_classique">Appel classique</h4>
-<div class="paragraph">
-<p>Par défaut, <code>this</code> à l&#8217;intérieur d&#8217;une fonction va pointer vers l&#8217;objet global :</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">function f() {
-    console.log(this.a);
-}
-var a = 8;
-f();</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>On peut appeler cette fonction avec un autre contexte, en utilisant <code>call</code> ou <code>apply</code> :</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">function f(param1, param2) {
-    console.log(this.a)
-}
-f.call({a: 24}, 1, 2) //24 (les arguments sont 1 et 2)
-f.apply({a: 42}, [5, 6]) //42 (les arguments sont 5 et 6)</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_bind">Bind</h4>
-<div class="paragraph">
-<p>L&#8217;appel à la méthode <code>bind</code> va créer une nouvelle fonction où <code>this</code> est lié pour toujours à l&#8217;objet passé en paramètre.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">function f() {
-    console.log(this.a)
-}
-
-let g = f.bind({a: 24})
-g() //24
-let h = f.bind({a: 42})
-h() //42
-f.call({a: 112}) //112</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_arrow_functions_es6">Arrow-functions (ES6)</h3>
-<div class="paragraph">
-<p>ES6 a apporté les arrow-functions, une nouvelle manière de définir une fonction anonyme :</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">fonctionQuiAccepteUneAutreFonction( () =&gt; {
-    //contenu
-} )</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Les paramètres se situent à gauche la flêche (on peut omettre les parentèse si un seul paramètre).</p>
-</div>
-<div class="paragraph">
-<p>À droite de la flêche se trouve le corp de la fonction. On peut ne pas mettre d&#8217;accolade, ce qui signifie qu&#8217;on place directement la valeur de retour à droite de la flêche.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">//arrow-functions qui prennent une variable e et retourne e+1
-(e) =&gt; { return e+1 }
-e =&gt; { return e+1 }
-e =&gt; e+1</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Une arrow-function garde la valeur <code>this</code> du parent.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">//Avant pour qu'un callback puisse modifier le contexte :
-function() {
-    //...
-    let self = this;
-    loadData(function() {
-        //this = cette fonction anonyme
-        self.mydata = "...";
-    })
-    //...
-}
-
-//Maintenant
-function () {
-    //...
-    loadData( () =&gt; {
-        //this = l'objet englobant
-        this.mydata = "...";
-    })
-    //...
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_questions">Questions</h3>
-<div class="paragraph">
-<p>3.1. On commence doucement : créez une fonction qui retourne le triple de l&#8217;entier passé en paramètre</p>
-</div>
-<div class="paragraph">
-<p>3.2. Analysez le code suivant (sans l&#8217;exécuter). Quelle est d&#8217;après vous la sortie du programme ?</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">var b=2;
-function a() {
-    var e=5;
-    console.log(b);
-    console.log(c);
-    console.log(d);
-    console.log(e);
-}
-var c=3;
-a();
-var d=4;</code></pre>
-</div>
-</div>
-<hr>
 <div class="quoteblock">
 <blockquote>
 <div class="paragraph">
-<p>Les variables sont accessibles uniquement dans le scope actuel et les scopes enfant</p>
+<p>Vous pourriez avoir besoin de la fonction <strong>parseInt</strong></p>
 </div>
 </blockquote>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">var b=2; //scope global
-function a() {
-    console.log("a");
-    var e=5; //scope a
-    console.log(b);
-    console.log(c);
-    console.log(e);
-    console.log(d);
-}
-function f() {
-    console.log("f");
-    var d=6; //scope f
-    console.log(d);
-}
-f();
-a();
-var c=3; //scope global</code></pre>
-</div>
-</div>
+<div class="quoteblock">
+<blockquote>
 <div class="paragraph">
-<p>3.3. Créez une fonction <code>add</code> accessible uniquement depuis une fonction <code>sum</code>.
-* La fonction <code>add</code> retourne la somme des 2 nombres passés en paramètre.
-* La fonction <code>sum</code> utilise <code>add</code> pour additionner les 4 nombres passés en paramètre et retourne le résultat</p>
+<p>Pour tester vos différentes routes, vous pouvez utiliser l&#8217;application <a href="https://www.getpostman.com/">Postman</a>.</p>
 </div>
-<div class="paragraph">
-<p>Le scope global ne doit pas avoir accès à la fonction <code>add</code>.</p>
-</div>
-<div class="paragraph">
-<p>3.4. Écrivez de deux manières une fonction <code>pow</code> qui prend en paramètre <code>b</code> et <code>n</code>, et retourne <code>b puissance n</code>.</p>
-</div>
-<div class="paragraph">
-<p>3.5.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">function qu3_5(a, b, c) {
-    return a * c(b);
-}
-
-// Appelez cette fonction avec des paramètres cohérents</code></pre>
-</div>
-</div>
+</blockquote>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_4_chaînes_de_caractères">4. Chaînes de caractères</h2>
+<h2 id="_Étape_4_express_middleware">Étape 4 : Express Middleware</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://www.w3schools.com/jsref/jsref_obj_string.asp">Documentation</a></p>
+<p>Un middleware est une étape par laquelle va passer chaque requête reçue par Express avant d&#8217;être transmise au <em>route handler</em> (c&#8217;est à dire app.get, app.post etc&#8230;&#8203;).</p>
 </div>
 <div class="paragraph">
-<p>Quelques façons d&#8217;écrire des chaînes de caractère :</p>
+<p>Ces middlewares peuvent avoir plusieurs intérêts, notamment :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Vérifier qu&#8217;un utilisateur est connecté à chaque requête</p>
+</li>
+<li>
+<p>Body-parser prend le corps de la requête et le converti en objet javascript</p>
+</li>
+<li>
+<p>S&#8217;assurer que l&#8217;utilisateur a le droit de faire la requête</p>
+</li>
+<li>
+<p>Écrire dans le fichier de log les requêtes</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>L&#8217;écriture la plus complète d&#8217;un middleware est la suivante :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">let str1 = "Ceci est une string plutôt simple";
-let str2 = 'Une autre string';
-let str3 = "Ceci est une string avec \" un caratère échappé";
-
-let number = 8;
-let str4 = "Le nombre est "+number;
-let str5 = `Le nombre est ${number}`; //particulièrement pratique lorsqu'on a de nombreuses variables à insérer
-
-let str6 = "Multiligne \
-string";
-let str7 = `Multiligne
-string`;</code></pre>
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">app.get('chemin', (req, res, next) =&gt; {
+    next();
+})</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Les chaînes sont des objets et donnent accès à de nombreuses méthodes (cf doc)</p>
+<p>La fonction <em>next</em> passée en paramètre permet au middleware d&#8217;indiquer à Express de passer au middleware suivant.</p>
+</div>
+<div class="paragraph">
+<p>Ce middleware sera donc exécuté pour une requête GET sur le chemin passé en 1er paramètre.</p>
+</div>
+<div class="paragraph">
+<p>On peut aussi écrire :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">let str = "Test de string";
-str.length; //14
-str.replace(" ", "."); //Test.de.string</code></pre>
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">app.get( (req, res, next) =&gt; {
+    next();
+})</code></pre>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_questions_2">Questions</h3>
-<div class="paragraph">
-<p>4.1. Créez une fonction qui affiche dans la console l&#8217;inverse de la chaîne passée en paramètre. ex: "Hello" &#8594; "olleH"</p>
 </div>
 <div class="paragraph">
-<p>4.2. Faites en sorte que le code suivant remplace les caractères <code>a</code> par <code>d</code>, <code>b</code> par <code>e</code> et ainsi de suite</p>
+<p>Le middleware sera alors exécuté pour toutes les requêtes GET envoyées au serveur.</p>
+</div>
+<div class="paragraph">
+<p>On peut aussi écrire :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">function replace(str, fn) {
-    for(var i=0;i&lt;str.length;i++) {
-        str[i] = fn(str[i]);
-    }
-}
-
-function my_fn(char) {
-    /// Votre code
-}
-
-replace("Je suis ton père", my_fn);</code></pre>
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">app.use( (req, res, next) =&gt; {
+    next();
+}</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Le middleware sera alors exécuté pour toutes les requêtes envoyées au serveur sans distinction de verbe HTTP (GET, POST, PUT etc&#8230;&#8203;).</p>
+</div>
+<div class="paragraph">
+<p><strong>Écrivez un middleware qui affiche dans la console l&#8217;heure, le chemin et le contenu du body de chaque requêtes envoyées au serveur. Ajoutez la date de la requête à l&#8217;objet de la requête.</strong></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_5_les_tableaux">5. Les tableaux</h2>
+<h2 id="_Étape_5_affichez_du_html">Étape 5 : Affichez du HTML</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Les tableaux (objet <code>Array</code>) représentent une liste ordonnée de valeurs. Numérotés à partir de 0, chaque élément peut être d&#8217;un type différent.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">let arr = new Array(0, 1, 3);
-let arr= [0, 1, 3];
-
-console.log(arr[2]); //3
-
-arr.push(8); //[0,1,3,8]</code></pre>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_questions_3">Questions</h3>
-<div class="paragraph">
-<p>5.1. Map</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">var arr = [ { a: 1, b: 2 }, { a:2 , b: 4 }, { a: 9, b: 1 }, { a: 19, b: 29 }, { a: 187, b: 4 } ];</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Remplacez tout les éléments de ce tableau par la valeur de la propriété <code>b</code>. Écrivez votre solution de 2 manières : avec et sans <code>map</code>.</p>
-</div>
-<div class="paragraph">
-<p>5.2. Filter</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">var arr = [ { a: 1, b: 2 }, { a:2 , b: 4 }, { a: 9, b: 1 }, { a: 19, b: 29 }, { a: 187, b: 4 } ];</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Écrivez une fonction qui prend ce tableau en paramètre et garde uniquement les éléments avec <code>a &gt; 3</code>.</p>
-</div>
-<div class="paragraph">
-<p>5.3. Reduce</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">var arr = [ "Luke Skywalker", "Maître Yoda", "R2D2", "Padmé Amidala",  "Anakin Skywalker", "Obi-Wan Kenobi" ];</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Écrivez une fonction qui retourne la chaîne de caractère <code>Luke Skywalker, Anakin Skywalker, Obi-Wan Kenobi</code> etc&#8230;&#8203; en utilisant <code>reduce</code>.</p>
-</div>
-<div class="paragraph">
-<p>Écrivez une autre fonction qui retourne cette même chaîne mais sans les membres de la famille Skywalker.</p>
-</div>
+<p>En plus de pouvoir retourner au navigateur une chaîne de caractères ou un objet JSON (<em>res.send</em>), vous pouvez utiliser un système de template pour utiliser un système de template intégré à Express (<em>res.render</em>).</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_6_les_objets">6. Les objets</h2>
+<h2 id="_Étape_6_projet">Étape 6 : Projet</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p><a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Guide/Utiliser_les_objets">Documentation</a></p>
-</div>
-<div class="paragraph">
-<p>Le concept d&#8217;objet en javascript est le même que dans les autres languages : un conteneur qui englobe des propriétés et des méthodes.</p>
-</div>
-<div class="paragraph">
-<p>Les méthodes et propriétés d&#8217;un objet sont accessible via le <code>.</code> ou les crochets :</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">object.property
-object["property"]
-object.method()
-object["method"]()</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Tout est objet en javascript, même les types primitifs (nombres, chaînes de caratère, booléens etc&#8230;&#8203;)</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">console.log("Hello".length) //5</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Les objets peuvent être utilisés pour stocker des paires clé/valeur (comme avec un objet JSON ou les structures en C) :</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">let obj = new Object();
-obj.a = 42;
-obj.b = 81;
 
-let obj = {
-    a: 42,
-    b: 81
-}
-
-obj.c //undefined</code></pre>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_questions_4">Questions</h3>
-<div class="paragraph">
-<p>6.1. Créez un objet représentant un film (titre, synopsys, année de sortie) ainsi que son réalisateur (sous-objet avec nom/prénom/date de naissance).</p>
-</div>
-<div class="paragraph">
-<p>6.2. Créez un tableau contenant les films <em>Titanic</em>, <em>Interstellar</em>, <em>La ligne verte</em> avec leurs infos. Affichez ensuite le contenu du tableau dans la console (en mettant en forme les infos du film sur chaque ligne)</p>
-</div>
-</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-12 22:07:28 CET
+Last updated 2017-12-17 19:59:43 CET
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">

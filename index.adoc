@@ -6,8 +6,9 @@
 * link:cours/3[Semaine 3]
 
 == TD
-* link:td/seance1/seance1.html[TD1]
-* link:td/seance2/seance2.html[TD2]
-* link:td/seance3/seance3.html[TD3]
-* link:td/seance4/seance4.html[TD4]
-* link:td/seance5/seance5.html[TD5]
+* link:td/td1/td1.html[TD1]
+* link:td/td2/td2.html[TD2]
+* link:td/td3/td3.html[TD3]
+* link:td/td4/td4.html[TD4]
+* link:td/td5/td5.html[TD5]
+* link:td/td6/td6.html[TD6]

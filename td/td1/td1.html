@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
-<title>Séance 5</title>
+<title>Séance 1</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -427,17 +427,37 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Séance 5</h1>
+<h1>Séance 1</h1>
 <div id="toc" class="toc">
 <div id="toctitle">Table des matières</div>
 <ul class="sectlevel1">
-<li><a href="#_vuex">Vuex</a>
+<li><a href="#_1_prise_en_main">1. Prise en main</a></li>
+<li><a href="#_2_variables">2. Variables</a>
 <ul class="sectlevel2">
-<li><a href="#_Étape_1_installation">Étape 1 : Installation</a></li>
-<li><a href="#_Étape_2_base_de_code">Étape 2 : Base de code</a></li>
-<li><a href="#_Étape_3_store">Étape 3 : Store</a></li>
-<li><a href="#_Étape_4_mutations_et_actions">Étape 4 : Mutations et Actions</a></li>
-<li><a href="#_Étape_5_projet">Étape 5 : Projet</a></li>
+<li><a href="#_déclaration">Déclaration</a></li>
+<li><a href="#_scope">Scope</a></li>
+</ul>
+</li>
+<li><a href="#_3_fonctions">3. Fonctions</a>
+<ul class="sectlevel2">
+<li><a href="#_this">this</a></li>
+<li><a href="#_arrow_functions_es6">Arrow-functions (ES6)</a></li>
+<li><a href="#_questions">Questions</a></li>
+</ul>
+</li>
+<li><a href="#_4_chaînes_de_caractères">4. Chaînes de caractères</a>
+<ul class="sectlevel2">
+<li><a href="#_questions_2">Questions</a></li>
+</ul>
+</li>
+<li><a href="#_5_les_tableaux">5. Les tableaux</a>
+<ul class="sectlevel2">
+<li><a href="#_questions_3">Questions</a></li>
+</ul>
+</li>
+<li><a href="#_6_les_objets">6. Les objets</a>
+<ul class="sectlevel2">
+<li><a href="#_questions_4">Questions</a></li>
 </ul>
 </li>
 </ul>
@@ -445,240 +465,518 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_vuex">Vuex</h2>
+<h2 id="_1_prise_en_main">1. Prise en main</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://vuex.vuejs.org/" class="bare">https://vuex.vuejs.org/</a></p>
+<p>Pour prendre en main le language, nous allons exécuter des scripts Javascript directement dans la console à l&#8217;aide de Node.js (mais nous n&#8217;utiliserons que du javascript "pur", sans les spécificités de Node).</p>
 </div>
-<div class="sect2">
-<h3 id="_Étape_1_installation">Étape 1 : Installation</h3>
 <div class="paragraph">
-<p>Déplacez vous dans un nouveau dossier pour ce TD</p>
+<p>Téléchargez et installez Node.js  via ce lien : <a href="https://nodejs.org/en/download/" class="bare">https://nodejs.org/en/download/</a></p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>En cas de problème vous pouvez aussi utiliser <strong>JS Bin</strong> pour écrire les programmes en ligne : <a href="http://jsbin.com/?js,console" class="bare">http://jsbin.com/?js,console</a></p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>Pour tester l&#8217;installation, créez un fichier javascript (<em>exercice_1.js</em>) contenant :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ npm install vue vuex</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_Étape_2_base_de_code">Étape 2 : Base de code</h3>
-<div class="paragraph">
-<p>Créez un fichier etape2.html avec le code suivant :</p>
-</div>
-<div class="listingblock">
-<div class="title">etape2.html</div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;title&gt;Étape 2&lt;/title&gt;
-
-    &lt;script src="node_modules/vue/dist/vue.js"&gt;&lt;/script&gt;
-    &lt;script src="node_modules/vuex/dist/vuex.js"&gt;&lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;div id="app"&gt;
-        {{message}}
-        &lt;comp&gt;&lt;/comp&gt;
-    &lt;/div&gt;
-
-    &lt;script type="text/javascript"&gt;
-        Vue.component("comp", {
-            template: '&lt;div&gt;{{localdata}} {{message}}&lt;/div&gt;',
-            data() {
-                return {
-                    localdata: "Local"
-                }
-            }
-        })
-
-        const app = new Vue({
-            el :"#app"
-        })
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">console.log("Hello world!");</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Si vous exécutez le code, vous verrez dans la console un warning vous indiquant que <em>message</em> n&#8217;existe pas.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_Étape_3_store">Étape 3 : Store</h3>
-<div class="paragraph">
-<p>On va maintenant créer un <strong>Store</strong>, qui va contenir l&#8217;état (State) de notre application - c&#8217;est à dire toutes les variables partagées - ainsi que toutes les actions et mutations nécessaires pour faire évoluer l&#8217;état de l&#8217;application.</p>
-</div>
-<div class="paragraph">
-<p>Créez un objet <strong>Vuex.Store</strong> avec la variable <em>message</em> initialisée :</p>
+<p>Puis exécutez le fichier avec <code>node</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">const my_store = new Vuex.Store({
-    state: {
-        message: 'Hello'
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">&gt; node exercice_1.js
+Hello world!</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_2_variables">2. Variables</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_déclaration">Déclaration</h3>
+<div class="paragraph">
+<p>En javascript les variables peuvent être déclarées de 3 façons différentes :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>var</code></p>
+</li>
+<li>
+<p><code>const</code> (ES6)</p>
+</li>
+<li>
+<p><code>let</code> (ES6)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Les 3 mots clés s&#8217;utilisent de la même façon :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">var a = 42;
+const b = 42;
+let c = 42;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Une variable déclarée avec <code>const</code> doit toujours être initialisée.</p>
+</div>
+<div class="paragraph">
+<p>Lorsque la variable n&#8217;est pas initialisée (<code>var a;</code> ou <code>let a;</code>), la valeur de <code>a</code> est <code>undefined</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_scope">Scope</h3>
+<div class="paragraph">
+<p>Une variable déclarée avec <code>var</code> est accessible dans l&#8217;ensemble du contexte courant (la fonction actuelle), tandis qu&#8217;une déclaration avec <code>let</code> ou <code>const</code> rendra la variable accessible uniquement dans le bloc courant.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">function ex_var() {
+    var a = 5;
+    if(true) {
+        var b = 8;
+        console.log(b); // 8
     }
-})</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>On va ensuite indiquez à notre objet Vue et à notre composant d&#8217;utiliser ce store :</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">const app = new Vue({
-    el :"#app",
-    store: my_store
-})</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">Vue.component("comp", {
-    template: '&lt;div&gt;{{localdata}} {{message}}&lt;/div&gt;',
-    store: my_store,
-    data() {
-        return {
-            localdata: "Local"
-        }
-    },
-})</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>On va maintenant utiliser une variable calculée (<strong>computed</strong>) comme contenu de la variable <em>message</em> :</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">computed: {
-    message() {
-        return this.$store.state.message;
+    console.log(b); // 8
+}
+function ex_let() {
+    var a = 5;
+    if(true) {
+        let b = 8;
+        console.log(b); // 8
     }
+    console.log(b); // error, b n'existe pas
 }</code></pre>
 </div>
 </div>
-<div class="quoteblock">
-<blockquote>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_3_fonctions">3. Fonctions</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p><strong>$store</strong> est un champ d&#8217;une instance Vue permettant d&#8217;accéder au store défini dans la configuration</p>
-</div>
-</blockquote>
-</div>
-<div class="quoteblock">
-<blockquote>
-<div class="paragraph">
-<p><strong>$store.state</strong> contient toutes les variables de l&#8217;état de notre application (en lecture seule)</p>
-</div>
-</blockquote>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions">Documentation</a></p>
 </div>
 <div class="paragraph">
-<p>Ajoutez cette variable sur le composant <em>comp</em> et le composant Vue principal.</p>
+<p>Pour déclarer une fonction :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">function name() {
+    // contenu
+}
+
+name(); //appel de cette fonction</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p><strong>La variable <em>message</em> est maintenant partagée entre plusieurs composants.</strong></p>
+<p>Une variable peut aussi contenir une fonction (tout comme n&#8217;importe quel autre type) :</p>
 </div>
-<iframe src="https://giphy.com/embed/5aLrlDiJPMPFS" width="412" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/jon-stewart-the-daily-show-5aLrlDiJPMPFS">via GIPHY</a></p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">let name = function() {} //fonction anonyme
+name(); //appel</code></pre>
+</div>
+</div>
 <div class="paragraph">
-<p>Le state de l&#8217;application est aussi réactif que les variables définies dans <em>data</em>, l&#8217;affichage sera mis à jour automatiquement dès qu&#8217;une variable aura été modifiée.</p>
+<p>Les fonctions anonymes sont très utiles pour être passées en callback d&#8217;une autre fonction :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">function exemple1() {
+    //contenu
+}
+fonctionQuiAccepteUneAutreFonction(exemple1)
+//OU
+fonctionQuiAccepteUneAutreFonction(function(){
+    //contenu
+})</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_Étape_4_mutations_et_actions">Étape 4 : Mutations et Actions</h3>
+<h3 id="_this">this</h3>
 <div class="paragraph">
-<p>Comme vu à l&#8217;étape précédente, les variable de l&#8217;objet <em>$state.store</em> sont accessibles en lecture seule.</p>
+<p>La variable <code>this</code> est accessible partout dans votre code mais ne représente pas toujours la même chose.</p>
 </div>
 <div class="paragraph">
-<p>Afin de demander à Vue de modifier l&#8217;état de l&#8217;application, nous avons à disposition 2 concepts : les mutations et les actions.</p>
+<p>Cette variable sera très utile lorsque nous utiliserons javascript avec Vue.js et Node.</p>
 </div>
 <div class="paragraph">
-<p>Les mutations sont synchrones (tout est exécuté lors de l&#8217;appel) et modifient directement <strong>state</strong>.</p>
+<p>Dans l&#8217;environnement global (à l&#8217;extérieur de toute fonction) <code>this</code> va pointer vers le contexte global :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">this.a = "Hello";
+console.log(a); //Hello
+console.log(this.a); //Hello</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Les actions sont asynchrones (une requête AJAX par exemple vers une API) et vont utiliser une mutation pour modifier <strong>state</strong>.</p>
+<p>Lors de l&#8217;appel d&#8217;une fonction, on distingue deux cas de figure :</p>
 </div>
 <div class="sect3">
-<h4 id="_mutations">Mutations</h4>
+<h4 id="_appel_classique">Appel classique</h4>
 <div class="paragraph">
-<p>Les mutations sont définies dans notre store comme ceci :</p>
+<p>Par défaut, <code>this</code> à l&#8217;intérieur d&#8217;une fonction va pointer vers l&#8217;objet global :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">mutations: {
-    updateMessage(state, param1) {
-        state.message = param1;
-    }
-}</code></pre>
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">function f() {
+    console.log(this.a);
+}
+var a = 8;
+f();</code></pre>
 </div>
-</div>
-<div class="quoteblock">
-<blockquote>
-<div class="paragraph">
-<p>Les mutations peuvent prendre 0, 1 ou plusieurs paramètres.</p>
-</div>
-</blockquote>
 </div>
 <div class="paragraph">
-<p>On utilise la méthode <strong>commit</strong> du store pour appeler une mutation. Exemple :</p>
+<p>On peut appeler cette fonction avec un autre contexte, en utilisant <code>call</code> ou <code>apply</code> :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">this.$store.commit('updateMessage', "Nouveau Message")</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Modifiez le code pour modifier <strong>message</strong> - à l&#8217;aide d&#8217;une mutation - 3 secondes après que la Vue soit montée.</p>
-</div>
-<div class="paragraph">
-<p>Observez dans <strong>Vue devtool</strong> l&#8217;évolution de l&#8217;état de l&#8217;application.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/vuex.png" alt="vuex">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">function f(param1, param2) {
+    console.log(this.a)
+}
+f.call({a: 24}, 1, 2) //24 (les arguments sont 1 et 2)
+f.apply({a: 42}, [5, 6]) //42 (les arguments sont 5 et 6)</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_actions">Actions</h4>
+<h4 id="_bind">Bind</h4>
 <div class="paragraph">
-<p>Les actions sont définies de cette façon :</p>
+<p>L&#8217;appel à la méthode <code>bind</code> va créer une nouvelle fonction où <code>this</code> est lié pour toujours à l&#8217;objet passé en paramètre.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">actions: {
-    getMessageFromAPI(context) {
-        monapi.query('/getmessage', function(data) {
-            context.commit('updateMessage', data.message)
-        });
-    }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Elles sont appelées à l&#8217;aide de la méthode <strong>dispatch</strong> du store :</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">this.$store.dispatch('getMessageFromAPI');</code></pre>
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">function f() {
+    console.log(this.a)
+}
+
+let g = f.bind({a: 24})
+g() //24
+let h = f.bind({a: 42})
+h() //42
+f.call({a: 112}) //112</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_Étape_5_projet">Étape 5 : Projet</h3>
+<h3 id="_arrow_functions_es6">Arrow-functions (ES6)</h3>
 <div class="paragraph">
-<p>Modifiez le projet pour permettre d&#8217;éditer et supprimer un film sans utiliser les évènements (grâce à un <strong>Store</strong> partagé bien sûr).</p>
-</div>
-<div class="paragraph">
-<p>Attention : Lorsque vous importez Vue et Vuex à l&#8217;aide de <code>import</code>, il faudra indiquer à Vue l&#8217;existence du plugin via la ligne suivante :</p>
+<p>ES6 a apporté les arrow-functions, une nouvelle manière de définir une fonction anonyme :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">import Vue from 'vue'
-import Vuex from 'vuex'
-
-Vue.use(Vuex);</code></pre>
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">fonctionQuiAccepteUneAutreFonction( () =&gt; {
+    //contenu
+} )</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Les paramètres se situent à gauche la flêche (on peut omettre les parentèse si un seul paramètre).</p>
+</div>
+<div class="paragraph">
+<p>À droite de la flêche se trouve le corp de la fonction. On peut ne pas mettre d&#8217;accolade, ce qui signifie qu&#8217;on place directement la valeur de retour à droite de la flêche.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">//arrow-functions qui prennent une variable e et retourne e+1
+(e) =&gt; { return e+1 }
+e =&gt; { return e+1 }
+e =&gt; e+1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Une arrow-function garde la valeur <code>this</code> du parent.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">//Avant pour qu'un callback puisse modifier le contexte :
+function() {
+    //...
+    let self = this;
+    loadData(function() {
+        //this = cette fonction anonyme
+        self.mydata = "...";
+    })
+    //...
+}
+
+//Maintenant
+function () {
+    //...
+    loadData( () =&gt; {
+        //this = l'objet englobant
+        this.mydata = "...";
+    })
+    //...
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_questions">Questions</h3>
+<div class="paragraph">
+<p>3.1. On commence doucement : créez une fonction qui retourne le triple de l&#8217;entier passé en paramètre</p>
+</div>
+<div class="paragraph">
+<p>3.2. Analysez le code suivant (sans l&#8217;exécuter). Quelle est d&#8217;après vous la sortie du programme ?</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">var b=2;
+function a() {
+    var e=5;
+    console.log(b);
+    console.log(c);
+    console.log(d);
+    console.log(e);
+}
+var c=3;
+a();
+var d=4;</code></pre>
+</div>
+</div>
+<hr>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Les variables sont accessibles uniquement dans le scope actuel et les scopes enfant</p>
+</div>
+</blockquote>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">var b=2; //scope global
+function a() {
+    console.log("a");
+    var e=5; //scope a
+    console.log(b);
+    console.log(c);
+    console.log(e);
+    console.log(d);
+}
+function f() {
+    console.log("f");
+    var d=6; //scope f
+    console.log(d);
+}
+f();
+a();
+var c=3; //scope global</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>3.3. Créez une fonction <code>add</code> accessible uniquement depuis une fonction <code>sum</code>.
+* La fonction <code>add</code> retourne la somme des 2 nombres passés en paramètre.
+* La fonction <code>sum</code> utilise <code>add</code> pour additionner les 4 nombres passés en paramètre et retourne le résultat</p>
+</div>
+<div class="paragraph">
+<p>Le scope global ne doit pas avoir accès à la fonction <code>add</code>.</p>
+</div>
+<div class="paragraph">
+<p>3.4. Écrivez de deux manières une fonction <code>pow</code> qui prend en paramètre <code>b</code> et <code>n</code>, et retourne <code>b puissance n</code>.</p>
+</div>
+<div class="paragraph">
+<p>3.5.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">function qu3_5(a, b, c) {
+    return a * c(b);
+}
+
+// Appelez cette fonction avec des paramètres cohérents</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_4_chaînes_de_caractères">4. Chaînes de caractères</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://www.w3schools.com/jsref/jsref_obj_string.asp">Documentation</a></p>
+</div>
+<div class="paragraph">
+<p>Quelques façons d&#8217;écrire des chaînes de caractère :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">let str1 = "Ceci est une string plutôt simple";
+let str2 = 'Une autre string';
+let str3 = "Ceci est une string avec \" un caratère échappé";
+
+let number = 8;
+let str4 = "Le nombre est "+number;
+let str5 = `Le nombre est ${number}`; //particulièrement pratique lorsqu'on a de nombreuses variables à insérer
+
+let str6 = "Multiligne \
+string";
+let str7 = `Multiligne
+string`;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Les chaînes sont des objets et donnent accès à de nombreuses méthodes (cf doc)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">let str = "Test de string";
+str.length; //14
+str.replace(" ", "."); //Test.de.string</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_questions_2">Questions</h3>
+<div class="paragraph">
+<p>4.1. Créez une fonction qui affiche dans la console l&#8217;inverse de la chaîne passée en paramètre. ex: "Hello" &#8594; "olleH"</p>
+</div>
+<div class="paragraph">
+<p>4.2. Faites en sorte que le code suivant remplace les caractères <code>a</code> par <code>d</code>, <code>b</code> par <code>e</code> et ainsi de suite</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">function replace(str, fn) {
+    for(var i=0;i&lt;str.length;i++) {
+        str[i] = fn(str[i]);
+    }
+}
+
+function my_fn(char) {
+    /// Votre code
+}
+
+replace("Je suis ton père", my_fn);</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_5_les_tableaux">5. Les tableaux</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Les tableaux (objet <code>Array</code>) représentent une liste ordonnée de valeurs. Numérotés à partir de 0, chaque élément peut être d&#8217;un type différent.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">let arr = new Array(0, 1, 3);
+let arr= [0, 1, 3];
+
+console.log(arr[2]); //3
+
+arr.push(8); //[0,1,3,8]</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_questions_3">Questions</h3>
+<div class="paragraph">
+<p>5.1. Map</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">var arr = [ { a: 1, b: 2 }, { a:2 , b: 4 }, { a: 9, b: 1 }, { a: 19, b: 29 }, { a: 187, b: 4 } ];</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Remplacez tout les éléments de ce tableau par la valeur de la propriété <code>b</code>. Écrivez votre solution de 2 manières : avec et sans <code>map</code>.</p>
+</div>
+<div class="paragraph">
+<p>5.2. Filter</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">var arr = [ { a: 1, b: 2 }, { a:2 , b: 4 }, { a: 9, b: 1 }, { a: 19, b: 29 }, { a: 187, b: 4 } ];</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Écrivez une fonction qui prend ce tableau en paramètre et garde uniquement les éléments avec <code>a &gt; 3</code>.</p>
+</div>
+<div class="paragraph">
+<p>5.3. Reduce</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">var arr = [ "Luke Skywalker", "Maître Yoda", "R2D2", "Padmé Amidala",  "Anakin Skywalker", "Obi-Wan Kenobi" ];</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Écrivez une fonction qui retourne la chaîne de caractère <code>Luke Skywalker, Anakin Skywalker, Obi-Wan Kenobi</code> etc&#8230;&#8203; en utilisant <code>reduce</code>.</p>
+</div>
+<div class="paragraph">
+<p>Écrivez une autre fonction qui retourne cette même chaîne mais sans les membres de la famille Skywalker.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_6_les_objets">6. Les objets</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Guide/Utiliser_les_objets">Documentation</a></p>
+</div>
+<div class="paragraph">
+<p>Le concept d&#8217;objet en javascript est le même que dans les autres languages : un conteneur qui englobe des propriétés et des méthodes.</p>
+</div>
+<div class="paragraph">
+<p>Les méthodes et propriétés d&#8217;un objet sont accessible via le <code>.</code> ou les crochets :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">object.property
+object["property"]
+object.method()
+object["method"]()</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Tout est objet en javascript, même les types primitifs (nombres, chaînes de caratère, booléens etc&#8230;&#8203;)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">console.log("Hello".length) //5</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Les objets peuvent être utilisés pour stocker des paires clé/valeur (comme avec un objet JSON ou les structures en C) :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">let obj = new Object();
+obj.a = 42;
+obj.b = 81;
+
+let obj = {
+    a: 42,
+    b: 81
+}
+
+obj.c //undefined</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_questions_4">Questions</h3>
+<div class="paragraph">
+<p>6.1. Créez un objet représentant un film (titre, synopsys, année de sortie) ainsi que son réalisateur (sous-objet avec nom/prénom/date de naissance).</p>
+</div>
+<div class="paragraph">
+<p>6.2. Créez un tableau contenant les films <em>Titanic</em>, <em>Interstellar</em>, <em>La ligne verte</em> avec leurs infos. Affichez ensuite le contenu du tableau dans la console (en mettant en forme les infos du film sur chaque ligne)</p>
 </div>
 </div>
 </div>
@@ -686,7 +984,7 @@ Vue.use(Vuex);</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-12-11 07:32:45 CET
+Last updated 2017-12-17 20:00:56 CET
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
