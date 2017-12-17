@@ -143,8 +143,32 @@ Le middleware sera alors exécuté pour toutes les requêtes envoyées au serveu
 
 *Écrivez un middleware qui affiche dans la console l'heure, le chemin et le contenu du body de chaque requêtes envoyées au serveur. Ajoutez la date de la requête à l'objet de la requête.*
 
-== Étape {counter:step} : Affichez du HTML
+== Étape {counter:step} : Afficher du HTML
 
 En plus de pouvoir retourner au navigateur une chaîne de caractères ou un objet JSON (_res.send_), vous pouvez utiliser un système de template pour utiliser un système de template intégré à Express (_res.render_).
 
+Nous n'utiliserons pas de système de template dans ce cours, toute la partie est gérée avec Vue.js.
+
+=== Fichiers statiques 
+
+Pour permettre au navigateur d'accéder aux fichiers statiques (fichier CSS, javascript, images), le middleware _express.static_ est utilisé :
+```js
+app.use('/static', express.static('folder/of/static/files'))
+```
+
+=== Afficher index.html
+
+Créez un fichier _index.html_ qui va être le point d'entrée de notre application Vue.js. 
+
+*Faites en sorte que le contenu de ce fichier soit retourné au navigateur lorsque nous accédons au chemin root '/'.*
+
+> Utilisez le https://nodejs.org/api/fs.html[module FS (file system)]
+
 == Étape {counter:step} : Projet
+
+Écrivez un serveur Node.js qui stocke une liste de films (variable globale) et met à disposition les urls suivantes :
+
+* `GET /api/movies/all` retourne un tableau avec tout les films
+* `GET /api/movies/:id` retourne l'objet correspondant au film avec l'identifiant `id`
+* `POST /api/movies/:id` met à jour le film avec l'identifiant `id`.
+* `POST /api/movies` : créé un nouveau film

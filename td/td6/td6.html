@@ -435,7 +435,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_Étape_2_http_server">Étape 2 : HTTP Server</a></li>
 <li><a href="#_Étape_3_express">Étape 3 : Express</a></li>
 <li><a href="#_Étape_4_express_middleware">Étape 4 : Express Middleware</a></li>
-<li><a href="#_Étape_5_affichez_du_html">Étape 5 : Affichez du HTML</a></li>
+<li><a href="#_Étape_5_afficher_du_html">Étape 5 : Afficher du HTML</a>
+<ul class="sectlevel2">
+<li><a href="#_fichiers_statiques">Fichiers statiques</a></li>
+<li><a href="#_afficher_index_html">Afficher index.html</a></li>
+</ul>
+</li>
 <li><a href="#_Étape_6_projet">Étape 6 : Projet</a></li>
 </ul>
 </div>
@@ -712,23 +717,71 @@ app.use(bodyParser.urlencoded()) //parse x-www-form-urlencoded body</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_Étape_5_affichez_du_html">Étape 5 : Affichez du HTML</h2>
+<h2 id="_Étape_5_afficher_du_html">Étape 5 : Afficher du HTML</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>En plus de pouvoir retourner au navigateur une chaîne de caractères ou un objet JSON (<em>res.send</em>), vous pouvez utiliser un système de template pour utiliser un système de template intégré à Express (<em>res.render</em>).</p>
+</div>
+<div class="paragraph">
+<p>Nous n&#8217;utiliserons pas de système de template dans ce cours, toute la partie est gérée avec Vue.js.</p>
+</div>
+<div class="sect2">
+<h3 id="_fichiers_statiques">Fichiers statiques</h3>
+<div class="paragraph">
+<p>Pour permettre au navigateur d&#8217;accéder aux fichiers statiques (fichier CSS, javascript, images), le middleware <em>express.static</em> est utilisé :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">app.use('/static', express.static('folder/of/static/files'))</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_afficher_index_html">Afficher index.html</h3>
+<div class="paragraph">
+<p>Créez un fichier <em>index.html</em> qui va être le point d&#8217;entrée de notre application Vue.js.</p>
+</div>
+<div class="paragraph">
+<p><strong>Faites en sorte que le contenu de ce fichier soit retourné au navigateur lorsque nous accédons au chemin root '/'.</strong></p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Utilisez le <a href="https://nodejs.org/api/fs.html">module FS (file system)</a></p>
+</div>
+</blockquote>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_Étape_6_projet">Étape 6 : Projet</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>Écrivez un serveur Node.js qui stocke une liste de films (variable globale) et met à disposition les urls suivantes :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GET /api/movies/all</code> retourne un tableau avec tout les films</p>
+</li>
+<li>
+<p><code>GET /api/movies/:id</code> retourne l&#8217;objet correspondant au film avec l&#8217;identifiant <code>id</code></p>
+</li>
+<li>
+<p><code>POST /api/movies/:id</code> met à jour le film avec l&#8217;identifiant <code>id</code>.</p>
+</li>
+<li>
+<p><code>POST /api/movies</code> : créé un nouveau film</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-12-17 19:59:43 CET
+Last updated 2017-12-17 20:24:54 CET
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">

@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser');
+const fs = require('fs') 
 
 const app = express()
 app.use(bodyParser.json()) //parse JSON body
@@ -10,6 +11,12 @@ app.use((req, res, next) => {
     req.requestTime = new Date();
     next();
 });
+
+app.get('/', (req, res) => {
+    fs.readFile('index.html', (err, data) => {
+        res.contentType('text/html').send(data)
+    })
+})
 
 app.get('/foo/:myvar', (req, res) => res.send({var: req.params.myvar}))
 

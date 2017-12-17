@@ -1,0 +1,16 @@
+{
+  "requires": true,
+  "lockfileVersion": 1,
+  "dependencies": {
+    "vue": {
+      "version": "2.5.8",
+      "resolved": "https://registry.npmjs.org/vue/-/vue-2.5.8.tgz",
+      "integrity": "sha512-aY26SGDHJTCKM+mndzuiQ0dozPpNeWO5Mtq760OrHO0AOiqVHMhzvU5h0LdCkVF9A+vE+DMTm74xSi+sxnMEDg=="
+    },
+    "vue-router": {
+      "version": "3.0.1",
+      "resolved": "https://registry.npmjs.org/vue-router/-/vue-router-3.0.1.tgz",
+      "integrity": "sha512-vLLoY452L+JBpALMP5UHum9+7nzR9PeIBCghU9ZtJ1eWm6ieUI8Zb/DI3MYxH32bxkjzYV1LRjNv4qr8d+uX/w=="
+    }
+  }
+}
