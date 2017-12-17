@@ -1,0 +1,83 @@
+:step: 0
+:source-highlighter: highlightjs
+:sourcedir: src/
+:imagesdir: images/
+
+:toc:
+:toc-title: Table des matières
+
+= Project DAWIN
+
+L'objectif de ce projet est de faire évoluer l'application démarée en TD.
+
+Deadline :
+
+* DAWIN : 04/02/2018
+* DAWIN Alternants : 08/04/2018
+
+== Spécifications
+
+=== Fonctionnalités
+
+* Ajout, suppression et édition des informations d'un film
+* Affichage de la liste des films
+* Recherche à l'intérieur des différents paramètres (un seul champ de recherche)
+* Upload d'un poster pour chaque film
+* Possibilité de noter un film sur une échelle de 1 à 5
+* Les pages doivent posséder un style CSS
+
+=== Librairie conseillées
+
+* Pour l'upload : https://github.com/expressjs/multer
+* Vous trouverez beaucoup de composants ici qui pourront vous permettre d'améliorer facilement l'interface : https://github.com/vuejs/awesome-vue#ui-components
+
+=== Objet Film
+
+Voilà les informations de base qui doivent être contenues dans un film (hors notation et image) :
+
+* Titre
+* Année de sortie
+* Langue
+* Réalisateur
+    ** Nom / Prénom
+    ** Nationalité
+    ** Date de naissance
+* Genre du film (Science-Fiction, Historique etc...)
+
+=== Structure des pages
+
+```text
+/ -> Liste des films avec recherche
+/movie/:id -> Détails d'un film (avec lien vers édition, suppression, notation)
+/movie/:id/edit -> Modification d'un film
+```
+
+Il s'agit des pages visibles par l'utilisateur dans son navigateur, cette liste n'inclut pas les chemins supplémentaires pour l'API.
+
+=== Structure de fichiers
+
+```tree
+package.json
+node_modules/
+src/
+    |_ static/ # les images et fichiers CSS
+    |_ node/
+        |_ app.js # point d'entrée de l'application Node
+        |_ routes.js # Routes de l'application
+    |_ vue/
+        |_ main.js # point d'entrée de l'application Vue.js
+        |_ app.vue
+        |_ routes.js # config de vue-router
+        |_ store.js # vuex
+        |_ components/
+            |_ movie-item.vue
+            |_ ...  
+    |_ dist/ # Sortie de la compilation avec Webpack
+```
+
+== Bonus
+
+Fonctionnalités supplémentaires (== points supplémentaires) lorsque les fonctionnalités décrites ci-dessus sont terminées :
+
+* Stocker la liste des films dans une base de données
+* Utiliser l'API https://www.omdbapi.com/[OMDb API] pour récupérer automatiquement le poster (en plus de l'upload d'un poster manuellement)
