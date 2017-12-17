@@ -8,8 +8,6 @@
 
 = Project DAWIN
 
-L'objectif de ce projet est de faire évoluer l'application démarrée en TD.
-
 Deadline :
 
 * DAWIN : 04/02/2018
@@ -75,9 +73,25 @@ src/
     |_ dist/ # Sortie de la compilation avec Webpack
 ```
 
+Le projet doit se lancer avec la commande :
+
+```shell
+$ npm install && node src/node/app.js
+```
+
 == Bonus
 
 Fonctionnalités supplémentaires (== points supplémentaires) lorsque les fonctionnalités décrites ci-dessus sont terminées :
 
 * Stocker la liste des films dans une base de données
 * Utiliser l'API https://www.omdbapi.com/[OMDb API] pour récupérer automatiquement le poster (en plus de l'upload d'un poster manuellement)
+
+== Notation
+
+Plusieurs critères seront pris en compte pour la notation :
+
+* Présence des fonctionnalités demandées
+* Clarté du code
+* Respect des différents concepts Vue.js (découpage en composants, Vuex store uniquement pour les données partagées, etc...)
+
+N'hésitez pas à me solliciter par email si vous avez des questions ou si vous êtes bloqués !
