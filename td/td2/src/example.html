@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Movielist</title>
+
+    <script src="../../3rd/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p v-if="display">Message: {{message}}</p>
+
+        <p>
+            <ul>
+                <movie-item v-for="movie in movies" v-bind:title="movie" v-on:click="clicked" v-bind:movietitle="movie"></movie-item>
+            </ul>
+        </p>
+
+        <p>
+            <input type="text" v-model="message" />
+        </p>
+
+        <p>
+            First letter : {{firstletter}}
+        </p>
+    </div>
+
+    <script type="text/javascript">
+        Vue.component('movie-item', {
+            props: ["movietitle"], 
+            template: "<li>{{movietitle}}</li>"
+        })
+
+        var app = new Vue({
+            el: "#app",
+            data: {
+                message: "Hello World!",
+                display: true,
+                movies: ["Star Wars 8", "Star Wars 7"]
+            },
+            methods: {
+                clicked: function() {
+                    console.log(this.message)
+                }
+            },
+            computed: {
+                firstletter: function() {
+                    return this.message[0]
+                }
+            }
+        })
+    </script>
+</body>

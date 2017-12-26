@@ -24,9 +24,12 @@ Deadline :
 * Possibilité de noter un film sur une échelle de 1 à 5
 * Les pages doivent posséder un style CSS
 
+La liste des films est stockée comme variable globale par Node.js. C'est à dire que si on redémarre le serveur, la liste des films est réinitalisée automatiquement.
+
 === Librairie conseillées
 
 * Pour l'upload : https://github.com/expressjs/multer
+* Échanger des données entre Vue.js et Node.js (Ajax) : https://github.com/mzabriskie/axios
 * Vous trouverez beaucoup de composants ici qui pourront vous permettre d'améliorer facilement l'interface : https://github.com/vuejs/awesome-vue#ui-components
 
 === Objet Film
@@ -50,12 +53,13 @@ Voilà les informations de base qui doivent être contenues dans un film (hors n
 /movie/:id/edit -> Modification d'un film
 ```
 
-Il s'agit des pages visibles par l'utilisateur dans son navigateur, cette liste n'inclut pas les chemins supplémentaires pour l'API.
+Il s'agit des pages visibles par l'utilisateur dans son navigateur, cette liste n'inclut pas les chemins supplémentaires pour l'API dans Node.js.
 
 === Structure de fichiers
 
 ```tree
 package.json
+webpack.config.js
 node_modules/
 src/
     |_ static/ # les images et fichiers CSS
@@ -73,17 +77,19 @@ src/
     |_ dist/ # Sortie de la compilation avec Webpack
 ```
 
+C'est le Store de Vue.js qui centralise les requêtes vers l'API Node.js lorsqu'elles concernent la liste des films.
+
 Le projet doit se lancer avec la commande :
 
 ```shell
-$ npm install && node src/node/app.js
+$ npm install && node_modules/.bin/webpack --progress --hide-modules && node src/node/app.js
 ```
 
 == Bonus
 
 Fonctionnalités supplémentaires (== points supplémentaires) lorsque les fonctionnalités décrites ci-dessus sont terminées :
 
-* Stocker la liste des films dans une base de données
+* Stocker la liste des films dans une base de données (attention à me fournir lors du rendu la structure de la base de données ainsi que l'emplacement dans le code des identifiants de la base)
 * Utiliser l'API https://www.omdbapi.com/[OMDb API] pour récupérer automatiquement le poster (en plus de l'upload d'un poster manuellement)
 
 == Notation
@@ -94,4 +100,4 @@ Plusieurs critères seront pris en compte pour la notation :
 * Clarté du code
 * Respect des différents concepts Vue.js (découpage en composants, Vuex store uniquement pour les données partagées, etc...)
 
-N'hésitez pas à me solliciter par email si vous avez des questions ou si vous êtes bloqués !
+N'hésitez pas à me solliciter par email si vous avez des questions ou si vous êtes bloqués ! (cleriotsimon@gmail.com)

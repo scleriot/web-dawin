@@ -282,9 +282,11 @@ str.replace(" ", "."); //Test.de.string
 4.2. Faites en sorte que le code suivant remplace les caractères `a` par `d`, `b` par `e` et ainsi de suite 
 ```js
 function replace(str, fn) {
+    let new_str = "";
     for(var i=0;i<str.length;i++) {
-        str[i] = fn(str[i]);
+        new_str += fn(str[i]);
     }
+    return new_str;
 }
 
 function my_fn(char) {

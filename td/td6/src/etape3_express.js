@@ -18,6 +18,9 @@ app.get('/', (req, res) => {
     })
 })
 
+app.use('/node', express.static('node_modules'))
+app.get('/api/message', (req, res) => setTimeout(() => res.send({message: "Hello DAWIN"}), 4000))
+
 app.get('/foo/:myvar', (req, res) => res.send({var: req.params.myvar}))
 
 app.post('/add', (req, res) => {

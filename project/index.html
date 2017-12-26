@@ -490,6 +490,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>La liste des films est stockée comme variable globale par Node.js. C&#8217;est à dire que si on redémarre le serveur, la liste des films est réinitalisée automatiquement.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_librairie_conseillées">Librairie conseillées</h3>
@@ -497,6 +500,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul>
 <li>
 <p>Pour l&#8217;upload : <a href="https://github.com/expressjs/multer" class="bare">https://github.com/expressjs/multer</a></p>
+</li>
+<li>
+<p>Échanger des données entre Vue.js et Node.js (Ajax) : <a href="https://github.com/mzabriskie/axios" class="bare">https://github.com/mzabriskie/axios</a></p>
 </li>
 <li>
 <p>Vous trouverez beaucoup de composants ici qui pourront vous permettre d&#8217;améliorer facilement l&#8217;interface : <a href="https://github.com/vuejs/awesome-vue#ui-components" class="bare">https://github.com/vuejs/awesome-vue#ui-components</a></p>
@@ -552,7 +558,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>Il s&#8217;agit des pages visibles par l&#8217;utilisateur dans son navigateur, cette liste n&#8217;inclut pas les chemins supplémentaires pour l&#8217;API.</p>
+<p>Il s&#8217;agit des pages visibles par l&#8217;utilisateur dans son navigateur, cette liste n&#8217;inclut pas les chemins supplémentaires pour l&#8217;API dans Node.js.</p>
 </div>
 </div>
 <div class="sect2">
@@ -560,6 +566,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-tree hljs" data-lang="tree">package.json
+webpack.config.js
 node_modules/
 src/
     |_ static/ # les images et fichiers CSS
@@ -578,11 +585,14 @@ src/
 </div>
 </div>
 <div class="paragraph">
+<p>C&#8217;est le Store de Vue.js qui centralise les requêtes vers l&#8217;API Node.js lorsqu&#8217;elles concernent la liste des films.</p>
+</div>
+<div class="paragraph">
 <p>Le projet doit se lancer avec la commande :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ npm install &amp;&amp; node src/node/app.js</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ npm install &amp;&amp; node_modules/.bin/webpack --progress --hide-modules &amp;&amp; node src/node/app.js</code></pre>
 </div>
 </div>
 </div>
@@ -597,7 +607,7 @@ src/
 <div class="ulist">
 <ul>
 <li>
-<p>Stocker la liste des films dans une base de données</p>
+<p>Stocker la liste des films dans une base de données (attention à me fournir lors du rendu la structure de la base de données ainsi que l&#8217;emplacement dans le code des identifiants de la base)</p>
 </li>
 <li>
 <p>Utiliser l&#8217;API <a href="https://www.omdbapi.com/">OMDb API</a> pour récupérer automatiquement le poster (en plus de l&#8217;upload d&#8217;un poster manuellement)</p>
@@ -626,14 +636,14 @@ src/
 </ul>
 </div>
 <div class="paragraph">
-<p>N&#8217;hésitez pas à me solliciter par email si vous avez des questions ou si vous êtes bloqués !</p>
+<p>N&#8217;hésitez pas à me solliciter par email si vous avez des questions ou si vous êtes bloqués ! (<a href="mailto:cleriotsimon@gmail.com">cleriotsimon@gmail.com</a>)</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-12-17 21:19:41 CET
+Last updated 2017-12-26 10:21:47 CET
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
