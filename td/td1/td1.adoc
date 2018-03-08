@@ -127,6 +127,7 @@ On peut appeler cette fonction avec un autre contexte, en utilisant `call` ou `a
 ```js
 function f(param1, param2) {
     console.log(this.a)
+    console.log(param1+param2)
 }
 f.call({a: 24}, 1, 2) //24 (les arguments sont 1 et 2)
 f.apply({a: 42}, [5, 6]) //42 (les arguments sont 5 et 6)
