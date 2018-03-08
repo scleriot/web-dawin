@@ -32,14 +32,7 @@
 
         Search : <input type="text" v-model="search" />
         <ul>
-            <li v-for="(movie, index) in movies_search" v-bind:key="movie.title" v-bind:title="message" @click="movie_to_display=movie">
-                <b>{{movie.title}} ({{movie.year}})</b><br />
-                <span v-if="movie_to_display === movie">
-                    {{movie.synopsys}}<br />
-                    <button @click="edit(movie)">Edit</button> <button @click="remove(index)">Remove</button>
-                </span>
-                <br /><br />
-            </li>
+            <movie-item v-for="(movie, index) in movies_search" v-bind:key="movie.title" v-bind:movie="movie" v-on:edit="edit" v-on:remove="remove(index)"></movie-item>
         </ul>
 
         <p v-if="movie_to_edit">New movie<br />
@@ -47,17 +40,30 @@
             Year : <input type="text" v-model="movie_to_edit.year" /><br />
             Synopsys : <textarea v-model="movie_to_edit.synopsys"></textarea><br />
             <button v-on:click="save">Save</button></p>
-
-        <h3>Components</h3>
-        <ul>
-            <movie-item v-for="movie in movies" v-bind:key="movie.title" v-bind:movie="movie"></movie-item>
-        </ul>
     </div>
 
     <script type="text/javascript">
         Vue.component('movie-item', {
             props: [ "movie" ],
-            template: '<li>{{movie.title}}</li>',
+            template: `<li @click="display_details=!display_details"><b>{{movie.title}} ({{movie.year}})</b><br />
+            <span v-if="display_details">
+                {{movie.synopsys}}<br />
+                <button @click="edit">Edit</button> <button @click="remove">Remove</button>
+            </span>
+            <br /><br /></li>`,
+            data: function(){
+                return {
+                    display_details: false
+                }
+            },
+            methods: {
+                edit() {
+                    this.$emit('edit', this.movie)
+                },
+                remove() {
+                    this.$emit('remove')
+                }
+            },
             mounted: function() {
                 console.log("Mounted ", this.movie)
             }
@@ -69,8 +75,7 @@
                 message: 'Hello Vue!',
                 display: true,
                 movie_to_add: {},
-                movie_to_edit: undefined,
-                movie_to_display: undefined,
+                movie_to_edit: null,
                 search: "",
                 movies : [
                     {
@@ -112,7 +117,7 @@
                     return this.message[0]
                 },
                 movies_search: function() {
-                    return this.movies.filter(m => m.title.indexOf(this.search)!=-1);
+                    return this.movies.filter(m => m.title.toLowerCase().indexOf(this.search.toLowerCase())!=-1);
                 }
             }
         })
