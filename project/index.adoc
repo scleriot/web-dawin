@@ -11,7 +11,7 @@
 Deadline :
 
 * DAWIN : 04/02/2018
-* DAWIN Alternants : 08/04/2018
+* DAWIN Alternants : 27/05/2018
 
 == Spécifications
 

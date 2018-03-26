@@ -1,50 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Movielist</title>
+    <title>TD2</title>
 
     <script src="../../3rd/vue.js"></script>
 </head>
 <body>
     <div id="app">
-        <p v-if="display">Message: {{message}}</p>
+        <span v-if="display">Message: {{message}}</span>
 
-        <p>
-            <ul>
-                <movie-item v-for="movie in movies" v-bind:title="movie" v-on:click="clicked" v-bind:movietitle="movie"></movie-item>
-            </ul>
-        </p>
+        <span>Taille : {{tailleTableau}}</span>
+        <ul>
+            <movie-item v-for="(movie, index) of movies" v-bind:title="movies.length" v-bind:movie="movie"></movie-item>
+        </ul>
 
-        <p>
-            <input type="text" v-model="message" />
-        </p>
-
-        <p>
-            First letter : {{firstletter}}
-        </p>
+        <div>
+            <input type="text" v-model="movie_to_add" />
+            <button v-on:click="sauvegarderFilm">Modifier</button>
+        </div>
     </div>
 
     <script type="text/javascript">
         Vue.component('movie-item', {
-            props: ["movietitle"], 
-            template: "<li>{{movietitle}}</li>"
+            props: [ "movie" ],
+            template: "<li>{{movie}} (lettres : {{numberLetter}}</li>",
+            computed: {
+                numberLetter: function() {
+                    return this.movie.length
+                }
+            }
         })
 
         var app = new Vue({
             el: "#app",
             data: {
-                message: "Hello World!",
+                message: "Bonjour Casablanca!",
                 display: true,
-                movies: ["Star Wars 8", "Star Wars 7"]
-            },
-            methods: {
-                clicked: function() {
-                    console.log(this.message)
-                }
+                movies: [ "Dark Panther", "007" ],
+                movie_to_add: "Star Wars",
+                movie_to_edit_index: 0
             },
             computed: {
-                firstletter: function() {
-                    return this.message[0]
+                tailleTableau: function(){
+                    return this.movies.length
+                }
+            },
+            methods: {
+                onclick: function(a){
+                    alert(a)
+                },
+                ajouterFilm: function() {
+                    this.movies.push(this.movie_to_add.title)
+                },
+
+                supprimerFilm: function(i) {
+                    Vue.delete(this.movies, i)
+                },
+                editerFilm: function(i) {
+                    this.movie_to_add = this.movies[i]
+                    this.movie_to_edit_index = i
+                },
+                sauvegarderFilm() {
+                    Vue.set(this.movies, this.movie_to_edit_index, this.movie_to_add)
                 }
             }
         })

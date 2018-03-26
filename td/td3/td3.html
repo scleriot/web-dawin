@@ -676,6 +676,9 @@ if (process.env.NODE_ENV === 'production') {
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">import Vue from 'vue' //librairie "vue" dans node_modules
 import app from './app.vue' //fichier app.vue local
+import MovieItemComponent from './components/movieitem.vue'
+
+Vue.component('movie-item', MovieItemComponent);
 
 new Vue({
   el: '#app',
@@ -689,6 +692,28 @@ new Vue({
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;template&gt;
 &lt;div&gt;
     &lt;span id="msg"&gt;{{message}}&lt;/span&gt;
+
+    &lt;p&gt;Movie number : {{movies.length}}&lt;/p&gt;
+    &lt;p&gt;
+        New movie&lt;br /&gt;
+        Title : &lt;input type="text" v-model="movie_to_add.title" /&gt;&lt;br /&gt;
+        Year : &lt;input type="text" v-model="movie_to_add.year" /&gt;&lt;br /&gt;
+        Synopsys : &lt;textarea v-model="movie_to_add.synopsys"&gt;&lt;/textarea&gt;&lt;br /&gt;
+        &lt;button v-on:click="newmovie2"&gt;Add&lt;/button&gt;
+    &lt;/p&gt;
+    Search : &lt;input type="text" v-model="search" /&gt;
+
+    &lt;ul&gt;
+        &lt;movie-item v-for="(movie, index) in movies_search" v-bind:key="movie.title" v-bind:movie="movie" v-on:edit="edit" v-on:remove="remove(index)"&gt;&lt;/movie-item&gt;
+    &lt;/ul&gt;
+
+    &lt;p v-if="movie_to_edit"&gt;
+        New movie&lt;br /&gt;
+        Title : &lt;input type="text" v-model="movie_to_edit.title" /&gt;&lt;br /&gt;
+        Year : &lt;input type="text" v-model="movie_to_edit.year" /&gt;&lt;br /&gt;
+        Synopsys : &lt;textarea v-model="movie_to_edit.synopsys"&gt;&lt;/textarea&gt;&lt;br /&gt;
+        &lt;button v-on:click="save"&gt;Save&lt;/button&gt;
+    &lt;/p&gt;
 &lt;/div&gt;
 &lt;/template&gt;
 
@@ -696,7 +721,55 @@ new Vue({
 export default {
     data() {
         return {
-            message: "Hello"
+            message: "Hello",
+            movie_to_add: {},
+            movie_to_edit: null,
+            search: "",
+            movies : [
+                {
+                    title: "L'étrange noël de M. Jack",
+                    year: 1994,
+                    synopsys: "Jack Skellington, un épouvantail squelettique surnommé « le Roi des citrouilles » (Pumpkin King en version originale), vit dans la ville d'Halloween. En tant que maître de l'épouvante, Jack occupe ses journées à préparer la prochaine fête d'Halloween."
+                },
+                {
+                    title: "Interstellar",
+                    year: 2014,
+                    synopsys: "Alors que la Terre se meurt, une équipe d'astronautes franchit un trou de ver apparu près de Saturne conduisant à une autre galaxie, cela dans le but d'explorer un nouveau système stellaire et l'espoir de trouver une nouvelle planète habitable par l'humanité afin de la sauver."
+                }
+            ]
+        }
+    },
+
+    methods: {
+        newmovie1: function() {
+            this.movies.push({title:"New movie"})
+        },
+        newmovie2: function() {
+            this.movies.push(this.movie_to_add)
+            this.movie_to_add = {}
+        },
+
+        edit: function(movie) {
+            this.movie_to_edit = movie
+        },
+        save: function() {
+            this.movie_to_edit = null
+        },
+        remove: function(index) {
+            this.movies.splice(index, 1)
+        }
+    },
+
+    created: function() {
+        console.log("Created")
+    },
+
+    computed: {
+        firstletter: function() {
+            return this.message[0]
+        },
+        movies_search: function() {
+            return this.movies.filter(m =&gt; m.title.toLowerCase().indexOf(this.search.toLowerCase())!=-1);
         }
     }
 }
