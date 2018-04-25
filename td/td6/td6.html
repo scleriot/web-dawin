@@ -441,7 +441,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_afficher_index_html">Afficher index.html</a></li>
 </ul>
 </li>
-<li><a href="#_Étape_6_projet">Étape 6 : Projet</a></li>
+<li><a href="#_Étape_6_projet_api">Étape 6 : Projet API</a></li>
+<li><a href="#_Étape_7_projet_vue">Étape 7 : Projet Vue</a></li>
 </ul>
 </div>
 </div>
@@ -651,6 +652,9 @@ app.use(bodyParser.urlencoded()) //parse x-www-form-urlencoded body</code></pre>
 <p>Un middleware est une étape par laquelle va passer chaque requête reçue par Express avant d&#8217;être transmise au <em>route handler</em> (c&#8217;est à dire app.get, app.post etc&#8230;&#8203;).</p>
 </div>
 <div class="paragraph">
+<p><span class="image"><img src="images/middleware.png" alt="middleware"></span></p>
+</div>
+<div class="paragraph">
 <p>Ces middlewares peuvent avoir plusieurs intérêts, notamment :</p>
 </div>
 <div class="ulist">
@@ -678,6 +682,9 @@ app.use(bodyParser.urlencoded()) //parse x-www-form-urlencoded body</code></pre>
     next();
 })</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/middlewareexplained.png" alt="middlewareexplained"></span></p>
 </div>
 <div class="paragraph">
 <p>La fonction <em>next</em> passée en paramètre permet au middleware d&#8217;indiquer à Express de passer au middleware suivant.</p>
@@ -720,7 +727,7 @@ app.use(bodyParser.urlencoded()) //parse x-www-form-urlencoded body</code></pre>
 <h2 id="_Étape_5_afficher_du_html">Étape 5 : Afficher du HTML</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>En plus de pouvoir retourner au navigateur une chaîne de caractères ou un objet JSON (<em>res.send</em>), vous pouvez utiliser un système de template pour utiliser un système de template intégré à Express (<em>res.render</em>).</p>
+<p>En plus de pouvoir retourner au navigateur une chaîne de caractères ou un objet JSON (<em>res.send</em> : <a href="http://expressjs.com/en/api.html#res.send" class="bare">http://expressjs.com/en/api.html#res.send</a>), vous pouvez utiliser un système de template pour utiliser un système de template intégré à Express (<em>res.render</em> : <a href="http://expressjs.com/en/api.html#res.render" class="bare">http://expressjs.com/en/api.html#res.render</a>).</p>
 </div>
 <div class="paragraph">
 <p>Nous n&#8217;utiliserons pas de système de template dans ce cours, toute la partie est gérée avec Vue.js.</p>
@@ -747,7 +754,7 @@ app.use(bodyParser.urlencoded()) //parse x-www-form-urlencoded body</code></pre>
 <div class="quoteblock">
 <blockquote>
 <div class="paragraph">
-<p>Utilisez le <a href="https://nodejs.org/api/fs.html">module FS (file system)</a></p>
+<p>Utilisez <a href="http://expressjs.com/en/api.html#res.sendFile">res.sendFile</a></p>
 </div>
 </blockquote>
 </div>
@@ -755,7 +762,7 @@ app.use(bodyParser.urlencoded()) //parse x-www-form-urlencoded body</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_Étape_6_projet">Étape 6 : Projet</h2>
+<h2 id="_Étape_6_projet_api">Étape 6 : Projet API</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Écrivez un serveur Node.js qui stocke une liste de films (variable globale) et met à disposition les urls suivantes :</p>
@@ -776,12 +783,42 @@ app.use(bodyParser.urlencoded()) //parse x-www-form-urlencoded body</code></pre>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>Commencez par implémenter la première route et passez à l&#8217;étape suivante.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_Étape_7_projet_vue">Étape 7 : Projet Vue</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Afin de faire une requête depuis Vue.js vers votre API Node.js, vous allez devoir faire une requête Ajax. Plusieurs clients existent, nous allons utiliser <a href="https://github.com/mzabriskie/axios">axios</a>.</p>
+</div>
+<div class="paragraph">
+<p>Votre store va définir une action (appelons là <em>getMoviesFromAPI</em>) qui fait une requête à l&#8217;API pour récupérer la liste des films.</p>
+</div>
+<div class="paragraph">
+<p>Lors du chargement du composant liste de film, voilà ce qui se passe :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Dispatch l&#8217;actions <em>getMoviesFromAPI</em></p>
+</li>
+<li>
+<p>Cette action fait une requête au serveur via Axios</p>
+</li>
+<li>
+<p>Lors du résultat de cette requête, la mutation <em>updateMovies</em> est appelée avec la liste des films reçue du serveur</p>
+</li>
+</ol>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-12-17 20:24:54 CET
+Last updated 2018-04-25 19:04:37 CEST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">

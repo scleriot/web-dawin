@@ -108,6 +108,8 @@ Un corps de requête JSON est directement converti dans l'objet javascript corre
 
 Un middleware est une étape par laquelle va passer chaque requête reçue par Express avant d'être transmise au _route handler_ (c'est à dire app.get, app.post etc...).
 
+image:middleware.png[]
+
 Ces middlewares peuvent avoir plusieurs intérêts, notamment : 
 
 * Vérifier qu'un utilisateur est connecté à chaque requête
@@ -121,6 +123,9 @@ app.get('chemin', (req, res, next) => {
     next();
 })
 ```
+
+image:middlewareexplained.png[]
+
 La fonction _next_ passée en paramètre permet au middleware d'indiquer à Express de passer au middleware suivant.
 
 Ce middleware sera donc exécuté pour une requête GET sur le chemin passé en 1er paramètre.
@@ -145,7 +150,7 @@ Le middleware sera alors exécuté pour toutes les requêtes envoyées au serveu
 
 == Étape {counter:step} : Afficher du HTML
 
-En plus de pouvoir retourner au navigateur une chaîne de caractères ou un objet JSON (_res.send_), vous pouvez utiliser un système de template pour utiliser un système de template intégré à Express (_res.render_).
+En plus de pouvoir retourner au navigateur une chaîne de caractères ou un objet JSON (_res.send_ : http://expressjs.com/en/api.html#res.send), vous pouvez utiliser un système de template pour utiliser un système de template intégré à Express (_res.render_ : http://expressjs.com/en/api.html#res.render).
 
 Nous n'utiliserons pas de système de template dans ce cours, toute la partie est gérée avec Vue.js.
 
@@ -162,9 +167,9 @@ Créez un fichier _index.html_ qui va être le point d'entrée de notre applicat
 
 *Faites en sorte que le contenu de ce fichier soit retourné au navigateur lorsque nous accédons au chemin root '/'.*
 
-> Utilisez le https://nodejs.org/api/fs.html[module FS (file system)]
+> Utilisez http://expressjs.com/en/api.html#res.sendFile[res.sendFile]
 
-== Étape {counter:step} : Projet
+== Étape {counter:step} : Projet API
 
 Écrivez un serveur Node.js qui stocke une liste de films (variable globale) et met à disposition les urls suivantes :
 
@@ -172,3 +177,17 @@ Créez un fichier _index.html_ qui va être le point d'entrée de notre applicat
 * `GET /api/movies/:id` retourne l'objet correspondant au film avec l'identifiant `id`
 * `POST /api/movies/:id` met à jour le film avec l'identifiant `id`.
 * `POST /api/movies` : créé un nouveau film
+
+Commencez par implémenter la première route et passez à l'étape suivante.
+
+== Étape {counter:step} : Projet Vue
+
+Afin de faire une requête depuis Vue.js vers votre API Node.js, vous allez devoir faire une requête Ajax. Plusieurs clients existent, nous allons utiliser https://github.com/mzabriskie/axios[axios].
+
+Votre store va définir une action (appelons là _getMoviesFromAPI_) qui fait une requête à l'API pour récupérer la liste des films. 
+
+Lors du chargement du composant liste de film, voilà ce qui se passe :
+
+1. Dispatch l'actions _getMoviesFromAPI_
+2. Cette action fait une requête au serveur via Axios
+3. Lors du résultat de cette requête, la mutation _updateMovies_ est appelée avec la liste des films reçue du serveur
