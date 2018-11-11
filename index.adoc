@@ -1,8 +1,8 @@
 = Développement web avancé
 
 == Cours
-* link:https://slides.com/scleriot/developpement-web-avance[Slides 1]
-//* link:cours/2[Semaine 2]
+* link:https://slides.com/scleriot/developpement-web-avance-1[Séance 1]
+//* link:https://slides.com/scleriot/developpement-web-avance-2[Séance 2]
 //* link:cours/3[Semaine 3]
 
 == TD
