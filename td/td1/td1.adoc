@@ -149,39 +149,44 @@ f.call({a: 112}) //112
 ```
 
 === Arrow-functions (ES6)
-ES6 a apporté les arrow-functions, une nouvelle manière de définir une fonction anonyme :
+ES6 a apporté les arrow-functions (ou fonctions flêchées), une nouvelle manière de définir une fonction anonyme :
 ```js
-fonctionQuiAccepteUneAutreFonction( () => {
+() => {
     //contenu
-} )
-```
+}
 
-Les paramètres se situent à gauche la flêche (on peut omettre les parentèse si un seul paramètre).
+//au lieu de :
 
-À droite de la flêche se trouve le corp de la fonction. On peut ne pas mettre d'accolade, ce qui signifie qu'on place directement la valeur de retour à droite de la flêche.
-
-```js
-//arrow-functions qui prennent une variable e et retourne e+1
-(e) => { return e+1 } 
-e => { return e+1 } 
-e => e+1
-```
-
-Une arrow-function garde la valeur `this` du parent.
-```js
-//Avant pour qu'un callback puisse modifier le contexte :
 function() {
+    //contenu
+}
+```
+
+Les paramètres se situent à gauche de la flêche (on peut omettre les parentèse si on passe un seul paramètre).
+
+À droite de la flêche se trouve le corp de la fonction.
+
+```js
+(e,f) => { return e+f } 
+e => { return e+1 } // 1 seul paramètre = parenthèses non nécessaires
+e => e+1 // Pas d'accolade = retourner la valeur de l'expression
+```
+
+*L'intérêt principal de cette notation* : Une fonction flêchée garde la valeur `this` du contexte parent.
+```js
+//Avant pour qu'un callback puisse modifier le contexte il fallait faire :
+function f() {
     //...
-    let self = this;
+    let self = this; // on garde une référence au contexte
     loadData(function() {
-        //this = cette fonction anonyme
+        //this = cette fonction anonyme et non plus la fonction f
         self.mydata = "...";
     })
     //...
 }
 
 //Maintenant
-function () {
+function f() {
     //...
     loadData( () => {
         //this = l'objet englobant
@@ -195,7 +200,7 @@ function () {
 
 3.1. On commence doucement : créez une fonction qui retourne le triple de l'entier passé en paramètre
 
-3.2. Analysez le code suivant (sans l'exécuter). Quelle est d'après vous la sortie du programme ?
+3.2. Analysez dans votre tête (ou sur papier) le code suivant (sans l'exécuter). Quelle est d'après vous la sortie du programme ?
 ```js
 var b=2;
 function a() {
@@ -231,7 +236,7 @@ a();
 var c=3; //scope global
 ``` 
 
-3.3. Créez une fonction `add` accessible uniquement depuis une fonction `sum`.
+3.3. Afin de bien comprendre les portées du scope, créez une fonction `add` accessible uniquement depuis une fonction `sum`.
 * La fonction `add` retourne la somme des 2 nombres passés en paramètre.
 * La fonction `sum` utilise `add` pour additionner les 4 nombres passés en paramètre et retourne le résultat
 
@@ -261,7 +266,7 @@ let str2 = 'Une autre string';
 let str3 = "Ceci est une string avec \" un caratère échappé";
 
 let number = 8;
-let str4 = "Le nombre est "+number;
+let str4 = "Le nombre est " + number;
 let str5 = `Le nombre est ${number}`; //particulièrement pratique lorsqu'on a de nombreuses variables à insérer
 
 let str6 = "Multiligne \
