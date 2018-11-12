@@ -7,61 +7,40 @@
 </head>
 <body>
     <div id="app">
-        <span v-if="display">Message: {{message}}</span>
-
-        <span>Taille : {{tailleTableau}}</span>
+        <span v-bind:title="message">{{ message }}</span>
+        <p v-if="message == 'Hello world!'">On me voit</p>
         <ul>
-            <movie-item v-for="(movie, index) of movies" v-bind:title="movies.length" v-bind:movie="movie"></movie-item>
+            <li v-for="movie in movies">{{movie}}</li>
         </ul>
 
-        <div>
-            <input type="text" v-model="movie_to_add" />
-            <button v-on:click="sauvegarderFilm">Modifier</button>
-        </div>
+        {{ counter }} <button v-on:click="increment">Increment</button><br />
+
+        First letter: {{ first_letter }} / {{ first_letter_method() }}
+
     </div>
 
     <script type="text/javascript">
-        Vue.component('movie-item', {
-            props: [ "movie" ],
-            template: "<li>{{movie}} (lettres : {{numberLetter}}</li>",
-            computed: {
-                numberLetter: function() {
-                    return this.movie.length
-                }
-            }
-        })
-
-        var app = new Vue({
+        var vm = new Vue({
             el: "#app",
             data: {
-                message: "Bonjour Casablanca!",
+                message: "Hello world!",
                 display: true,
-                movies: [ "Dark Panther", "007" ],
-                movie_to_add: "Star Wars",
-                movie_to_edit_index: 0
-            },
-            computed: {
-                tailleTableau: function(){
-                    return this.movies.length
-                }
+                movies: ["Rambo", "Interstellar", "Bienvenue chez les chtis"],
+                counter: 0
             },
             methods: {
-                onclick: function(a){
-                    alert(a)
+                increment: function() {
+                    this.counter++
                 },
-                ajouterFilm: function() {
-                    this.movies.push(this.movie_to_add.title)
-                },
-
-                supprimerFilm: function(i) {
-                    Vue.delete(this.movies, i)
-                },
-                editerFilm: function(i) {
-                    this.movie_to_add = this.movies[i]
-                    this.movie_to_edit_index = i
-                },
-                sauvegarderFilm() {
-                    Vue.set(this.movies, this.movie_to_edit_index, this.movie_to_add)
+                first_letter_method() {
+                    console.log("first_letter_method")
+                    return this.message[0]
+                }
+            },
+            computed: {
+                first_letter() {
+                    console.log("first_letter")
+                    return this.message[0]
                 }
             }
         })
