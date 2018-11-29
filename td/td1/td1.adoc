@@ -167,9 +167,9 @@ Les paramètres se situent à gauche de la flêche (on peut omettre les parentè
 À droite de la flêche se trouve le corp de la fonction.
 
 ```js
-(e,f) => { return e+f } 
-e => { return e+1 } // 1 seul paramètre = parenthèses non nécessaires
-e => e+1 // Pas d'accolade = retourner la valeur de l'expression
+let f = (e,f) => { return e+f } 
+let f = e => { return e+1 } // 1 seul paramètre = parenthèses non nécessaires
+let f = e => e+1 // Pas d'accolade = retourner la valeur de l'expression
 ```
 
 *L'intérêt principal de cette notation* : Une fonction flêchée garde la valeur `this` du contexte parent.

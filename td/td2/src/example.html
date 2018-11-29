@@ -10,23 +10,39 @@
         <span v-bind:title="message">{{ message }}</span>
         <p v-if="message == 'Hello world!'">On me voit</p>
         <ul>
-            <li v-for="movie in movies">{{movie}}</li>
+            <!--<li v-for="movie_title in movies">{{movie_title}}</li>-->
+            <movie-item v-for="(movie_title,index) in movies" v-bind:movie="movie_title" v-on:editmovie="edit(index)"></movie-item>
         </ul>
 
         {{ counter }} <button v-on:click="increment">Increment</button><br />
 
         First letter: {{ first_letter }} / {{ first_letter_method() }}
 
+        <input type="text" v-model="formulaire.title" />
     </div>
 
     <script type="text/javascript">
+        Vue.component('movie-item', {
+            props: ["movie"],
+            template: '<li>{{ movie }} <button v-on:click="editMovie">Editer</button></li>',
+            methods: {
+                editMovie() {
+                    this.$emit('editmovie')
+                }
+            }
+        })
+
         var vm = new Vue({
             el: "#app",
             data: {
                 message: "Hello world!",
                 display: true,
                 movies: ["Rambo", "Interstellar", "Bienvenue chez les chtis"],
-                counter: 0
+                counter: 0,
+                formulaire: {
+                    title: "",
+                    realisateur: ""
+                }
             },
             methods: {
                 increment: function() {
