@@ -567,7 +567,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ npm install --save babel-core babel-loader babel-preset-env babel-preset-stage-3 css-loader file-loader vue-loader vue-template-compiler webpack webpack-dev-server</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ npm install --save babel-core babel-loader babel-preset-env babel-preset-stage-3 css-loader file-loader vue-loader vue-template-compiler webpack webpack-dev-server webpack-cli @babel/core vue</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -597,8 +597,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">var path = require('path')
 var webpack = require('webpack')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
+  mode: 'development',
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -651,7 +653,11 @@ module.exports = {
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
+  devtool: '#eval-source-map',
+  plugins: [
+    // make sure to include the plugin!
+    new VueLoaderPlugin()
+  ]
 }
 
 if (process.env.NODE_ENV === 'production') {
@@ -823,8 +829,11 @@ export default {
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ node_modules/.bin/webpack-dev-server --open --hot</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ node_modules/.bin/webpack-dev-server --progress --open --hot --port 8080</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Ouvrez ensuite la page <a href="http://localhost:8080" class="bare">http://localhost:8080</a></p>
 </div>
 <div class="paragraph">
 <p>La page est rafraîchie automatiquement lorsqu&#8217;un fichier est modifié (et compilé automatiquement).</p>
@@ -835,7 +844,7 @@ export default {
 </ol>
 </div>
 <div class="paragraph">
-<p>C&#8217;est bon, vous pouvez utiliser les SFC de Vue.js !</p>
+<p>C&#8217;est bon, vous pouvez utiliser les SFC (Single File Component) de Vue.js !</p>
 </div>
 </div>
 </div>
@@ -867,7 +876,7 @@ export default {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-11-11 11:18:22 CET
+Last updated 2018-12-11 21:11:22 CET
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">

@@ -7,57 +7,46 @@
 </head>
 <body>
     <div id="app">
-        <span v-bind:title="message">{{ message }}</span>
-        <p v-if="message == 'Hello world!'">On me voit</p>
+        <span v-bind:title="message" v-if="display">{{ message_upper }}</span>
+
         <ul>
-            <!--<li v-for="movie_title in movies">{{movie_title}}</li>-->
-            <movie-item v-for="(movie_title,index) in movies" v-bind:movie="movie_title" v-on:editmovie="edit(index)"></movie-item>
+            <movie-item v-for="m in movies" v-bind:movie="m" v-bind:key="m"></movie-item>
         </ul>
 
-        {{ counter }} <button v-on:click="increment">Increment</button><br />
+        <input type="text" v-model="message" />
 
-        First letter: {{ first_letter }} / {{ first_letter_method() }}
-
-        <input type="text" v-model="formulaire.title" />
+        <button v-on:click="onclick">Push me</button>
     </div>
 
     <script type="text/javascript">
         Vue.component('movie-item', {
             props: ["movie"],
-            template: '<li>{{ movie }} <button v-on:click="editMovie">Editer</button></li>',
-            methods: {
-                editMovie() {
-                    this.$emit('editmovie')
-                }
+            template: '<li>{{ movie }}</li>',
+            mounted: function() {
+                console.log("Mounted component ", this.movie)
             }
         })
 
         var vm = new Vue({
             el: "#app",
             data: {
-                message: "Hello world!",
+                message: "Hello DAWIN",
                 display: true,
-                movies: ["Rambo", "Interstellar", "Bienvenue chez les chtis"],
-                counter: 0,
-                formulaire: {
-                    title: "",
-                    realisateur: ""
-                }
+                movies: ["Retour vers le futur", "Star wars", "Seigneur des anneaux"]
             },
             methods: {
-                increment: function() {
-                    this.counter++
-                },
-                first_letter_method() {
-                    console.log("first_letter_method")
-                    return this.message[0]
+                onclick: function() {
+                    // this.display = !this.display
+                    this.movies.push(this.message)
                 }
             },
             computed: {
-                first_letter() {
-                    console.log("first_letter")
-                    return this.message[0]
+                message_upper: function() {
+                    return this.message.toUpperCase()
                 }
+            },
+            mounted: function() {
+                console.log("Mounted principal")
             }
         })
     </script>

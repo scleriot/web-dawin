@@ -81,7 +81,7 @@ Afin de pouvoir utiliser les Single File Component (fichiers .vue) ainsi que jav
 Installez les dépendances nécessaires pour compiler un projet Vue.js :
 
 ```shell
-$ npm install --save babel-core babel-loader babel-preset-env babel-preset-stage-3 css-loader file-loader vue-loader vue-template-compiler webpack webpack-dev-server
+$ npm install --save babel-core babel-loader babel-preset-env babel-preset-stage-3 css-loader file-loader vue-loader vue-template-compiler webpack webpack-dev-server webpack-cli @babel/core vue
 ```
 
 On reconnaît la dépendance *Babel* qui va nous permettre d'écrire du code ES2015.
@@ -148,13 +148,15 @@ $ node_modules/.bin/webpack --progress --hide-modules
 +
 --
 ```shell
-$ node_modules/.bin/webpack-dev-server --open --hot
+$ node_modules/.bin/webpack-dev-server --progress --open --hot --port 8080
 ```
+
+Ouvrez ensuite la page http://localhost:8080
 
 La page est rafraîchie automatiquement lorsqu'un fichier est modifié (et compilé automatiquement).
 --
 
-C'est bon, vous pouvez utiliser les SFC de Vue.js !
+C'est bon, vous pouvez utiliser les SFC (Single File Component) de Vue.js !
 
 == Étape {counter:step} : Conversion du projet
 
