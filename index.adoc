@@ -12,7 +12,7 @@
 * link:td/td3/td3.html[TD3]
 * link:td/td4/td4.html[TD4]
 //* link:td/td5/td5.html[TD5]
-//* link:td/td6/td6.html[TD6]
+* link:td/td5/td5.html[TD5]
 
 link:vuetify.html[Mettre en place Vuetify]
 
