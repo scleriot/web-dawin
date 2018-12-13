@@ -1,0 +1,31 @@
+= Installer Vuetify
+
+```bash
+$ npm install vuetify --save
+```
+
+Dans votre fichier main.js :
+
+```js
+import Vue from 'vue'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+
+Vue.use(Vuetify)
+```
+
+Dans index.html, ajoutez dans les balises <head> :
+```html
+<link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
+```
+
+Pour pouvoir utiliser les composants Vuetify, il faut à la racine de votre application mettre le composant `<v-app>`. Exemple :
+```html
+  <div id="app">
+    <v-app>
+      <v-content>
+        <v-container>Hello world</v-container>
+      </v-content>
+    </v-app>
+  </div>
+```

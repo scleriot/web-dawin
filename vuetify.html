@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.7.1">
-<title>Développement web avancé</title>
+<title>Installer Vuetify</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -432,67 +432,52 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Développement web avancé</h1>
+<h1>Installer Vuetify</h1>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="_cours">Cours</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://slides.com/scleriot/developpement-web-avance-1">Séance 1</a></p>
-</li>
-<li>
-<p><a href="https://slides.com/scleriot/developpement-web-avance-2">Séance 2</a></p>
-</li>
-<li>
-<p><a href="https://slides.com/scleriot/developpement-web-avance-3">Séance 3</a></p>
-</li>
-</ul>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ npm install vuetify --save</code></pre>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_td">TD</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="td/td1/td1.html">TD1</a></p>
-</li>
-<li>
-<p><a href="td/td2/td2.html">TD2</a></p>
-</li>
-<li>
-<p><a href="td/td3/td3.html">TD3</a></p>
-</li>
-<li>
-<p><a href="td/td4/td4.html">TD4</a></p>
-</li>
-</ul>
 </div>
 <div class="paragraph">
-<p><a href="vuetify.html">Mettre en place Vuetify</a></p>
+<p>Dans votre fichier main.js :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-js" data-lang="js">import Vue from 'vue'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+
+Vue.use(Vuetify)</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Dans index.html, ajoutez dans les balises &lt;head&gt; :</p>
 </div>
-<div class="sect1">
-<h2 id="_projet">Projet</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="project/">Spécifications</a></p>
-</li>
-</ul>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet"&gt;</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Pour pouvoir utiliser les composants Vuetify, il faut à la racine de votre application mettre le composant <code>&lt;v-app&gt;</code>. Exemple :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">  &lt;div id="app"&gt;
+    &lt;v-app&gt;
+      &lt;v-content&gt;
+        &lt;v-container&gt;Hello world&lt;/v-container&gt;
+      &lt;/v-content&gt;
+    &lt;/v-app&gt;
+  &lt;/div&gt;</code></pre>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-12-13 08:50:02 CET
+Last updated 2018-12-13 08:51:11 CET
 </div>
 </div>
 </body>
