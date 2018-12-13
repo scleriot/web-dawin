@@ -95,6 +95,6 @@ Plusieurs critères seront pris en compte pour la notation :
 
 * Présence des fonctionnalités demandées
 * Clarté du code
-* Respect des différents concepts Vue.js (découpage en composants, Vuex store uniquement pour les données partagées, etc...)
+* Respect des différents concepts Vue.js (découpage en composants, variables computed etc...)
 
 N'hésitez pas à me solliciter par email si vous avez des questions ou si vous êtes bloqués ! (cleriotsimon@gmail.com)
