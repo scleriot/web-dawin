@@ -97,3 +97,35 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter);
 ```
+
+== Comment partager des données entre les pages
+
+Dans le main.js, créer l'objet qui contiendra les variables partagées par toute l'application :
+
+```js
+window.shared_data = {
+    mavariable: 'Test'
+}
+```
+
+Dans chaque composant où vous souhaitez accéder à ces variables, il faut créer une variable data de cette façon :
+
+```js
+data: {
+    shared_data: window.shared_data
+}
+```
+
+Vous pourriez ensuite l'utiliser dans vos templates et vos méthodes :
+
+```html
+{{ shared_data.mavariable }}
+```
+
+```js
+methods: {
+    test: function() {
+        this.shared_data.mavariable;
+    }
+}
+```
