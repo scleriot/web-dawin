@@ -8,150 +8,185 @@
 
 = Séance 5
 
-== Vuex
+Node.js est une plateforme javascript basée sur le moteur V8 de Google permettant d'utiliser javascript comme language serveur.
 
-https://vuex.vuejs.org/
+Téléchargez et installez Node.js : https://nodejs.org/en/download/
 
-=== Étape {counter:step} : Installation
+== Étape {counter:step} : Hello World
 
-Déplacez vous dans un nouveau dossier pour ce TD
+Créez un fichier helloworld.js :
+
+.helloworld.js
+[source,js]
+----
+include::{sourcedir}helloworld.js[]
+----
+
+Exécutez le : 
 ```shell
-$ npm install vue vuex
+node helloworld.js
 ```
 
-=== Étape {counter:step} : Base de code
+== Étape {counter:step} : HTTP Server
 
-Créez un fichier etape2.html avec le code suivant :
-
-.etape2.html
-[source,xml]
+Créez un fichier server.js avec le code suivant :
+.server.js
+[source,js]
 ----
-include::{sourcedir}etape2.html[]
+include::{sourcedir}server.js[]
 ----
 
-Si vous exécutez le code, vous verrez dans la console un warning vous indiquant que _message_ n'existe pas.
+Analysez et exécutez ce fichier. Ouvrez http://localhost:3000
 
-=== Étape {counter:step} : Store
+> Node.js utilise le système de module **CommonJS** : il faut utiliser le style d'import `require` au lieu de `import` comme nous le faisions avec Vue.js (`const mod = require('module')` à la place de `import mod from 'module'`)
+**http** est un module natif de Node.js. Il donne un accès bas niveau pour créer un serveur HTTP.
 
-On va maintenant créer un *Store*, qui va contenir l'état (State) de notre application - c'est à dire toutes les variables partagées - ainsi que toutes les actions et mutations nécessaires pour faire évoluer l'état de l'application.
+> Node.js inclu plusieurs autres modules par défaut, par exemple **FS** pour la gestion des fichiers, **Crypto**, **Process** etc...
 
-Créez un objet *Vuex.Store* avec la variable _message_ initialisée :
+== Étape {counter:step} : Express
 
+Il est néanmoins difficile de créer un serveur web complexe avec ce module bas niveau, c'est pourquoi nous allons utiliser le framework web http://expressjs.com/[Express].
+
+Construit par dessus le module HTTP/HTTPS, il va nous permettre de construire plus facile un serveur web complexe.
+
+Installez Express :
+```shell
+npm install --save express
+```
+
+Créez et exécutez le fichier `helloworld_express.js` :
+
+.helloworld_express.js
+[source,js]
+----
+include::{sourcedir}helloworld_express.js[]
+----
+
+Ouvrez http://localhost:3000 et http://localhost:3000/other_route. Que remarquez-vous ?
+
+Express permet de définir les routes de notre applications à l'aide des verbes HTTP : _app.get_, _app.post_, _app.put_, _app.delete_ etc...
+
+Ces méthodes prennent 2 paramètres :
+
+* Une chaîne de caractère représentant le chemin de cette route : '/', '/foo', '/bar'. Tout comme Vue-router, la route peut contenir des paramètres : `'/foo/:param1/:id'`. Ces paramètres seront accessible dans le callback
+* Un callback : une méthode appelée avec 2 paramètres : `request` et `response`.
+    ** `request` contient les informations de la requête : paramètres de l'URL `req.params.param1`, corps de la requête `req.body`, paramètres passée dans l'url `req.query.get_parameter`, etc... http://expressjs.com/en/api.html#req
+    ** `response` permet de constuire la réponse qui est renvoyée au navigateur, le contenu de la réponse etc... `response.status(200).type('text/html').send('Hello')`
+
+La méthode send permet de retourner une chaîne de caractère (le code HTML de la page par exemple), ou un objet json (pratique pour le retour d'une API).
+
+Afin de pouvoir lire le contenu de la requête (*req.body*) vous devez installer le middleware body-parser :
+```shell
+npm install --save body-parser
+```
+
+Puis dans votre code :
 ```js
-const my_store = new Vuex.Store({
-    state: {
-        message: 'Hello'
-    }
+const express = require('express')
+const bodyParser = require('body-parser');
+
+const app = express()
+app.use(bodyParser.json()) //parse JSON body
+app.use(bodyParser.urlencoded()) //parse x-www-form-urlencoded body
+```
+
+Un URL encoded form body vient principalement d'un formulaire HTML. Le corps de la requête ressemble à `foo=2&bar=8` et est parsé par body-parser pour que _request.body_ soit l'objet : `{foo: '2', bar: '8'}`
+
+Un corps de requête JSON est directement converti dans l'objet javascript correspondant.
+
+**Créez un serveur Express avec les routes suivantes :**
+
+* `GET /foo/:myvar` qui retourne au serveur `{var: contenu du paramètre myvar`}
+* `POST /add` avec 2 paramètres `foo=2` et `bar=8` qui retourne au navigateur l'addition des 2 paramètres dans l'URL
+
+> Vous pourriez avoir besoin de la fonction *parseInt*
+
+> Pour tester vos différentes routes, vous pouvez utiliser l'application https://www.getpostman.com/[Postman].
+
+==  Étape {counter:step} : Express Middleware
+
+Un middleware est une étape par laquelle va passer chaque requête reçue par Express avant d'être transmise au _route handler_ (c'est à dire app.get, app.post etc...).
+
+image:middleware.png[]
+
+Ces middlewares peuvent avoir plusieurs intérêts, notamment : 
+
+* Vérifier qu'un utilisateur est connecté à chaque requête
+* Body-parser prend le corps de la requête et le converti en objet javascript
+* S'assurer que l'utilisateur a le droit de faire la requête
+* Écrire dans le fichier de log les requêtes
+
+L'écriture la plus complète d'un middleware est la suivante :
+```js
+app.get('chemin', (req, res, next) => {
+    next();
 })
 ```
 
-On va ensuite indiquez à notre objet Vue et à notre composant d'utiliser ce store :
+image:middlewareexplained.png[]
 
+La fonction _next_ passée en paramètre permet au middleware d'indiquer à Express de passer au middleware suivant.
+
+Ce middleware sera donc exécuté pour une requête GET sur le chemin passé en 1er paramètre.
+
+On peut aussi écrire :
 ```js
-const app = new Vue({
-    el :"#app",
-    store: my_store
+app.get( (req, res, next) => {
+    next();
 })
 ```
+Le middleware sera alors exécuté pour toutes les requêtes GET envoyées au serveur.
 
+On peut aussi écrire :
 ```js
-Vue.component("comp", {
-    template: '<div>{{localdata}} {{message}}</div>',
-    store: my_store,
-    data() {
-        return {
-            localdata: "Local"
-        } 
-    },
-})
-```
-
-On va maintenant utiliser une variable calculée (*computed*) comme contenu de la variable _message_ :
-```js
-computed: {
-    message() {
-        return this.$store.state.message;
-    }
+app.use( (req, res, next) => {
+    next();
 }
 ```
+Le middleware sera alors exécuté pour toutes les requêtes envoyées au serveur sans distinction de verbe HTTP (GET, POST, PUT etc...).
 
-> *$store* est un champ d'une instance Vue permettant d'accéder au store défini dans la configuration
+*Écrivez un middleware qui affiche dans la console l'heure, le chemin et le contenu du body de chaque requêtes envoyées au serveur. Ajoutez la date de la requête à l'objet de la requête.*
 
-> *$store.state* contient toutes les variables de l'état de notre application (en lecture seule)
+== Étape {counter:step} : Afficher du HTML
 
-Ajoutez cette variable sur le composant _comp_ et le composant Vue principal.
+En plus de pouvoir retourner au navigateur une chaîne de caractères ou un objet JSON (_res.send_ : http://expressjs.com/en/api.html#res.send), vous pouvez utiliser un système de template pour utiliser un système de template intégré à Express (_res.render_ : http://expressjs.com/en/api.html#res.render).
 
-*La variable _message_ est maintenant partagée entre plusieurs composants.*
+Nous n'utiliserons pas de système de template dans ce cours, toute la partie est gérée avec Vue.js.
 
-++++
-<iframe src="https://giphy.com/embed/5aLrlDiJPMPFS" width="412" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/jon-stewart-the-daily-show-5aLrlDiJPMPFS">via GIPHY</a></p>
-++++
+=== Fichiers statiques 
 
-Le state de l'application est aussi réactif que les variables définies dans _data_, l'affichage sera mis à jour automatiquement dès qu'une variable aura été modifiée.
-
-=== Étape {counter:step} : Mutations et Actions
-
-Comme vu à l'étape précédente, les variable de l'objet _$state.store_ sont accessibles en lecture seule.
-
-Afin de demander à Vue de modifier l'état de l'application, nous avons à disposition 2 concepts : les mutations et les actions.
-
-Les mutations sont synchrones (tout est exécuté lors de l'appel) et modifient directement *state*.
-
-Les actions sont asynchrones (une requête AJAX par exemple vers une API) et vont utiliser une mutation pour modifier *state*.
-
-==== Mutations
-
-Les mutations sont définies dans notre store comme ceci :
-
+Pour permettre au navigateur d'accéder aux fichiers statiques (fichier CSS, javascript, images), le middleware _express.static_ est utilisé :
 ```js
-mutations: {
-    updateMessage(state, param1) {
-        state.message = param1;
-    }
-}
+app.use('/static', express.static('folder/of/static/files'))
 ```
 
-> Les mutations peuvent prendre 0, 1 ou plusieurs paramètres.
+=== Afficher index.html
 
-On utilise la méthode *commit* du store pour appeler une mutation. Exemple :
+Créez un fichier _index.html_ qui va être le point d'entrée de notre application Vue.js. 
 
-```js
-this.$store.commit('updateMessage', "Nouveau Message")
-```
+*Faites en sorte que le contenu de ce fichier soit retourné au navigateur lorsque nous accédons au chemin root '/'.*
 
-Modifiez le code pour modifier *message* - à l'aide d'une mutation - 3 secondes après que la Vue soit montée.
+> Utilisez http://expressjs.com/en/api.html#res.sendFile[res.sendFile]
 
-Observez dans *Vue devtool* l'évolution de l'état de l'application.
+== Étape {counter:step} : Projet API
 
-image::vuex.png[]
+Écrivez un serveur Node.js qui stocke une liste de films (variable globale) et met à disposition les urls suivantes :
 
-==== Actions
-Les actions sont définies de cette façon :
+* `GET /api/movies/all` retourne un tableau avec tout les films
+* `GET /api/movies/:id` retourne l'objet correspondant au film avec l'identifiant `id`
+* `POST /api/movies/:id` met à jour le film avec l'identifiant `id`.
+* `POST /api/movies` : créé un nouveau film
 
-```js
-actions: {
-    getMessageFromAPI(context) {
-        monapi.query('/getmessage', function(data) {
-            context.commit('updateMessage', data.message)
-        });
-    }
-}
-```
+Commencez par implémenter la première route et passez à l'étape suivante.
 
-Elles sont appelées à l'aide de la méthode *dispatch* du store :
-```js
-this.$store.dispatch('getMessageFromAPI');
-```
+== Étape {counter:step} : Projet Vue
 
-=== Étape {counter:step} : Projet
+Afin de faire une requête depuis Vue.js vers votre API Node.js, vous allez devoir faire une requête Ajax. Plusieurs clients existent, nous allons utiliser https://github.com/mzabriskie/axios[axios].
 
-Modifiez le projet pour permettre d'éditer et supprimer un film sans utiliser les évènements (grâce à un *Store* partagé bien sûr).
+Votre store va définir une action (appelons là _getMoviesFromAPI_) qui fait une requête à l'API pour récupérer la liste des films. 
 
-Attention : Lorsque vous importez Vue et Vuex à l'aide de `import`, il faudra indiquer à Vue l'existence du plugin via la ligne suivante :
+Lors du chargement du composant liste de film, voilà ce qui se passe :
 
-```js
-import Vue from 'vue'
-import Vuex from 'vuex'
-
-Vue.use(Vuex);
-```
+1. Dispatch l'actions _getMoviesFromAPI_
+2. Cette action fait une requête au serveur via Axios
+3. Lors du résultat de cette requête, la mutation _updateMovies_ est appelée avec la liste des films reçue du serveur

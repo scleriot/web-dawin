@@ -436,262 +436,392 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc">
 <div id="toctitle">Table des matières</div>
 <ul class="sectlevel1">
-<li><a href="#_vuex">Vuex</a>
+<li><a href="#_étape_1_hello_world">Étape 1 : Hello World</a></li>
+<li><a href="#_étape_2_http_server">Étape 2 : HTTP Server</a></li>
+<li><a href="#_étape_3_express">Étape 3 : Express</a></li>
+<li><a href="#_étape_4_express_middleware">Étape 4 : Express Middleware</a></li>
+<li><a href="#_étape_5_afficher_du_html">Étape 5 : Afficher du HTML</a>
 <ul class="sectlevel2">
-<li><a href="#_étape_1_installation">Étape 1 : Installation</a></li>
-<li><a href="#_étape_2_base_de_code">Étape 2 : Base de code</a></li>
-<li><a href="#_étape_3_store">Étape 3 : Store</a></li>
-<li><a href="#_étape_4_mutations_et_actions">Étape 4 : Mutations et Actions</a></li>
-<li><a href="#_étape_5_projet">Étape 5 : Projet</a></li>
+<li><a href="#_fichiers_statiques">Fichiers statiques</a></li>
+<li><a href="#_afficher_index_html">Afficher index.html</a></li>
 </ul>
 </li>
+<li><a href="#_étape_6_projet_api">Étape 6 : Projet API</a></li>
+<li><a href="#_étape_7_projet_vue">Étape 7 : Projet Vue</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="_vuex">Vuex</h2>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://vuex.vuejs.org/" class="bare">https://vuex.vuejs.org/</a></p>
+<p>Node.js est une plateforme javascript basée sur le moteur V8 de Google permettant d&#8217;utiliser javascript comme language serveur.</p>
 </div>
-<div class="sect2">
-<h3 id="_étape_1_installation">Étape 1 : Installation</h3>
 <div class="paragraph">
-<p>Déplacez vous dans un nouveau dossier pour ce TD</p>
+<p>Téléchargez et installez Node.js : <a href="https://nodejs.org/en/download/" class="bare">https://nodejs.org/en/download/</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_étape_1_hello_world">Étape 1 : Hello World</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Créez un fichier helloworld.js :</p>
+</div>
+<div class="listingblock">
+<div class="title">helloworld.js</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">console.log("Hello World")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Exécutez le :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ npm install vue vuex</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">node helloworld.js</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_étape_2_base_de_code">Étape 2 : Base de code</h3>
+</div>
+<div class="sect1">
+<h2 id="_étape_2_http_server">Étape 2 : HTTP Server</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Créez un fichier etape2.html avec le code suivant :</p>
+<p>Créez un fichier server.js avec le code suivant :
+.server.js</p>
 </div>
 <div class="listingblock">
-<div class="title">etape2.html</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;title&gt;Étape 2&lt;/title&gt;
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">const http = require('http');
 
-    &lt;script src="node_modules/vue/dist/vue.js"&gt;&lt;/script&gt;
-    &lt;script src="node_modules/vuex/dist/vuex.js"&gt;&lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;div id="app"&gt;
-        {{message}}
-        &lt;comp&gt;&lt;/comp&gt;
-    &lt;/div&gt;
+const hostname = '127.0.0.1';
+const port = 3000;
 
-    &lt;script type="text/javascript"&gt;
-        Vue.component("comp", {
-            template: '&lt;div&gt;{{localdata}} {{message}}&lt;/div&gt;',
-            data() {
-                return {
-                    localdata: "Local"
-                }
-            }
-        })
+const server = http.createServer((req, res) =&gt; {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('Hello World\n');
+});
 
-        const app = new Vue({
-            el :"#app"
-        })
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
+server.listen(port, hostname, () =&gt; {
+    console.log(`Server running at http://${hostname}:${port}/`);
+});</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Si vous exécutez le code, vous verrez dans la console un warning vous indiquant que <em>message</em> n&#8217;existe pas.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_étape_3_store">Étape 3 : Store</h3>
-<div class="paragraph">
-<p>On va maintenant créer un <strong>Store</strong>, qui va contenir l&#8217;état (State) de notre application - c&#8217;est à dire toutes les variables partagées - ainsi que toutes les actions et mutations nécessaires pour faire évoluer l&#8217;état de l&#8217;application.</p>
-</div>
-<div class="paragraph">
-<p>Créez un objet <strong>Vuex.Store</strong> avec la variable <em>message</em> initialisée :</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">const my_store = new Vuex.Store({
-    state: {
-        message: 'Hello'
-    }
-})</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>On va ensuite indiquez à notre objet Vue et à notre composant d&#8217;utiliser ce store :</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">const app = new Vue({
-    el :"#app",
-    store: my_store
-})</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">Vue.component("comp", {
-    template: '&lt;div&gt;{{localdata}} {{message}}&lt;/div&gt;',
-    store: my_store,
-    data() {
-        return {
-            localdata: "Local"
-        }
-    },
-})</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>On va maintenant utiliser une variable calculée (<strong>computed</strong>) comme contenu de la variable <em>message</em> :</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">computed: {
-    message() {
-        return this.$store.state.message;
-    }
-}</code></pre>
-</div>
+<p>Analysez et exécutez ce fichier. Ouvrez <a href="http://localhost:3000" class="bare">http://localhost:3000</a></p>
 </div>
 <div class="quoteblock">
 <blockquote>
 <div class="paragraph">
-<p><strong>$store</strong> est un champ d&#8217;une instance Vue permettant d&#8217;accéder au store défini dans la configuration</p>
+<p>Node.js utilise le système de module <strong>CommonJS</strong> : il faut utiliser le style d&#8217;import <code>require</code> au lieu de <code>import</code> comme nous le faisions avec Vue.js (<code>const mod = require('module')</code> à la place de <code>import mod from 'module'</code>)
+<strong>http</strong> est un module natif de Node.js. Il donne un accès bas niveau pour créer un serveur HTTP.</p>
 </div>
 </blockquote>
 </div>
 <div class="quoteblock">
 <blockquote>
 <div class="paragraph">
-<p><strong>$store.state</strong> contient toutes les variables de l&#8217;état de notre application (en lecture seule)</p>
+<p>Node.js inclu plusieurs autres modules par défaut, par exemple <strong>FS</strong> pour la gestion des fichiers, <strong>Crypto</strong>, <strong>Process</strong> etc&#8230;&#8203;</p>
 </div>
 </blockquote>
 </div>
-<div class="paragraph">
-<p>Ajoutez cette variable sur le composant <em>comp</em> et le composant Vue principal.</p>
-</div>
-<div class="paragraph">
-<p><strong>La variable <em>message</em> est maintenant partagée entre plusieurs composants.</strong></p>
-</div>
-<iframe src="https://giphy.com/embed/5aLrlDiJPMPFS" width="412" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/jon-stewart-the-daily-show-5aLrlDiJPMPFS">via GIPHY</a></p>
-<div class="paragraph">
-<p>Le state de l&#8217;application est aussi réactif que les variables définies dans <em>data</em>, l&#8217;affichage sera mis à jour automatiquement dès qu&#8217;une variable aura été modifiée.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_étape_4_mutations_et_actions">Étape 4 : Mutations et Actions</h3>
+<div class="sect1">
+<h2 id="_étape_3_express">Étape 3 : Express</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>Comme vu à l&#8217;étape précédente, les variable de l&#8217;objet <em>$state.store</em> sont accessibles en lecture seule.</p>
+<p>Il est néanmoins difficile de créer un serveur web complexe avec ce module bas niveau, c&#8217;est pourquoi nous allons utiliser le framework web <a href="http://expressjs.com/">Express</a>.</p>
 </div>
 <div class="paragraph">
-<p>Afin de demander à Vue de modifier l&#8217;état de l&#8217;application, nous avons à disposition 2 concepts : les mutations et les actions.</p>
+<p>Construit par dessus le module HTTP/HTTPS, il va nous permettre de construire plus facile un serveur web complexe.</p>
 </div>
 <div class="paragraph">
-<p>Les mutations sont synchrones (tout est exécuté lors de l&#8217;appel) et modifient directement <strong>state</strong>.</p>
-</div>
-<div class="paragraph">
-<p>Les actions sont asynchrones (une requête AJAX par exemple vers une API) et vont utiliser une mutation pour modifier <strong>state</strong>.</p>
-</div>
-<div class="sect3">
-<h4 id="_mutations">Mutations</h4>
-<div class="paragraph">
-<p>Les mutations sont définies dans notre store comme ceci :</p>
+<p>Installez Express :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">mutations: {
-    updateMessage(state, param1) {
-        state.message = param1;
-    }
-}</code></pre>
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">npm install --save express</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Créez et exécutez le fichier <code>helloworld_express.js</code> :</p>
+</div>
+<div class="listingblock">
+<div class="title">helloworld_express.js</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">const express = require('express')
+const app = express()
+
+app.get('/', (req, res) =&gt; res.send('Hello World!'))
+
+app.listen(3000, () =&gt; console.log('Example app listening on port 3000!'))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ouvrez <a href="http://localhost:3000" class="bare">http://localhost:3000</a> et <a href="http://localhost:3000/other_route" class="bare">http://localhost:3000/other_route</a>. Que remarquez-vous ?</p>
+</div>
+<div class="paragraph">
+<p>Express permet de définir les routes de notre applications à l&#8217;aide des verbes HTTP : <em>app.get</em>, <em>app.post</em>, <em>app.put</em>, <em>app.delete</em> etc&#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>Ces méthodes prennent 2 paramètres :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Une chaîne de caractère représentant le chemin de cette route : '/', '/foo', '/bar'. Tout comme Vue-router, la route peut contenir des paramètres : <code>'/foo/:param1/:id'</code>. Ces paramètres seront accessible dans le callback</p>
+</li>
+<li>
+<p>Un callback : une méthode appelée avec 2 paramètres : <code>request</code> et <code>response</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>request</code> contient les informations de la requête : paramètres de l&#8217;URL <code>req.params.param1</code>, corps de la requête <code>req.body</code>, paramètres passée dans l&#8217;url <code>req.query.get_parameter</code>, etc&#8230;&#8203; <a href="http://expressjs.com/en/api.html#req" class="bare">http://expressjs.com/en/api.html#req</a></p>
+</li>
+<li>
+<p><code>response</code> permet de constuire la réponse qui est renvoyée au navigateur, le contenu de la réponse etc&#8230;&#8203; <code>response.status(200).type('text/html').send('Hello')</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>La méthode send permet de retourner une chaîne de caractère (le code HTML de la page par exemple), ou un objet json (pratique pour le retour d&#8217;une API).</p>
+</div>
+<div class="paragraph">
+<p>Afin de pouvoir lire le contenu de la requête (<strong>req.body</strong>) vous devez installer le middleware body-parser :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">npm install --save body-parser</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Puis dans votre code :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">const express = require('express')
+const bodyParser = require('body-parser');
+
+const app = express()
+app.use(bodyParser.json()) //parse JSON body
+app.use(bodyParser.urlencoded()) //parse x-www-form-urlencoded body</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Un URL encoded form body vient principalement d&#8217;un formulaire HTML. Le corps de la requête ressemble à <code>foo=2&amp;bar=8</code> et est parsé par body-parser pour que <em>request.body</em> soit l&#8217;objet : <code>{foo: '2', bar: '8'}</code></p>
+</div>
+<div class="paragraph">
+<p>Un corps de requête JSON est directement converti dans l&#8217;objet javascript correspondant.</p>
+</div>
+<div class="paragraph">
+<p><strong>Créez un serveur Express avec les routes suivantes :</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GET /foo/:myvar</code> qui retourne au serveur <code>{var: contenu du paramètre myvar</code>}</p>
+</li>
+<li>
+<p><code>POST /add</code> avec 2 paramètres <code>foo=2</code> et <code>bar=8</code> qui retourne au navigateur l&#8217;addition des 2 paramètres dans l&#8217;URL</p>
+</li>
+</ul>
 </div>
 <div class="quoteblock">
 <blockquote>
 <div class="paragraph">
-<p>Les mutations peuvent prendre 0, 1 ou plusieurs paramètres.</p>
+<p>Vous pourriez avoir besoin de la fonction <strong>parseInt</strong></p>
 </div>
 </blockquote>
 </div>
+<div class="quoteblock">
+<blockquote>
 <div class="paragraph">
-<p>On utilise la méthode <strong>commit</strong> du store pour appeler une mutation. Exemple :</p>
+<p>Pour tester vos différentes routes, vous pouvez utiliser l&#8217;application <a href="https://www.getpostman.com/">Postman</a>.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_étape_4_express_middleware">Étape 4 : Express Middleware</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Un middleware est une étape par laquelle va passer chaque requête reçue par Express avant d&#8217;être transmise au <em>route handler</em> (c&#8217;est à dire app.get, app.post etc&#8230;&#8203;).</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/middleware.png" alt="middleware"></span></p>
+</div>
+<div class="paragraph">
+<p>Ces middlewares peuvent avoir plusieurs intérêts, notamment :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Vérifier qu&#8217;un utilisateur est connecté à chaque requête</p>
+</li>
+<li>
+<p>Body-parser prend le corps de la requête et le converti en objet javascript</p>
+</li>
+<li>
+<p>S&#8217;assurer que l&#8217;utilisateur a le droit de faire la requête</p>
+</li>
+<li>
+<p>Écrire dans le fichier de log les requêtes</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>L&#8217;écriture la plus complète d&#8217;un middleware est la suivante :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">this.$store.commit('updateMessage', "Nouveau Message")</code></pre>
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">app.get('chemin', (req, res, next) =&gt; {
+    next();
+})</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Modifiez le code pour modifier <strong>message</strong> - à l&#8217;aide d&#8217;une mutation - 3 secondes après que la Vue soit montée.</p>
+<p><span class="image"><img src="images/middlewareexplained.png" alt="middlewareexplained"></span></p>
 </div>
 <div class="paragraph">
-<p>Observez dans <strong>Vue devtool</strong> l&#8217;évolution de l&#8217;état de l&#8217;application.</p>
+<p>La fonction <em>next</em> passée en paramètre permet au middleware d&#8217;indiquer à Express de passer au middleware suivant.</p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="images/vuex.png" alt="vuex">
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_actions">Actions</h4>
 <div class="paragraph">
-<p>Les actions sont définies de cette façon :</p>
+<p>Ce middleware sera donc exécuté pour une requête GET sur le chemin passé en 1er paramètre.</p>
+</div>
+<div class="paragraph">
+<p>On peut aussi écrire :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">actions: {
-    getMessageFromAPI(context) {
-        monapi.query('/getmessage', function(data) {
-            context.commit('updateMessage', data.message)
-        });
-    }
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">app.get( (req, res, next) =&gt; {
+    next();
+})</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Le middleware sera alors exécuté pour toutes les requêtes GET envoyées au serveur.</p>
+</div>
+<div class="paragraph">
+<p>On peut aussi écrire :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">app.use( (req, res, next) =&gt; {
+    next();
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Elles sont appelées à l&#8217;aide de la méthode <strong>dispatch</strong> du store :</p>
+<p>Le middleware sera alors exécuté pour toutes les requêtes envoyées au serveur sans distinction de verbe HTTP (GET, POST, PUT etc&#8230;&#8203;).</p>
+</div>
+<div class="paragraph">
+<p><strong>Écrivez un middleware qui affiche dans la console l&#8217;heure, le chemin et le contenu du body de chaque requêtes envoyées au serveur. Ajoutez la date de la requête à l&#8217;objet de la requête.</strong></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_étape_5_afficher_du_html">Étape 5 : Afficher du HTML</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>En plus de pouvoir retourner au navigateur une chaîne de caractères ou un objet JSON (<em>res.send</em> : <a href="http://expressjs.com/en/api.html#res.send" class="bare">http://expressjs.com/en/api.html#res.send</a>), vous pouvez utiliser un système de template pour utiliser un système de template intégré à Express (<em>res.render</em> : <a href="http://expressjs.com/en/api.html#res.render" class="bare">http://expressjs.com/en/api.html#res.render</a>).</p>
+</div>
+<div class="paragraph">
+<p>Nous n&#8217;utiliserons pas de système de template dans ce cours, toute la partie est gérée avec Vue.js.</p>
+</div>
+<div class="sect2">
+<h3 id="_fichiers_statiques">Fichiers statiques</h3>
+<div class="paragraph">
+<p>Pour permettre au navigateur d&#8217;accéder aux fichiers statiques (fichier CSS, javascript, images), le middleware <em>express.static</em> est utilisé :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">this.$store.dispatch('getMessageFromAPI');</code></pre>
-</div>
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">app.use('/static', express.static('folder/of/static/files'))</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_étape_5_projet">Étape 5 : Projet</h3>
+<h3 id="_afficher_index_html">Afficher index.html</h3>
 <div class="paragraph">
-<p>Modifiez le projet pour permettre d&#8217;éditer et supprimer un film sans utiliser les évènements (grâce à un <strong>Store</strong> partagé bien sûr).</p>
+<p>Créez un fichier <em>index.html</em> qui va être le point d&#8217;entrée de notre application Vue.js.</p>
 </div>
 <div class="paragraph">
-<p>Attention : Lorsque vous importez Vue et Vuex à l&#8217;aide de <code>import</code>, il faudra indiquer à Vue l&#8217;existence du plugin via la ligne suivante :</p>
+<p><strong>Faites en sorte que le contenu de ce fichier soit retourné au navigateur lorsque nous accédons au chemin root '/'.</strong></p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">import Vue from 'vue'
-import Vuex from 'vuex'
-
-Vue.use(Vuex);</code></pre>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Utilisez <a href="http://expressjs.com/en/api.html#res.sendFile">res.sendFile</a></p>
+</div>
+</blockquote>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_étape_6_projet_api">Étape 6 : Projet API</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Écrivez un serveur Node.js qui stocke une liste de films (variable globale) et met à disposition les urls suivantes :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GET /api/movies/all</code> retourne un tableau avec tout les films</p>
+</li>
+<li>
+<p><code>GET /api/movies/:id</code> retourne l&#8217;objet correspondant au film avec l&#8217;identifiant <code>id</code></p>
+</li>
+<li>
+<p><code>POST /api/movies/:id</code> met à jour le film avec l&#8217;identifiant <code>id</code>.</p>
+</li>
+<li>
+<p><code>POST /api/movies</code> : créé un nouveau film</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Commencez par implémenter la première route et passez à l&#8217;étape suivante.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_étape_7_projet_vue">Étape 7 : Projet Vue</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Afin de faire une requête depuis Vue.js vers votre API Node.js, vous allez devoir faire une requête Ajax. Plusieurs clients existent, nous allons utiliser <a href="https://github.com/mzabriskie/axios">axios</a>.</p>
+</div>
+<div class="paragraph">
+<p>Votre store va définir une action (appelons là <em>getMoviesFromAPI</em>) qui fait une requête à l&#8217;API pour récupérer la liste des films.</p>
+</div>
+<div class="paragraph">
+<p>Lors du chargement du composant liste de film, voilà ce qui se passe :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Dispatch l&#8217;actions <em>getMoviesFromAPI</em></p>
+</li>
+<li>
+<p>Cette action fait une requête au serveur via Axios</p>
+</li>
+<li>
+<p>Lors du résultat de cette requête, la mutation <em>updateMovies</em> est appelée avec la liste des films reçue du serveur</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-11-11 11:18:22 CET
+Last updated 2018-12-13 13:58:53 CET
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
