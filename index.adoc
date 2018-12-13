@@ -16,5 +16,4 @@
 
 == Projet
 
-//* link:project/[Spécifications]
-Coming soon...
+* link:project/[Spécifications]

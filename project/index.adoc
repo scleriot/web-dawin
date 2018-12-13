@@ -70,14 +70,11 @@ src/
         |_ main.js # point d'entrée de l'application Vue.js
         |_ app.vue
         |_ routes.js # config de vue-router
-        |_ store.js # vuex
         |_ components/
             |_ movie-item.vue
             |_ ...  
     |_ dist/ # Sortie de la compilation avec Webpack
 ```
-
-C'est le Store de Vue.js qui centralise les requêtes vers l'API Node.js lorsqu'elles concernent la liste des films.
 
 Le projet doit se lancer avec la commande :
 
