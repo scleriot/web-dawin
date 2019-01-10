@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.7.1">
-<title>Développement web avancé</title>
+<title>Project DAWIN</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -432,74 +432,191 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Développement web avancé</h1>
+<h1>Project DAWIN</h1>
+<div id="toc" class="toc">
+<div id="toctitle">Table des matières</div>
+<ul class="sectlevel1">
+<li><a href="#_spécifications">Spécifications</a>
+<ul class="sectlevel2">
+<li><a href="#_fonctionnalités">Fonctionnalités</a></li>
+<li><a href="#_librairie_conseillées">Librairie conseillées</a></li>
+<li><a href="#_objet_film">Objet Film</a></li>
+<li><a href="#_structure_des_pages">Structure des pages</a></li>
+<li><a href="#_structure_de_fichiers">Structure de fichiers</a></li>
+</ul>
+</li>
+<li><a href="#_notation">Notation</a></li>
+</ul>
+</div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="_cours">Cours</h2>
+<div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<p>Deadline :</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://slides.com/scleriot/developpement-web-avance-1">Séance 1</a></p>
+<p>DAWIN : 04/02/2018</p>
 </li>
 <li>
-<p><a href="https://slides.com/scleriot/developpement-web-avance-2">Séance 2</a></p>
-</li>
-<li>
-<p><a href="https://slides.com/scleriot/developpement-web-avance-3">Séance 3</a></p>
+<p>DAWIN Alternants : 27/05/2018</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_td">TD</h2>
+<h2 id="_spécifications">Spécifications</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_fonctionnalités">Fonctionnalités</h3>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="td/td1/td1.html">TD1</a></p>
+<p>Ajout, suppression et édition des informations d&#8217;un film</p>
 </li>
 <li>
-<p><a href="td/td2/td2.html">TD2</a></p>
+<p>Affichage de la liste des films</p>
 </li>
 <li>
-<p><a href="td/td3/td3.html">TD3</a></p>
+<p>Recherche à l&#8217;intérieur des différents paramètres (un seul champ de recherche)</p>
 </li>
 <li>
-<p><a href="td/td4/td4.html">TD4</a></p>
+<p>Pouvoir mettre l&#8217;url du poster du film</p>
 </li>
 <li>
-<p><a href="td/td5/td5.html">TD5</a></p>
+<p>Possibilité de noter un film sur une échelle de 1 à 5</p>
+</li>
+<li>
+<p>Les pages doivent posséder un style CSS</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_librairie_conseillées">Librairie conseillées</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Vous trouverez beaucoup de composants ici qui pourront vous permettre d&#8217;améliorer facilement l&#8217;interface : <a href="https://github.com/vuejs/awesome-vue#ui-components" class="bare">https://github.com/vuejs/awesome-vue#ui-components</a></p>
+</li>
+<li>
+<p>Vuetify pour l&#8217;interface</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_objet_film">Objet Film</h3>
+<div class="paragraph">
+<p>Voilà les informations de base qui doivent être contenues dans un film (hors notation et image) :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Titre</p>
+</li>
+<li>
+<p>Année de sortie</p>
+</li>
+<li>
+<p>Langue</p>
+</li>
+<li>
+<p>Réalisateur</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Nom / Prénom</p>
+</li>
+<li>
+<p>Nationalité</p>
+</li>
+<li>
+<p>Date de naissance</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Genre du film (Science-Fiction, Historique etc&#8230;&#8203;)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_structure_des_pages">Structure des pages</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">/ -&gt; Liste des films avec recherche
+/movie/:id -&gt; Détails d'un film (avec lien vers édition, suppression, notation)
+/movie/:id/edit -&gt; Modification d'un film</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_structure_de_fichiers">Structure de fichiers</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-tree hljs" data-lang="tree">package.json
+webpack.config.js
+node_modules/
+src/
+    |_ static/ # les images et fichiers CSS
+    |_ main.js # point d'entrée de l'application Vue.js
+    |_ app.vue
+    |_ routes.js # config de vue-router
+    |_ components/
+        |_ movie-item.vue
+        |_ ...
+    |_ dist/ # Sortie de la compilation avec Webpack</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Le projet doit se lancer avec la commande :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">$ npm install &amp;&amp; node_modules/.bin/webpack-dev-server --progress --hide-modules</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_notation">Notation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Plusieurs critères seront pris en compte pour la notation :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Présence des fonctionnalités demandées</p>
+</li>
+<li>
+<p>Clarté du code</p>
+</li>
+<li>
+<p>Respect des différents concepts Vue.js (découpage en composants, variables computed etc&#8230;&#8203;)</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p><a href="vuetify.html">Mettre en place Vuetify</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_projet">Projet</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="project/alternants.html">Spécifications DAWIN Alternants</a></p>
-</li>
-<li>
-<p><a href="project/initiale.html">Spécifications DAWIN Formation initiale</a></p>
-</li>
-</ul>
+<p>N&#8217;hésitez pas à me solliciter par email si vous avez des questions ou si vous êtes bloqués ! (<a href="mailto:cleriotsimon@gmail.com">cleriotsimon@gmail.com</a>)</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-01-10 08:23:31 CET
+Last updated 2019-01-10 08:25:23 CET
 </div>
 </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlighting()</script>
 </body>
 </html>
