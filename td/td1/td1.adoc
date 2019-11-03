@@ -294,18 +294,12 @@ str.replace(" ", "."); //Test.de.string
 === Questions
 4.1. Créez une fonction qui affiche dans la console l'inverse de la chaîne passée en paramètre. ex: "Hello" -> "olleH"
 
-4.2. Faites en sorte que le code suivant remplace les caractères `a` par `d`, `b` par `e` et ainsi de suite 
+4.2. Faites en sorte que le code suivant remplace les caractères `a` par `b`, `b` par `c` et ainsi de suite 
+Indice : Renseignez-vous au sujet de String.fromCharCode() et String.CharCodeAt(), le code ASCII pourrait être utile.
+Essayez d'utiliser Map.
 ```js
-function replace(str, fn) {
-    let new_str = "";
-    for(var i=0;i<str.length;i++) {
-        new_str += fn(str[i]);
-    }
-    return new_str;
-}
-
-function my_fn(char) {
-    /// Votre code
+function replace(str) {
+    // votre code
 }
 
 replace("Je suis ton père", my_fn);
@@ -345,6 +339,16 @@ var arr = [ "Luke Skywalker", "Maître Yoda", "R2D2", "Padmé Amidala",  "Anakin
 
 5.4. Écrivez une autre fonction qui retourne cette même chaîne mais sans les membres de la famille Skywalker.
 
+5.5. Écrivez une fonction qui prend une chaîne de caractère et retourne un objet représentant le nombre d'apparition de chaque lettre (hors espaces).
+Combinez Filter et Reduce.
+ex. countLetters("il dit qu'il voit pas le rapport") // => { "'" : 1, a: 2, d: 1, e: 1, i: 4, l: 3, o: 2, p: 3, q: 1, r: 2, s: 1, t: 3, u: 1, v: 1 }
+
+```js
+var countLetters = function(string){
+  // votre code
+};
+```
+
 == 6. Les objets
 
 https://developer.mozilla.org/fr/docs/Web/JavaScript/Guide/Utiliser_les_objets[Documentation]
@@ -383,3 +387,11 @@ obj.c //undefined
 6.1. Créez un objet représentant un film (titre, synopsys, année de sortie) ainsi que son réalisateur (sous-objet avec nom/prénom/date de naissance).
 
 6.2. Créez un tableau contenant les films _Titanic_, _Interstellar_, _La ligne verte_ avec leurs infos. Affichez ensuite le contenu du tableau dans la console (en mettant en forme les infos du film sur chaque ligne)
+
+6.3. Écrivez une fonction prenant en paramètre ce tableau, et un 2ème paramètre _search_. La fonction retourne un tableau contenant les films dont le champ titre contient ce paramètre _search_.
+Indice : utilisez filter
+```js
+function search_movie(arr, search) {
+    // votre code
+}
+```
