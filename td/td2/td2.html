@@ -485,7 +485,34 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Pour installer Vue.js, utilisez directement la balise html &lt;script&gt; :</p>
 </div>
 <div class="paragraph">
-<p><code>&lt;script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"&gt;&lt;/script&gt;</code></p>
+<p><code>&lt;script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"&gt;&lt;/script&gt;</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="html" class="language-html hljs">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;meta http-equiv="X-UA-Compatible" content="ie=edge"&gt;
+    &lt;title&gt;Demo DAWIN&lt;/title&gt;
+
+    &lt;script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"&gt;&lt;/script&gt;
+
+    &lt;script&gt;
+    const vm = new Vue({
+        el: "#app",
+        // votre code
+    })
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id="app"&gt;
+
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -652,7 +679,7 @@ new Vue({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-11-03 09:11:44 +0100
+Last updated 2019-11-03 09:48:23 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">

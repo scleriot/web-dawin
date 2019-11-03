@@ -21,7 +21,33 @@ Reproduisez la movie-list présentée au tableau. Rappel des fonctionnalités :
 
 Pour installer Vue.js, utilisez directement la balise html <script> :
 
-`<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>`
+`<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Demo DAWIN</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+    const vm = new Vue({
+        el: "#app",
+        // votre code
+    })
+    </script>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+</body>
+</html>
+```
 
 === Étape 2
 
