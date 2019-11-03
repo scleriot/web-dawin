@@ -98,6 +98,15 @@ fonctionQuiAccepteUneAutreFonction(function(){
 })
 ```
 
+Lors de l'appel d'une fonction, vous pouvez passer un paramètre de deux façons :
+```js
+const obj = { a : 1 }
+
+maFonction(obj) // la variable
+
+maFonction({ a : 1 ]}) // directement un nouvel objet
+```
+
 === this
 
 La variable `this` est accessible partout dans votre code mais ne représente pas toujours la même chose.
@@ -334,7 +343,7 @@ var arr = [ "Luke Skywalker", "Maître Yoda", "R2D2", "Padmé Amidala",  "Anakin
 ```
 Écrivez une fonction qui retourne la chaîne de caractère `Luke Skywalker, Anakin Skywalker, Obi-Wan Kenobi` etc... en utilisant `reduce`.
 
-Écrivez une autre fonction qui retourne cette même chaîne mais sans les membres de la famille Skywalker.
+5.4. Écrivez une autre fonction qui retourne cette même chaîne mais sans les membres de la famille Skywalker.
 
 == 6. Les objets
 
