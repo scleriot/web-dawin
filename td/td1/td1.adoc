@@ -104,7 +104,7 @@ const obj = { a : 1 }
 
 maFonction(obj) // la variable
 
-maFonction({ a : 1 ]}) // directement un nouvel objet
+maFonction({ a : 1 }) // directement un nouvel objet
 ```
 
 === this
