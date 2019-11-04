@@ -644,7 +644,7 @@ this.$emit("eventName") // Pas de paramètre</code></pre>
   methods: {
     incrementCounter: function () {
       this.counter += 1
-      this.$emit('newCounter', this.counter)
+      this.$emit('increment', this.counter)
     }
   },
 })
@@ -679,7 +679,7 @@ new Vue({
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-11-04 12:51:41 +0100
+Last updated 2019-11-04 15:17:56 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">
