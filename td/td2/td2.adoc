@@ -33,6 +33,11 @@ Pour installer Vue.js, utilisez directement la balise html <script> :
     <title>Demo DAWIN</title>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        
+    </div>
 
     <script>
     const vm = new Vue({
@@ -40,11 +45,6 @@ Pour installer Vue.js, utilisez directement la balise html <script> :
         // votre code
     })
     </script>
-</head>
-<body>
-    <div id="app">
-
-    </div>
 </body>
 </html>
 ```
