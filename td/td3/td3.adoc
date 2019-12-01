@@ -76,87 +76,52 @@ Trouvez la dernière version de Vue.js et Webpack sur le site de NPM, et indique
 
 Afin de pouvoir utiliser les Single File Component (fichiers .vue) ainsi que javascript ES6, il faut compiler notre projet javascript. Pour ce faire l'outil standard est *webpack* (https://webpack.github.io/).
 
-=== Étape {counter:step} : mise en place de Webpack
+=== Étape {counter:step} : Création du projet avec Vue CLI
 
-Installez les dépendances nécessaires pour compiler un projet Vue.js :
+Vue CLI est l'outil développé par la communauté Vue.js pour simplifier la création et la gestion d'un projet Vue : https://cli.vuejs.org/.
 
+Nous allons l'utiliser pour initialiser le projet.
+
+Commencez par installer globalement l'outil Vue CLI :
 ```shell
-$ npm install --save babel-core babel-loader babel-preset-env babel-preset-stage-3 css-loader file-loader vue-loader vue-template-compiler webpack webpack-dev-server webpack-cli @babel/core vue
+$ npm install -g @vue/cli
 ```
 
-On reconnaît la dépendance *Babel* qui va nous permettre d'écrire du code ES2015.
-
-. Créez les fichiers selons l'architecture suivante dans votre projet :
-+
---
-```tree
-|_ package.json
-|_ webpack.config.js
-|_ index.html
-|_ src/
-    |_ main.js
-    |_ app.vue
-```
-
-Contenu des fichiers :
-
-.webpack.config.js
-[source,js]
-----
-include::{sourcedir}webpack.config.js[]
-----
-
-.main.js
-[source,js]
-----
-include::{sourcedir}src/main.js[]
-----
-
-.app.vue
-[source,xml]
-----
-include::{sourcedir}src/app.vue[]
-----
-
-.index.html
-[source,xml]
-----
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>LP DAWIN</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script src="dist/build.js"></script>
-  </body>
-</html>
-----
-
---
-
-. Pour compiler le projet avec webpack, nous allons utiliser le binaire installé par NPM dans *node_modules/.bin* :
-+
+Une fois l'outil installé, lancez l'interface graphique :
 ```shell
-$ node_modules/.bin/webpack --progress --hide-modules
+$ vue ui
 ```
 
-. Ouvrez et regardez rapidement le fichier compilé *dist/build.js*. C'est ce fichier (norme javascript ES5) que *index.html* va charger dans le navigateur web.
+Créez un nouveau projet dans un nouveau dossier, en laissant les paramètres par défaut et en sélectionnant le preset Babel. +
+Pour rappel Babel va permettre de convertir du code ES6 en code utilisable par l'ensemble des navigateurs.
 
-. Pour afficher le site, nous allons utiliser *webpack-dev-server* pendant le développement :
-+
---
+Ouvrez ensuite le dossier dans votre IDE.
+
+Les fichiers qui vont nous intéresser sont les suivants :
+
+* src/main.js +
+Contient l'initialisation de Vue.js et le chargement du composant App.vue comme composant principal
+
+* src/App.vue +
+Composant chargé au lancement de l'application
+
+* components/HelloWorld.vue +
+Composant utilisé à l'intérieur du composant App.vue
+
+Vous pouvez noter que les Single File Components sont utilisable directement : il s'agit des 2 fichiers .vue +
+Vous pourrez bien sûr créer d'autres fichiers de composant par la suite.
+
+Pour lancer l'application, exécutez la commande :
 ```shell
-$ node_modules/.bin/webpack-dev-server --progress --open --hot --port 8080
+$ npm run serve
 ```
 
-Ouvrez ensuite la page http://localhost:8080
+Le site va alors être dispo à l'adresse http://localhost:8080
 
-La page est rafraîchie automatiquement lorsqu'un fichier est modifié (et compilé automatiquement).
---
+Le code va être recompilé automatiquement lorsque vous sauvegarderez un fichier.
 
-C'est bon, vous pouvez utiliser les SFC (Single File Component) de Vue.js !
+*Prenez quelques minutes pour parcourir les fichiers de code et comprendre l'architecture en place.*
+
 
 == Étape {counter:step} : Conversion du projet
 
@@ -164,11 +129,9 @@ C'est bon, vous pouvez utiliser les SFC (Single File Component) de Vue.js !
 
 ```tree
 |_ package.json
-|_ webpack.config.js
-|_ index.html
 |_ src/
     |_ main.js
-    |_ app.vue
+    |_ App.vue
     |_ components/
         |_ movieitem.vue
 ```

@@ -451,7 +451,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#_single_file_component">Single File Component</a>
 <ul class="sectlevel2">
-<li><a href="#_étape_4_mise_en_place_de_webpack">Étape 4 : mise en place de Webpack</a></li>
+<li><a href="#_étape_4_création_du_projet_avec_vue_cli">Étape 4 : Création du projet avec Vue CLI</a></li>
 </ul>
 </li>
 <li><a href="#_étape_5_conversion_du_projet">Étape 5 : Conversion du projet</a></li>
@@ -567,290 +567,75 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Afin de pouvoir utiliser les Single File Component (fichiers .vue) ainsi que javascript ES6, il faut compiler notre projet javascript. Pour ce faire l&#8217;outil standard est <strong>webpack</strong> (<a href="https://webpack.github.io/" class="bare">https://webpack.github.io/</a>).</p>
 </div>
 <div class="sect2">
-<h3 id="_étape_4_mise_en_place_de_webpack">Étape 4 : mise en place de Webpack</h3>
+<h3 id="_étape_4_création_du_projet_avec_vue_cli">Étape 4 : Création du projet avec Vue CLI</h3>
 <div class="paragraph">
-<p>Installez les dépendances nécessaires pour compiler un projet Vue.js :</p>
+<p>Vue CLI est l&#8217;outil développé par la communauté Vue.js pour simplifier la création et la gestion d&#8217;un projet Vue : <a href="https://cli.vuejs.org/" class="bare">https://cli.vuejs.org/</a>.</p>
+</div>
+<div class="paragraph">
+<p>Nous allons l&#8217;utiliser pour initialiser le projet.</p>
+</div>
+<div class="paragraph">
+<p>Commencez par installer globalement l&#8217;outil Vue CLI :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="shell" class="language-shell hljs">$ npm install --save babel-core babel-loader babel-preset-env babel-preset-stage-3 css-loader file-loader vue-loader vue-template-compiler webpack webpack-dev-server webpack-cli @babel/core vue</code></pre>
+<pre class="highlightjs highlight"><code data-lang="shell" class="language-shell hljs">$ npm install -g @vue/cli</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>On reconnaît la dépendance <strong>Babel</strong> qui va nous permettre d&#8217;écrire du code ES2015.</p>
+<p>Une fois l&#8217;outil installé, lancez l&#8217;interface graphique :</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="shell" class="language-shell hljs">$ vue ui</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Créez un nouveau projet dans un nouveau dossier, en laissant les paramètres par défaut et en sélectionnant le preset Babel.<br>
+Pour rappel Babel va permettre de convertir du code ES6 en code utilisable par l&#8217;ensemble des navigateurs.</p>
+</div>
+<div class="paragraph">
+<p>Ouvrez ensuite le dossier dans votre IDE.</p>
+</div>
+<div class="paragraph">
+<p>Les fichiers qui vont nous intéresser sont les suivants :</p>
+</div>
+<div class="ulist">
+<ul>
 <li>
-<p>Créez les fichiers selons l&#8217;architecture suivante dans votre projet :</p>
-<div class="openblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code data-lang="tree" class="language-tree hljs">|_ package.json
-|_ webpack.config.js
-|_ index.html
-|_ src/
-    |_ main.js
-    |_ app.vue</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Contenu des fichiers :</p>
-</div>
-<div class="listingblock">
-<div class="title">webpack.config.js</div>
-<div class="content">
-<pre class="highlightjs highlight"><code data-lang="js" class="language-js hljs">var path = require('path')
-var webpack = require('webpack')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
-
-module.exports = {
-  mode: 'development',
-  entry: './src/main.js',
-  output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
-    filename: 'build.js'
-  },
-  module: {
-    rules: [
-      {
-        test: /\.css$/,
-        use: [
-          'vue-style-loader',
-          'css-loader'
-        ],
-      },
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: {
-          }
-          // other vue-loader options go here
-        }
-      },
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
-      },
-      {
-        test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]?[hash]'
-        }
-      }
-    ]
-  },
-  resolve: {
-    alias: {
-      'vue$': 'vue/dist/vue.esm.js'
-    },
-    extensions: ['*', '.js', '.vue', '.json']
-  },
-  devServer: {
-    historyApiFallback: true,
-    noInfo: true,
-    overlay: true
-  },
-  performance: {
-    hints: false
-  },
-  devtool: '#eval-source-map',
-  plugins: [
-    // make sure to include the plugin!
-    new VueLoaderPlugin()
-  ]
-}
-
-if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
-  // http://vue-loader.vuejs.org/en/workflow/production.html
-  module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false
-      }
-    }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true
-    })
-  ])
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">main.js</div>
-<div class="content">
-<pre class="highlightjs highlight"><code data-lang="js" class="language-js hljs">import Vue from 'vue' //librairie "vue" dans node_modules
-import app from './app.vue' //fichier app.vue local
-import MovieItemComponent from './components/movieitem.vue'
-
-Vue.component('movie-item', MovieItemComponent);
-
-new Vue({
-  el: '#app',
-  render: h =&gt; h(app)
-})</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">app.vue</div>
-<div class="content">
-<pre class="highlightjs highlight"><code data-lang="xml" class="language-xml hljs">&lt;template&gt;
-&lt;div&gt;
-    &lt;span id="msg"&gt;{{message}}&lt;/span&gt;
-
-    &lt;p&gt;Movie number : {{movies.length}}&lt;/p&gt;
-    &lt;p&gt;
-        New movie&lt;br /&gt;
-        Title : &lt;input type="text" v-model="movie_to_add.title" /&gt;&lt;br /&gt;
-        Year : &lt;input type="text" v-model="movie_to_add.year" /&gt;&lt;br /&gt;
-        Synopsys : &lt;textarea v-model="movie_to_add.synopsys"&gt;&lt;/textarea&gt;&lt;br /&gt;
-        &lt;button v-on:click="newmovie2"&gt;Add&lt;/button&gt;
-    &lt;/p&gt;
-    Search : &lt;input type="text" v-model="search" /&gt;
-
-    &lt;ul&gt;
-        &lt;movie-item v-for="(movie, index) in movies_search" v-bind:key="movie.title" v-bind:movie="movie" v-on:edit="edit" v-on:remove="remove(index)"&gt;&lt;/movie-item&gt;
-    &lt;/ul&gt;
-
-    &lt;p v-if="movie_to_edit"&gt;
-        New movie&lt;br /&gt;
-        Title : &lt;input type="text" v-model="movie_to_edit.title" /&gt;&lt;br /&gt;
-        Year : &lt;input type="text" v-model="movie_to_edit.year" /&gt;&lt;br /&gt;
-        Synopsys : &lt;textarea v-model="movie_to_edit.synopsys"&gt;&lt;/textarea&gt;&lt;br /&gt;
-        &lt;button v-on:click="save"&gt;Save&lt;/button&gt;
-    &lt;/p&gt;
-&lt;/div&gt;
-&lt;/template&gt;
-
-&lt;script&gt;
-export default {
-    data() {
-        return {
-            message: "Hello",
-            movie_to_add: {},
-            movie_to_edit: null,
-            search: "",
-            movies : [
-                {
-                    title: "L'étrange noël de M. Jack",
-                    year: 1994,
-                    synopsys: "Jack Skellington, un épouvantail squelettique surnommé « le Roi des citrouilles » (Pumpkin King en version originale), vit dans la ville d'Halloween. En tant que maître de l'épouvante, Jack occupe ses journées à préparer la prochaine fête d'Halloween."
-                },
-                {
-                    title: "Interstellar",
-                    year: 2014,
-                    synopsys: "Alors que la Terre se meurt, une équipe d'astronautes franchit un trou de ver apparu près de Saturne conduisant à une autre galaxie, cela dans le but d'explorer un nouveau système stellaire et l'espoir de trouver une nouvelle planète habitable par l'humanité afin de la sauver."
-                }
-            ]
-        }
-    },
-
-    methods: {
-        newmovie1: function() {
-            this.movies.push({title:"New movie"})
-        },
-        newmovie2: function() {
-            this.movies.push(this.movie_to_add)
-            this.movie_to_add = {}
-        },
-
-        edit: function(movie) {
-            this.movie_to_edit = movie
-        },
-        save: function() {
-            this.movie_to_edit = null
-        },
-        remove: function(index) {
-            this.movies.splice(index, 1)
-        }
-    },
-
-    created: function() {
-        console.log("Created")
-    },
-
-    computed: {
-        firstletter: function() {
-            return this.message[0]
-        },
-        movies_search: function() {
-            return this.movies.filter(m =&gt; m.title.toLowerCase().indexOf(this.search.toLowerCase())!=-1);
-        }
-    }
-}
-&lt;/script&gt;
-
-&lt;style&gt;
-#msg {
-  color: red;
-}
-&lt;/style&gt;</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">index.html</div>
-<div class="content">
-<pre class="highlightjs highlight"><code data-lang="xml" class="language-xml hljs">&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-  &lt;head&gt;
-    &lt;meta charset="utf-8"&gt;
-    &lt;title&gt;LP DAWIN&lt;/title&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;div id="app"&gt;&lt;/div&gt;
-    &lt;script src="dist/build.js"&gt;&lt;/script&gt;
-  &lt;/body&gt;
-&lt;/html&gt;</code></pre>
-</div>
-</div>
-</div>
-</div>
+<p>src/main.js<br>
+Contient l&#8217;initialisation de Vue.js et le chargement du composant App.vue comme composant principal</p>
 </li>
 <li>
-<p>Pour compiler le projet avec webpack, nous allons utiliser le binaire installé par NPM dans <strong>node_modules/.bin</strong> :</p>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code data-lang="shell" class="language-shell hljs">$ node_modules/.bin/webpack --progress --hide-modules</code></pre>
-</div>
-</div>
+<p>src/App.vue<br>
+Composant chargé au lancement de l&#8217;application</p>
 </li>
 <li>
-<p>Ouvrez et regardez rapidement le fichier compilé <strong>dist/build.js</strong>. C&#8217;est ce fichier (norme javascript ES5) que <strong>index.html</strong> va charger dans le navigateur web.</p>
+<p>components/HelloWorld.vue<br>
+Composant utilisé à l&#8217;intérieur du composant App.vue</p>
 </li>
-<li>
-<p>Pour afficher le site, nous allons utiliser <strong>webpack-dev-server</strong> pendant le développement :</p>
-<div class="openblock">
-<div class="content">
+</ul>
+</div>
+<div class="paragraph">
+<p>Vous pouvez noter que les Single File Components sont utilisable directement : il s&#8217;agit des 2 fichiers .vue<br>
+Vous pourrez bien sûr créer d&#8217;autres fichiers de composant par la suite.</p>
+</div>
+<div class="paragraph">
+<p>Pour lancer l&#8217;application, exécutez la commande :</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="shell" class="language-shell hljs">$ node_modules/.bin/webpack-dev-server --progress --open --hot --port 8080</code></pre>
+<pre class="highlightjs highlight"><code data-lang="shell" class="language-shell hljs">$ npm run serve</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Ouvrez ensuite la page <a href="http://localhost:8080" class="bare">http://localhost:8080</a></p>
+<p>Le site va alors être dispo à l&#8217;adresse <a href="http://localhost:8080" class="bare">http://localhost:8080</a></p>
 </div>
 <div class="paragraph">
-<p>La page est rafraîchie automatiquement lorsqu&#8217;un fichier est modifié (et compilé automatiquement).</p>
-</div>
-</div>
-</div>
-</li>
-</ol>
+<p>Le code va être recompilé automatiquement lorsque vous sauvegarderez un fichier.</p>
 </div>
 <div class="paragraph">
-<p>C&#8217;est bon, vous pouvez utiliser les SFC (Single File Component) de Vue.js !</p>
+<p><strong>Prenez quelques minutes pour parcourir les fichiers de code et comprendre l&#8217;architecture en place.</strong></p>
 </div>
 </div>
 </div>
@@ -868,11 +653,9 @@ export default {
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="tree" class="language-tree hljs">|_ package.json
-|_ webpack.config.js
-|_ index.html
 |_ src/
     |_ main.js
-    |_ app.vue
+    |_ App.vue
     |_ components/
         |_ movieitem.vue</code></pre>
 </div>
@@ -882,7 +665,7 @@ export default {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-11-03 09:11:44 +0100
+Last updated 2019-12-01 18:49:12 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">
