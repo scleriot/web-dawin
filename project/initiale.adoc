@@ -21,7 +21,7 @@ Deadline :
 * Recherche à l'intérieur des différents paramètres (un seul champ de recherche pour rechercher l'année, le titre, le réalisateur)
 * Pouvoir mettre l'url du poster du film
 * Possibilité de noter un film sur une échelle de 1 à 5
-* Les pages doivent posséder un style CSS
+* Les pages doivent posséder un style CSS suffisant
 
 === Librairie conseillées
 
