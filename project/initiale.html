@@ -448,7 +448,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_librairie_conseillées">Librairie conseillées</a></li>
 <li><a href="#_objet_film">Objet Film</a></li>
 <li><a href="#_structure_des_pages">Structure des pages</a></li>
-<li><a href="#_structure_de_fichiers">Structure de fichiers</a></li>
+<li><a href="#_pré_requis">Pré-requis</a></li>
 </ul>
 </li>
 <li><a href="#_notation">Notation</a></li>
@@ -464,10 +464,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p>DAWIN : 04/02/2018</p>
-</li>
-<li>
-<p>DAWIN Alternants : 27/05/2018</p>
+<p>DAWIN : 16/02/2020</p>
 </li>
 </ul>
 </div>
@@ -487,7 +484,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Affichage de la liste des films</p>
 </li>
 <li>
-<p>Recherche à l&#8217;intérieur des différents paramètres (un seul champ de recherche)</p>
+<p>Recherche à l&#8217;intérieur des différents paramètres (un seul champ de recherche pour rechercher l&#8217;année, le titre, le réalisateur)</p>
 </li>
 <li>
 <p>Pouvoir mettre l&#8217;url du poster du film</p>
@@ -563,29 +560,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="_structure_de_fichiers">Structure de fichiers</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code data-lang="tree" class="language-tree hljs">package.json
-webpack.config.js
-node_modules/
-src/
-    |_ static/ # les images et fichiers CSS
-    |_ main.js # point d'entrée de l'application Vue.js
-    |_ app.vue
-    |_ routes.js # config de vue-router
-    |_ components/
-        |_ movie-item.vue
-        |_ ...
-    |_ dist/ # Sortie de la compilation avec Webpack</code></pre>
-</div>
-</div>
+<h3 id="_pré_requis">Pré-requis</h3>
 <div class="paragraph">
 <p>Le projet doit se lancer avec la commande :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="shell" class="language-shell hljs">$ npm install &amp;&amp; node_modules/.bin/webpack-dev-server --progress --hide-modules</code></pre>
+<pre class="highlightjs highlight"><code data-lang="shell" class="language-shell hljs">$ npm install &amp;&amp; npm run serve</code></pre>
 </div>
 </div>
 </div>
@@ -618,7 +599,7 @@ src/
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-11-03 09:11:44 +0100
+Last updated 2020-01-08 13:23:46 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">

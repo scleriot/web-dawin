@@ -10,8 +10,7 @@
 
 Deadline :
 
-* DAWIN : 04/02/2018
-* DAWIN Alternants : 27/05/2018
+* DAWIN : 16/02/2020
 
 == Spécifications
 
@@ -19,7 +18,7 @@ Deadline :
 
 * Ajout, suppression et édition des informations d'un film
 * Affichage de la liste des films
-* Recherche à l'intérieur des différents paramètres (un seul champ de recherche)
+* Recherche à l'intérieur des différents paramètres (un seul champ de recherche pour rechercher l'année, le titre, le réalisateur)
 * Pouvoir mettre l'url du poster du film
 * Possibilité de noter un film sur une échelle de 1 à 5
 * Les pages doivent posséder un style CSS
@@ -50,27 +49,12 @@ Voilà les informations de base qui doivent être contenues dans un film (hors n
 /movie/:id/edit -> Modification d'un film
 ```
 
-=== Structure de fichiers
-
-```tree
-package.json
-webpack.config.js
-node_modules/
-src/
-    |_ static/ # les images et fichiers CSS
-    |_ main.js # point d'entrée de l'application Vue.js
-    |_ app.vue
-    |_ routes.js # config de vue-router
-    |_ components/
-        |_ movie-item.vue
-        |_ ...  
-    |_ dist/ # Sortie de la compilation avec Webpack
-```
+=== Pré-requis
 
 Le projet doit se lancer avec la commande :
 
 ```shell
-$ npm install && node_modules/.bin/webpack-dev-server --progress --hide-modules
+$ npm install && npm run serve
 ```
 
 == Notation

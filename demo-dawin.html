@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Demo DAWIN</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <movieitem v-for="m of movies" v-bind:details="m" v-on:buttonclicked="clicked"></movieitem>
+    </div>
+
+    <script>
+    Vue.component('movieitem', {
+        template: '<div>{{ details.title }} - {{ details.director }} <button v-on:click="onclick">edit</button></div>',
+        props: [ "details" ],
+        data() {
+            return {
+                message: "test"
+            }
+        },
+        methods: {
+            onclick() {
+                console.log("clicked", this.details.title)
+                this.$emit("buttonclicked", this.details.title)
+            }
+        }
+    })
+    const vm = new Vue({
+        el: "#app",
+        mounted: function() {
+            console.log("mounted")
+        },
+        data: {
+            movies: [ { title: "Titanic", director: "James Cameron" }, { title: "La ligne verte", director: "Frank Darabont" } ]
+        },
+        methods: {
+            clicked(param) {
+                console.log("clicked", param)
+            }
+        }
+    })
+    </script>
+</body>
+</html>
