@@ -19,18 +19,15 @@ Deadline :
 
 * Ajout, suppression et édition des informations d'un film
 * Affichage de la liste des films
-* Recherche à l'intérieur des différents paramètres (un seul champ de recherche)
-* Upload d'un poster pour chaque film
+* Recherche à l'intérieur des différents paramètres (un seul champ de recherche pour rechercher l'année, le titre, le réalisateur)
+* Pouvoir mettre l'url du poster du film
 * Possibilité de noter un film sur une échelle de 1 à 5
-* Les pages doivent posséder un style CSS
-
-La liste des films est stockée comme variable globale par Node.js. C'est à dire que si on redémarre le serveur, la liste des films est réinitalisée automatiquement.
+* Les pages doivent posséder un style CSS suffisant
 
 === Librairie conseillées
 
-* Pour l'upload : https://github.com/expressjs/multer
-* Échanger des données entre Vue.js et Node.js (Ajax) : https://github.com/mzabriskie/axios
 * Vous trouverez beaucoup de composants ici qui pourront vous permettre d'améliorer facilement l'interface : https://github.com/vuejs/awesome-vue#ui-components
+* Vuetify pour l'interface
 
 === Objet Film
 
@@ -53,41 +50,14 @@ Voilà les informations de base qui doivent être contenues dans un film (hors n
 /movie/:id/edit -> Modification d'un film
 ```
 
-Il s'agit des pages visibles par l'utilisateur dans son navigateur, cette liste n'inclut pas les chemins supplémentaires pour l'API dans Node.js.
-
-=== Structure de fichiers
-
-```tree
-package.json
-webpack.config.js
-node_modules/
-src/
-    |_ static/ # les images et fichiers CSS
-    |_ node/
-        |_ app.js # point d'entrée de l'application Node
-        |_ routes.js # Routes de l'application
-    |_ vue/
-        |_ main.js # point d'entrée de l'application Vue.js
-        |_ app.vue
-        |_ routes.js # config de vue-router
-        |_ components/
-            |_ movie-item.vue
-            |_ ...  
-    |_ dist/ # Sortie de la compilation avec Webpack
-```
+=== Pré-requis
 
 Le projet doit se lancer avec la commande :
 
 ```shell
-$ npm install && node_modules/.bin/webpack --progress --hide-modules && node src/node/app.js
+$ npm install && npm run serve
 ```
 
-== Bonus
-
-Fonctionnalités supplémentaires (== points supplémentaires) lorsque les fonctionnalités décrites ci-dessus sont terminées :
-
-* Stocker la liste des films dans une base de données (attention à me fournir lors du rendu la structure de la base de données ainsi que l'emplacement dans le code des identifiants de la base)
-* Utiliser l'API https://www.omdbapi.com/[OMDb API] pour récupérer automatiquement le poster (en plus de l'upload d'un poster manuellement)
 
 == Notation
 
@@ -98,3 +68,19 @@ Plusieurs critères seront pris en compte pour la notation :
 * Respect des différents concepts Vue.js (découpage en composants, variables computed etc...)
 
 N'hésitez pas à me solliciter par email si vous avez des questions ou si vous êtes bloqués ! (cleriotsimon@gmail.com)
+
+== Bonus
+
+Fonctionnalités supplémentaires (== points supplémentaires) lorsque les fonctionnalités décrites ci-dessus sont terminées :
+
+
+Ajout d'un serveur Node.
+
+
+* Stocker la liste des films dans une base de données (attention à me fournir lors du rendu la structure de la base de données ainsi que l'emplacement dans le code des identifiants de la base)
+* Utiliser l'API https://www.omdbapi.com/[OMDb API] pour récupérer automatiquement le poster (en plus de l'upload d'un poster manuellement)
+
+=== Librairie conseillées
+
+* Pour l'upload : https://github.com/expressjs/multer
+* Échanger des données entre Vue.js et Node.js (Ajax) : https://github.com/mzabriskie/axios
