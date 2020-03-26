@@ -448,11 +448,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_librairie_conseillées">Librairie conseillées</a></li>
 <li><a href="#_objet_film">Objet Film</a></li>
 <li><a href="#_structure_des_pages">Structure des pages</a></li>
-<li><a href="#_structure_de_fichiers">Structure de fichiers</a></li>
+<li><a href="#_pré_requis">Pré-requis</a></li>
 </ul>
 </li>
-<li><a href="#_bonus">Bonus</a></li>
 <li><a href="#_notation">Notation</a></li>
+<li><a href="#_bonus">Bonus</a>
+<ul class="sectlevel2">
+<li><a href="#_librairie_conseillées_2">Librairie conseillées</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -465,10 +469,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p>DAWIN : 04/02/2018</p>
-</li>
-<li>
-<p>DAWIN Alternants : 27/05/2018</p>
+<p>DAWIN Alternants : 03/05/2020</p>
 </li>
 </ul>
 </div>
@@ -488,21 +489,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Affichage de la liste des films</p>
 </li>
 <li>
-<p>Recherche à l&#8217;intérieur des différents paramètres (un seul champ de recherche)</p>
+<p>Recherche à l&#8217;intérieur des différents paramètres (un seul champ de recherche pour rechercher l&#8217;année, le titre, le réalisateur)</p>
 </li>
 <li>
-<p>Upload d&#8217;un poster pour chaque film</p>
+<p>Pouvoir mettre l&#8217;url du poster du film</p>
 </li>
 <li>
 <p>Possibilité de noter un film sur une échelle de 1 à 5</p>
 </li>
 <li>
-<p>Les pages doivent posséder un style CSS</p>
+<p>Les pages doivent posséder un style CSS suffisant</p>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p>La liste des films est stockée comme variable globale par Node.js. C&#8217;est à dire que si on redémarre le serveur, la liste des films est réinitalisée automatiquement.</p>
 </div>
 </div>
 <div class="sect2">
@@ -510,13 +508,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p>Pour l&#8217;upload : <a href="https://github.com/expressjs/multer" class="bare">https://github.com/expressjs/multer</a></p>
-</li>
-<li>
-<p>Échanger des données entre Vue.js et Node.js (Ajax) : <a href="https://github.com/mzabriskie/axios" class="bare">https://github.com/mzabriskie/axios</a></p>
-</li>
-<li>
 <p>Vous trouverez beaucoup de composants ici qui pourront vous permettre d&#8217;améliorer facilement l&#8217;interface : <a href="https://github.com/vuejs/awesome-vue#ui-components" class="bare">https://github.com/vuejs/awesome-vue#ui-components</a></p>
+</li>
+<li>
+<p>Vuetify pour l&#8217;interface</p>
 </li>
 </ul>
 </div>
@@ -568,58 +563,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 /movie/:id/edit -&gt; Modification d'un film</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Il s&#8217;agit des pages visibles par l&#8217;utilisateur dans son navigateur, cette liste n&#8217;inclut pas les chemins supplémentaires pour l&#8217;API dans Node.js.</p>
-</div>
 </div>
 <div class="sect2">
-<h3 id="_structure_de_fichiers">Structure de fichiers</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code data-lang="tree" class="language-tree hljs">package.json
-webpack.config.js
-node_modules/
-src/
-    |_ static/ # les images et fichiers CSS
-    |_ node/
-        |_ app.js # point d'entrée de l'application Node
-        |_ routes.js # Routes de l'application
-    |_ vue/
-        |_ main.js # point d'entrée de l'application Vue.js
-        |_ app.vue
-        |_ routes.js # config de vue-router
-        |_ components/
-            |_ movie-item.vue
-            |_ ...
-    |_ dist/ # Sortie de la compilation avec Webpack</code></pre>
-</div>
-</div>
+<h3 id="_pré_requis">Pré-requis</h3>
 <div class="paragraph">
 <p>Le projet doit se lancer avec la commande :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="shell" class="language-shell hljs">$ npm install &amp;&amp; node_modules/.bin/webpack --progress --hide-modules &amp;&amp; node src/node/app.js</code></pre>
+<pre class="highlightjs highlight"><code data-lang="shell" class="language-shell hljs">$ npm install &amp;&amp; npm run serve</code></pre>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_bonus">Bonus</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Fonctionnalités supplémentaires (== points supplémentaires) lorsque les fonctionnalités décrites ci-dessus sont terminées :</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Stocker la liste des films dans une base de données (attention à me fournir lors du rendu la structure de la base de données ainsi que l&#8217;emplacement dans le code des identifiants de la base)</p>
-</li>
-<li>
-<p>Utiliser l&#8217;API <a href="https://www.omdbapi.com/">OMDb API</a> pour récupérer automatiquement le poster (en plus de l&#8217;upload d&#8217;un poster manuellement)</p>
-</li>
-</ul>
 </div>
 </div>
 </div>
@@ -647,10 +601,44 @@ src/
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_bonus">Bonus</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Fonctionnalités supplémentaires (== points supplémentaires) lorsque les fonctionnalités décrites ci-dessus sont terminées :</p>
+</div>
+<div class="paragraph">
+<p>Ajout d&#8217;un serveur Node.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Stocker la liste des films dans une base de données (attention à me fournir lors du rendu la structure de la base de données ainsi que l&#8217;emplacement dans le code des identifiants de la base)</p>
+</li>
+<li>
+<p>Utiliser l&#8217;API <a href="https://www.omdbapi.com/">OMDb API</a> pour récupérer automatiquement le poster (en plus de l&#8217;upload d&#8217;un poster manuellement)</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_librairie_conseillées_2">Librairie conseillées</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Pour l&#8217;upload : <a href="https://github.com/expressjs/multer" class="bare">https://github.com/expressjs/multer</a></p>
+</li>
+<li>
+<p>Échanger des données entre Vue.js et Node.js (Ajax) : <a href="https://github.com/mzabriskie/axios" class="bare">https://github.com/mzabriskie/axios</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-11-03 09:11:44 +0100
+Last updated 2020-03-26 13:49:50 +0100
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">

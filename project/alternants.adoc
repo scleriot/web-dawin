@@ -10,8 +10,7 @@
 
 Deadline :
 
-* DAWIN : 04/02/2018
-* DAWIN Alternants : 27/05/2018
+* DAWIN Alternants : 03/05/2020
 
 == Spécifications
 
