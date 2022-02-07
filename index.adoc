@@ -19,4 +19,3 @@ link:vuetify.html[Mettre en place Vuetify]
 == Projet
 
 * link:project/alternants.html[Spécifications DAWIN Alternants]
-* link:project/initiale.html[Spécifications DAWIN Formation initiale]

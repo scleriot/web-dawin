@@ -128,7 +128,7 @@ Par défaut, `this` à l'intérieur d'une fonction va pointer vers l'objet globa
 function f() {
     console.log(this.a);
 } 
-var a = 8;
+global.a = 8;
 f();
 ```
 
