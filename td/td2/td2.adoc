@@ -15,7 +15,7 @@ Reproduisez la movie-list présentée au tableau. Rappel des fonctionnalités :
 * Associer une variable à un paramètre de balise comme title (v-bind)
 * Cacher/Afficher un div avec la directive v-if
 * Afficher une liste de films à partir d'un tableau (v-for)
-* Réagir au click sur un bouton (v-on)
+* Réagir au click sur un bouton (v-on) pour ajouter un film dans le tableau
 * Synchroniser une variable et un champ de texte (v-model)
 * Afficher la 1ère lettre du texte entré dans l'input (variable dans computed)
 
@@ -36,7 +36,7 @@ Pour installer Vue.js, utilisez directement la balise html <script> :
 </head>
 <body>
     <div id="app">
-        
+        // votre template
     </div>
 
     <script>
@@ -53,22 +53,32 @@ Pour installer Vue.js, utilisez directement la balise html <script> :
 
 Ajoutez l'édition et la suppression des films de votre movie-list et affichez le nombre total de films enregistrés.
 
+Vous devez donc avoir :
+* un formulaire avec un champ texte pour y mettre le nom du film et un bouton pour valider
+* Un bouton "Éditer" et un bouton "Supprimer" sur chaque puce de la liste
+* Lorsqu'on clique sur "Éditer", remplir le champ de texte avec le nom du film
+
+*N'utilisez pas de composants pour l'instant*
+
 === Étape 3
 
 On souhaite maintenant stocker les films avec plus d'informations (sous forme d'objets). Modifiez la page pour faire en sorte d'entrer toutes les infos nécessaires (voir ci-dessous).
 
 Affichage : la liste affiche le titre et l'année de sortie et les détails apparaissent en dessous lorsqu'on clique sur la ligne.
 
-Informations d'un film :
+Informations d'un film à stocker dans les objets :
 
 * Titre (string)
 * Année de sortie (number)
 * Réalisateur (string)
 * Synospsis (string)
 
+*Utilisez des objets simples (`{ title: "test"}`), pas besoin de créer des classes*
+
+
 === Étape 4
 
-Ajoutez un champ de recherche qui trie selon :
+Ajoutez *un seul* champ de recherche qui trie selon tous les champs suivants :
 
 * Titre du film
 * Année de sortie
@@ -146,8 +156,13 @@ new Vue({
 
 === Étape 5
 
-Créez le composant movie-item qui va prendre en paramètre un objet film (Vue.component et props).
+Créez le composant movie-item qui va prendre en paramètre un objet film (Vue.component et props). Commencez par une version qui ne contient pas les boutons "éditer" et "supprimer" (ils seront ajoutés à l'étape 6)
+Mettez à jour votre liste de film pour utiliser ce component "movie-item".
 
 === Étape 6
 
 Ajoutez à la liste de films version composants (*movie-item*) les boutons d'édition et de suppression.
+
+Le tableau de film se trouvant dans le composant parent, c'est uniquement dans ce composant qu'on peut supprimer un élément du tableau.
+
+Lorsqu'on clique sur supprimer, le composant "movie-item" émet un évènement qui sera écouté par le composant prinicipal. À la réception de cet évènement, le composant parent supprime l'élément du tableau.

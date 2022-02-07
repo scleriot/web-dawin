@@ -15,7 +15,7 @@
 
     <script>
     Vue.component('movieitem', {
-        template: '<div>{{ details.title }} - {{ details.director }} <button v-on:click="onclick">edit</button></div>',
+        template: '<div>{{ details.title }} - {{ details.director }} <button v-on:click="onclick">edit</button> <button v-on:click="onclick">delete</button></div>',
         props: [ "details" ],
         data() {
             return {

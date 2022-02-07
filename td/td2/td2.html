@@ -474,7 +474,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Afficher une liste de films à partir d&#8217;un tableau (v-for)</p>
 </li>
 <li>
-<p>Réagir au click sur un bouton (v-on)</p>
+<p>Réagir au click sur un bouton (v-on) pour ajouter un film dans le tableau</p>
 </li>
 <li>
 <p>Synchroniser une variable et un champ de texte (v-model)</p>
@@ -504,7 +504,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 &lt;/head&gt;
 &lt;body&gt;
     &lt;div id="app"&gt;
-
+        // votre template
     &lt;/div&gt;
 
     &lt;script&gt;
@@ -523,6 +523,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>Ajoutez l&#8217;édition et la suppression des films de votre movie-list et affichez le nombre total de films enregistrés.</p>
 </div>
+<div class="paragraph">
+<p>Vous devez donc avoir :
+* un formulaire avec un champ texte pour y mettre le nom du film et un bouton pour valider
+* Un bouton "Éditer" et un bouton "Supprimer" sur chaque puce de la liste
+* Lorsqu&#8217;on clique sur "Éditer", remplir le champ de texte avec le nom du film</p>
+</div>
+<div class="paragraph">
+<p><strong>N&#8217;utilisez pas de composants pour l&#8217;instant</strong></p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_étape_3">Étape 3</h3>
@@ -533,7 +542,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Affichage : la liste affiche le titre et l&#8217;année de sortie et les détails apparaissent en dessous lorsqu&#8217;on clique sur la ligne.</p>
 </div>
 <div class="paragraph">
-<p>Informations d&#8217;un film :</p>
+<p>Informations d&#8217;un film à stocker dans les objets :</p>
 </div>
 <div class="ulist">
 <ul>
@@ -551,11 +560,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p><strong>Utilisez des objets simples (<code>{ title: "test"}</code>), pas besoin de créer des classes</strong></p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_étape_4">Étape 4</h3>
 <div class="paragraph">
-<p>Ajoutez un champ de recherche qui trie selon :</p>
+<p>Ajoutez <strong>un seul</strong> champ de recherche qui trie selon tous les champs suivants :</p>
 </div>
 <div class="ulist">
 <ul>
@@ -668,7 +680,8 @@ new Vue({
 <div class="sect2">
 <h3 id="_étape_5">Étape 5</h3>
 <div class="paragraph">
-<p>Créez le composant movie-item qui va prendre en paramètre un objet film (Vue.component et props).</p>
+<p>Créez le composant movie-item qui va prendre en paramètre un objet film (Vue.component et props). Commencez par une version qui ne contient pas les boutons "éditer" et "supprimer" (ils seront ajoutés à l&#8217;étape 6)
+Mettez à jour votre liste de film pour utiliser ce component "movie-item".</p>
 </div>
 </div>
 <div class="sect2">
@@ -676,13 +689,19 @@ new Vue({
 <div class="paragraph">
 <p>Ajoutez à la liste de films version composants (<strong>movie-item</strong>) les boutons d&#8217;édition et de suppression.</p>
 </div>
+<div class="paragraph">
+<p>Le tableau de film se trouvant dans le composant parent, c&#8217;est uniquement dans ce composant qu&#8217;on peut supprimer un élément du tableau.</p>
+</div>
+<div class="paragraph">
+<p>Lorsqu&#8217;on clique sur supprimer, le composant "movie-item" émet un évènement qui sera écouté par le composant prinicipal. À la réception de cet évènement, le composant parent supprime l&#8217;élément du tableau.</p>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-02-07 09:07:12 +0100
+Last updated 2022-02-07 13:33:57 +0100
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
