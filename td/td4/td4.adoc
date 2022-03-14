@@ -17,13 +17,6 @@ Vue-router va nous permettre de gérer les "routes" de notre application, c'est 
 * /home -> charger composant home
 * etc...
 
-=== Étape {counter:step} : Installation
-
-Déplacez vous dans un nouveau dossier pour ce TD 
-```shell
-$ npm install vue vue-router
-```
-
 === Étape {counter:step} : Introduction
 
 Exécutez et analysez le code suivant :

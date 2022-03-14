@@ -7,46 +7,49 @@
 </head>
 <body>
     <div id="app">
-        <span v-bind:title="message" v-if="display">{{ message_upper }}</span>
+        <span v-bind:title="message" v-if="display">{{ message.toUpperCase() }}</span>
+        <span v-else>Caché</span>
 
         <ul>
-            <movie-item v-for="m in movies" v-bind:movie="m" v-bind:key="m"></movie-item>
+            <movie-item v-for="m of movies" v-bind:movie="m" v-on:increment="incrementParent"></movie-item>
         </ul>
 
-        <input type="text" v-model="message" />
+        {{ counter }}
 
-        <button v-on:click="onclick">Push me</button>
     </div>
 
     <script type="text/javascript">
         Vue.component('movie-item', {
-            props: ["movie"],
-            template: '<li>{{ movie }}</li>',
-            mounted: function() {
-                console.log("Mounted component ", this.movie)
+            props: ['movie'],
+            template: '<li>{{ movie }} <button v-on:click="increment">Increment</button></li>',
+            methods: {
+                increment: function() {
+                    this.$emit('increment');
+                }
             }
-        })
+        });
 
         var vm = new Vue({
             el: "#app",
             data: {
-                message: "Hello DAWIN",
+                message: "Hello",
                 display: true,
-                movies: ["Retour vers le futur", "Star wars", "Seigneur des anneaux"]
+                movies: [ 'Movie 1', 'Movie 2' ],
+                counter: 0
             },
             methods: {
-                onclick: function() {
-                    // this.display = !this.display
-                    this.movies.push(this.message)
+                incrementParent: function() {
+                    this.counter++;
                 }
             },
             computed: {
-                message_upper: function() {
-                    return this.message.toUpperCase()
+                reversedMessage: function() {
+                    console.log("compute")
+                    return this.message.split('').reverse().join('');
                 }
             },
             mounted: function() {
-                console.log("Mounted principal")
+                console.log("mounted")
             }
         })
     </script>
