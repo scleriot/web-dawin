@@ -29,7 +29,7 @@ Pour installer NPM (et Node) ça se passe ici : https://docs.npmjs.com/getting-s
 Lancez la commande suivante :
 +
 ```shell
-$ npm install vue
+$ npm install vue@2.x.x
 ```
 
 . Affichez le contenu de votre dossier. Les fichiers téléchargés par NPM sont installés par défaut dans le dossier *node_modules*. Affichez le contenu de ce dossier.
@@ -65,7 +65,7 @@ Le dossier *vue* contient le contenu du package *vue* (pour l'instant tout est l
 }
 ```
 +
-Trouvez la dernière version de Vue.js et Webpack sur le site de NPM, et indiquez la dans votre *package.json*.
+Trouvez la dernière version de Vue.js 2 et Webpack sur le site de NPM, et indiquez la dans votre *package.json*.
 
 . Lancez la commande `npm install`. NPM va lire les dépendances du projet et installer les versions demandées.
 
