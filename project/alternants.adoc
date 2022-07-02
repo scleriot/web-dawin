@@ -10,7 +10,7 @@
 
 Deadline :
 
-* DAWIN Alternants : 03/05/2022
+* DAWIN Alternants : 09/07/2022
 
 == Spécifications
 
@@ -20,7 +20,6 @@ Deadline :
 * Affichage de la liste des films
 * Recherche à l'intérieur des différents paramètres (un seul champ de recherche pour rechercher l'année, le titre, le réalisateur)
 * Pouvoir mettre l'url du poster du film
-* Possibilité de noter un film sur une échelle de 1 à 5
 * Les pages doivent posséder un style CSS suffisant
 
 === Librairie conseillées
